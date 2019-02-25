@@ -9,12 +9,12 @@ Pyscience requires Python 3.7+ to work.
 
 Installation
 ------------
-You can install Pyscience using pip (as root)::
+You can install Pyscience using pip (as root):
 
     pip3 install pyscience
 
 If you want to install the latest development version, you need to add the ``--pre``
-flag::
+flag:
 
     pip3 install --pre pyscience
 
@@ -24,19 +24,19 @@ At this time, only development versions are available.
 
 Basic usage
 -----------
-Once installed, you can run pyscience as a normal program::
+Once installed, you can run pyscience as a normal program:
 
     pyscience
 
 This should start pyscience's interactive interpreter. You can operate with
-variables::
+variables:
 
     > 2x+3x
     5x
     > 2x*7y
     14xy
 
-Or get Chemical Elements information with the ``CE`` function::
+Or get Chemical Elements information with the ``CE`` function:
 
     # Returns chemical element with symbol ‘H’
     > CE(‘H’) 
