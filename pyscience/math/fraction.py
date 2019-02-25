@@ -55,12 +55,12 @@ class Fraction():
     def __sub__(self, value):
         if isinstance(value, int):
             #print(self.numerator-self.denominator*value)
-            return Fraction(self.numerator-self.denominator*value, self.denominator)#.simplify()
+            return Fraction(self.numerator-self.denominator*value, self.denominator).simplify()
         elif isinstance(value, Fraction):
             #print('Step 1', self, value)
             a, b = self.common_denominator(value)
             #print(a,b)
-            return Fraction(a.numerator-b.numerator, a.denominator)#.simplify()
+            return Fraction(a.numerator-b.numerator, a.denominator).simplify()
         
         return NotImplemented
     
@@ -97,11 +97,13 @@ class Fraction():
     def common_denominator(self, value):
         ''' Return two fractions, with equal denominator, self and value
         '''
+        #print('common_denominator:',self, value)
         
         if self.denominator == value.denominator:
             return self, value
         
         cd = lcm(self.denominator, value.denominator)
+        #print('cd:',cd)
         
         #print('Common denominator:', cd)
         #print('Common denominator / self.denominator', cd // self.denominator)

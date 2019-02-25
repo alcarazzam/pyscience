@@ -259,6 +259,7 @@ class Polynomial:
             #    self.numerical_term*=value
             #return self
             #print('self =',self, 'value =',value)
+            print('multiplicando',self,value)
             result = algebra.Polynomial()#monomials=[], numerical_term=0)
             #print(result)
             for monomial in self.monomials:

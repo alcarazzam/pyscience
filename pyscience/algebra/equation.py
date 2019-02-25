@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
-
+import copy
 from pyscience import algebra
 from pyscience.math import Fraction
 
@@ -39,8 +39,8 @@ class Equation:
     
     def solve(self):
         # TODO
-        first_term = self.first_term
-        second_term = self.second_term
+        first_term = copy.deepcopy(self.first_term)
+        second_term = copy.deepcopy(self.second_term)
         #print('paso 1', first_term, second_term)
         
         if second_term != 0:
@@ -69,14 +69,19 @@ class Equation:
                 #print('zlsjgsldgfd')
                 #print(ft)
                 #return Equation(ft.numerator).solve()
-                a, b = self.first_term.common_denominator(self.second_term)
-                return Equation(a.numerator, b.numerator).solve()
-                
+                if isinstance(self.second_term, Fraction):
+                    a, b = self.first_term.common_denominator(self.second_term)
+                    #print(a,b)
+                    return Equation(a.numerator, b.numerator).solve()
+                elif isinstance(self.second_term, int):
+                    a, b = self.first_term.common_denominator(Fraction(self.second_term,1))
+                    #print('a, b =',a,b)
+                    return Equation(a.numerator, b.numerator).solve()
         
         raise NotImplementedError('Cannot solve a equation with a degree greater than 1')
     
     def __str__(self):
-        return f'{self.first_term} = {self.second_term}\nSolution: {self.solve()}'
+        return f'Eq({self.first_term} = {self.second_term})\nSolution: {self.solve()}'
     
     def __repr__(self):
         return f'<Equation {self.first_term} = {self.second_term}>'
