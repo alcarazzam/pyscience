@@ -1,4 +1,4 @@
-"""
+'''
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,17 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-"""
-"""
+'''
+'''
 Created by Manuel Alcaraz on 22 May, 2018
-"""
+'''
 
 
 from pyscience import algebra
-from pyscience.fraction import Fraction, mcd
-#from fractions import Fraction
-
-# 'Monomial' module
+from pyscience.math import Fraction, gcd
 
 EXPONENTS = list('⁰¹²³⁴⁵⁶⁷⁸⁹')
 
@@ -40,17 +37,16 @@ def get_exponent(value):
     
     return result
 
-def agrupar(expr):
-    """ Agrupa las variables del mismo nombre. Asi:
-        
-        >>> agrupar('xxy')
+def group_variables(expr):
+    '''Group variables with the same value.
+        >>> group_variables('xxy')
         x²y
-        >>> agrupar('xyzzy')
+        >>> group_variables('xyzzy')
         xy²z²
         >>>
-    """
+    '''
     assert type(expr) is str
-    R = ""
+    R = ''
     variables = []
     
     for letra in list(str(expr)):
@@ -65,14 +61,13 @@ def agrupar(expr):
     
     return R
 
-def sustraer(expr1, expr2):
-    """ Simplifica la expresion 1 con respeto a la 2 como si fuese una division. Ejemplo:
+def subtract(expr1, expr2):
+    """Simplify expr1 from expr2, like a division.
 
-        >>> sustraer('xx','xy')
-        'xy'
-        >>> sustraer('xyz', 'xyz')
-        ''
-        >>>
+       >>> subtract('xx','xy') # xy
+       { 'x': 1,
+         'y': 1
+       }
     """
     R={}
     c1 = count_variables(expr1)
@@ -92,7 +87,7 @@ def sustraer(expr1, expr2):
         else:
             R[x]=c2[x]
 
-    # Elimina ceros
+    # Remove zeros
     RC={}
     for x in R.keys():
         if R[x] != 0:
@@ -100,8 +95,10 @@ def sustraer(expr1, expr2):
     
     return RC
 
-def sustraer2(expr1, expr2):
-    r = sustraer(expr1, expr2)
+def subtract_str(expr1, expr2):
+    '''Like ``subtract``, but returns a str
+    '''
+    r = subtract(expr1, expr2)
     r2 = ''
     for x in r.keys():
         r2 += x * r[x]
@@ -109,16 +106,14 @@ def sustraer2(expr1, expr2):
     return r2
 
 def count_variables(expr):
-    """ Cuenta y agrupa las variables del mismo nombre. Devuelve un
-        diccionario con el numero de veces que aparece cada una
-        
+    '''Count variables with the same value.
         >>> count_variables('xxy')
         {
             'x': 2,
             'y': 1
         }
         >>>
-    """
+    '''
     R = {}
     variables = []
     
@@ -133,13 +128,19 @@ def count_variables(expr):
 
 class Monomial:
     
-    def __init__(self, *args, **kargs):
-        self.variables = kargs.get('variables', '')
-        self.coefficient = kargs.get('coefficient', 1)
+    def __init__(self, *args, **kwargs):# variables='', coefficient=1):
+        #self.variables = variables
+        #self.coefficient = coefficient
+        self.variables = kwargs.get('variables', '')
+        self.coefficient = kwargs.get('coefficient', 1)
     
     @property
     def degree(self):
         return sum(count_variables(self.variables).values())
+    
+    @property
+    def list_of_variables(self):
+        return list(count_variables(self.variables).keys())
     
     def __mul__(self, value):
         if isinstance(value, int):
@@ -151,7 +152,6 @@ class Monomial:
         elif isinstance(value, algebra.Polynomial):
             return value * self
         elif isinstance(value, Fraction):
-            #return Monomial(coefficient=self.coefficient*value, variables=self.variables)
             return Fraction(value.numerator * self, value.denominator)
         else:
             raise TypeError(f'Cann\'t multiply Monomial by {type(value)}')
@@ -171,12 +171,12 @@ class Monomial:
             c = count_variables(self.variables)
             
             if len(c) == 1 and list(c.keys())[0] == value.name:
-                v = sustraer(self.variables, value.name)
+                v = subtract(self.variables, value.name)
                 return Monomial(coefficient=self.coefficient, variables=value.name*list(v.values())[0])
             
             return Fraction(self, value)
         elif isinstance(value, Monomial):
-            s = sustraer(self.variables, value.variables)
+            s = subtract(self.variables, value.variables)
             if not s:
                 if self.coefficient % value.coefficient == 0:
                     # Si el resto da cero, devuelve un int
@@ -214,7 +214,6 @@ class Monomial:
             if value % self.coefficient == 0:
                 return Monomial(coefficient=value//self.coefficient, variables=self.variables)
             else:
-                #return Monomial(coefficient=Fraction(value,self.coefficient), variables=self.variables)
                 return Fraction(value, self)
         elif isinstance(value, algebra.Variable):
             return Fraction(value, self)
@@ -223,7 +222,6 @@ class Monomial:
 
     def __add__(self, value):
         if isinstance(value, Monomial) and count_variables(value.variables) == count_variables(self.variables):
-            #print('monomiao')
             if self.coefficient + value.coefficient == 1 and len(self.variables) == 1:
                 return algebra.Variable(name=self.variables)
             return Monomial(coefficient=self.coefficient+value.coefficient,variables=self.variables)
@@ -250,7 +248,7 @@ class Monomial:
             return Monomial(coefficient=self.coefficient-value.coefficient, variables=self.variables)
         elif isinstance(value, algebra.Variable):
             if value.name in self.variables:
-                s = sustraer2(self.variables, value.name)
+                s = subtract_str(self.variables, value.name)
                 return Monomial(coefficient=self.coefficient, variables=s)
             else:
                 return algebra.Polynomial(monomials=[self, -Monomial(variables=value.name)])
@@ -265,11 +263,10 @@ class Monomial:
         if mod:
             raise NotImplementedError
         
-        #return self.coefficient**value + Monomial(variables=self.variables*value)
         return Monomial(variables=self.variables*value, coefficient=self.coefficient**value)
 
     def __rsub__(self, value):
-        return self.__sub__(value)
+        return  - self + value
 
     def __neg__(self):
         return Monomial(variables=self.variables, coefficient=-self.coefficient)
@@ -277,13 +274,13 @@ class Monomial:
     def __str__(self):
         if self.coefficient != 1:
             if self.coefficient == -1:
-                return '-'+agrupar(self.variables)
+                return '-'+group_variables(self.variables)
             elif self.coefficient == 0:
                 return '0'
             else:
-                return str(self.coefficient)+agrupar(self.variables)
+                return str(self.coefficient)+group_variables(self.variables)
         else:
-            return agrupar(self.variables)
+            return group_variables(self.variables)
     
     def __repr__(self):
         return f'<Monomial {self}>'

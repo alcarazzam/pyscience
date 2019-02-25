@@ -24,15 +24,13 @@ SOFTWARE.
 Created by Manuel Alcaraz on 22 May, 2018
 """
 
-# 'Variable' module
-
 from pyscience import algebra
-from pyscience.fraction import Fraction
+from pyscience.math import Fraction
 
 class Variable:
     
-    def __init__(self, *args, **kargs):
-        self.name = kargs.get('name', 'x')
+    def __init__(self, *args, **kwargs):#name='x'):
+        self.name = kwargs.get('name', 'x')
     
     def __mul__(self, value):
         if isinstance(value, algebra.Monomial):
@@ -44,7 +42,7 @@ class Variable:
         elif isinstance(value, Fraction):
             return algebra.Monomial(variables=self.name, coefficient=value)
         elif isinstance(value, algebra.Polynomial):
-            return y * self
+            return value * self
         else:
             raise TypeError(f'Cann\'t multiply Variable by {type(value)}')
 

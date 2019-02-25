@@ -2,7 +2,6 @@ README.md
 setup.py
 pyscience/__init__.py
 pyscience/__main__.py
-pyscience/fraction.py
 pyscience/interpreter.py
 pyscience/parser.py
 pyscience.egg-info/PKG-INFO
@@ -11,6 +10,7 @@ pyscience.egg-info/dependency_links.txt
 pyscience.egg-info/entry_points.txt
 pyscience.egg-info/top_level.txt
 pyscience/algebra/__init__.py
+pyscience/algebra/equation.py
 pyscience/algebra/monomial.py
 pyscience/algebra/polynomial.py
 pyscience/algebra/variable.py
@@ -18,4 +18,7 @@ pyscience/chemistry/__init__.py
 pyscience/chemistry/element.py
 pyscience/chemistry/periodic_table.csv
 pyscience/datam/__init__.py
+pyscience/math/__init__.py
+pyscience/math/fraction.py
+pyscience/math/number.py
 pyscience/units/__init__.py

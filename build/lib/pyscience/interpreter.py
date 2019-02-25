@@ -24,8 +24,9 @@ SOFTWARE.
 import pyscience, sys, traceback
 from pyscience import parser
 from pyscience.algebra import get_variables
+from pyscience.algebra.equation import Equation
 from pyscience.chemistry.element import ChemicalElement
-from pyscience.fraction import Fraction
+from pyscience.math import Fraction, Div
 
 class PyscienceInterpreter:
     
@@ -36,11 +37,16 @@ class PyscienceInterpreter:
         for variable in get_variables('x y z a b c n m l'):
             self._globals[variable.name] = variable
         
+        self._globals['Eq'] = Equation
+        
         # Chemical element
         self._globals['CE'] = ChemicalElement
         
         # Fractions
         self._globals['F'] = Fraction
+        
+        # Math
+        self._globals['Div'] = Div
             
     def print_exception(self):
         type, value, tb = sys.exc_info()
@@ -69,9 +75,15 @@ class PyscienceInterpreter:
         
         if func:
             if func.startswith(':for'):
-                func = func[4:]
+                func = func[4:].replace(' ', '')
+                if not func:
+                    print('Error: no values given')
+                    return
                 for val in func.split(','):
-                    name, value = val.replace(' ', '').split('=')
+                    name, value = val.split('=')
+                    if not value:
+                        print(f'Error: {name} not specified')
+                        return
                     code = code.replace(name, f'({value})')
         
         if pyscience.DEBUG:

@@ -5,7 +5,7 @@ Pyscience
 =========
 Pyscience is a easy python library and command-line application to work with
 mathematical operations and other science related programming. Also you can manage
-CSV data with the datam module. See API documentation for more information.
+CSV data with the datam module.
 
 Pyscience requires Python 3.7+ to work.
 

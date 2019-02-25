@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
 Name: pyscience
-Version: 0.1.0.dev4
+Version: 0.2.0.dev1
 Summary: python science programming
-Home-page: UNKNOWN
+Home-page: https://github.com/m-alzam/pyscience
 Author: Manuel Alcaraz Zambrano
 License: MIT
 Description: ﻿Pyscience
@@ -10,20 +10,21 @@ Description: ﻿Pyscience
         
         Pyscience is a easy python library and command-line application to work with
         mathematical operations and other science related programming. Also you can manage
-        CSV data with the datam module. See API documentation for more information.
+        CSV data with the datam module.
         
         Pyscience requires Python 3.7+ to work.
         
         Installation
         ------------
-        You can install Pyscience using pip (as root)::
+        Pyscience is available in [PyPI](https://pypi.org/project/pyscience/).
+        You can install Pyscience using pip (as root):
         
             pip3 install pyscience
         
-        If you want to install the latest development version, you need to add the `--pre’
-        flag::
+        If you want to install the latest development version, you can install pyscience
+        from the [GitHub repository](https://github.com/m-alzam/pyscience):
         
-            pip3 install --pre pyscience
+            pip3 install git+https://github.com/m-alzam/pyscience.git
         
         Pre-releases have the latest features and bug fixes.
         
@@ -31,19 +32,19 @@ Description: ﻿Pyscience
         
         Basic usage
         -----------
-        Once installed, you can run pyscience as a normal program::
+        Once installed, you can run pyscience as a normal program:
         
             pyscience
         
-        This should start pyscience’s interactive interpreter. You can operate with
-        variables::
+        This should start pyscience's interactive interpreter. You can operate with
+        variables:
         
             > 2x+3x
             5x
             > 2x*7y
             14xy
         
-        Or get Chemical Elements information with the ‘CE’ function::
+        Or get Chemical Elements information with the ``CE`` function:
         
             # Returns chemical element with symbol ‘H’
             > CE(‘H’) 
@@ -58,18 +59,45 @@ Description: ﻿Pyscience
         ----
         Pyscience is in current development. Future features:
         
-        * Math functions
+        * Math functions. In progress.
         * Update chemicals elements information
         * Add multilingual support to program's messages
         * Polynomial division
         * Physics functions
-        * Complete parser module. This feature is not enabled yet.
         * Documentation
         
         
         
         History
         -------
+        
+        #### [UNRELEASED] Version 0.2.0.dev1
+        ##### Added
+        - New pyscience.math module. Functions:
+          * is_even: return if a number is even
+          * is_odd: return if a number is odd
+          * Div: return divisors of a number
+        - Monomial and Polynomial have a new attribute: list_of_variables.
+          It returns a list of the variables of each object, without duplicates.
+        - New pyscience.algebra.equation module: solve first-degree equations.
+        
+        ##### Changed
+        - pyscience.fraction is now at pyscience.math.fraction. This breaks API.
+        - pyscience.math.fraction.lcm is now at the parent module, pyscience.math.
+          This breaks API.
+        - Changed some names of math functions.
+        - Changed default Polynomial fraction return type.
+        - Better ``:for`` errors report.
+        - Translate API documentation to English.
+        
+        ##### Deprecated
+        
+        ##### Removed
+        
+        ##### Fixed
+        - Fix error multiplying a Variable by a Polynomial
+        - Fix error multiplying a Polynomial by a Monomial
+        - Fix error subtracting a Monomial from a int
         
         #### Version 0.1.0.dev4 (February 20th 2019)
         
@@ -97,6 +125,9 @@ Description: ﻿Pyscience
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
+        
+        ### About data used for ChemicalElement
+        Chemical elements information is extracted from the Kalzium program.
         
 Platform: UNKNOWN
 Classifier: Development Status :: 3 - Alpha

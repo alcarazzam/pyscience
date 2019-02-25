@@ -1,8 +1,5 @@
-License
-=======
-
+"""
 pyscience - python science programming
-
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,8 +18,30 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. 
+SOFTWARE.
+"""
 
-About data used for ChemicalElement
------------------------------------
-Chemical elements information is extracted from the Kalzium program.
+def lcm(a, b):
+    n = 1
+    while 1:
+        if (a*n) % b == 0:
+            return a*n
+        n += 1
+
+def is_even(n):
+    '''Return if ``n`` is a even number'''
+    return not n % 2
+
+def is_odd(n):
+    '''Return if ``n`` is a odd number'''
+    return bool(n % 2)
+
+def Div(n):
+    '''Return divisors of ``n``'''
+    R = []
+    for i in range(1, n+1//2):
+        if n%i == 0:
+            R.append(i)
+    R.append(n)
+    
+    return R

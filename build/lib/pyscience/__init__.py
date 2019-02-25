@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-__version__ = '0.1.0.dev4'
+__version__ = '0.2.0.dev1'
 
 __author__ = 'Manuel Alcaraz Zambrano'
 

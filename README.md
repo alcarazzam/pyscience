@@ -9,18 +9,27 @@ Pyscience requires Python 3.7+ to work.
 
 Installation
 ------------
+Pyscience is available in [PyPI](https://pypi.org/project/pyscience/).
 You can install Pyscience using pip (as root):
 
     pip3 install pyscience
 
-If you want to install the latest development version, you need to add the ``--pre``
-flag:
+If you want to install the latest development version, you can install pyscience
+from the [GitHub repository](https://github.com/m-alzam/pyscience):
 
-    pip3 install --pre pyscience
+    pip3 install git+https://github.com/m-alzam/pyscience.git
 
 Pre-releases have the latest features and bug fixes.
 
 At this time, only development versions are available.
+
+Features
+--------
+- Basic calculator
+- Operate with variables, monomials and polynomials
+- Solve first-degree equations
+- Get information about chemical elements
+- Manage CSV data easily (in development)
 
 Basic usage
 -----------
@@ -69,12 +78,14 @@ History
   * is_even: return if a number is even
   * is_odd: return if a number is odd
   * Div: return divisors of a number
-- Monomial and Polynomial have a new attribute: list_of_variables. It returns a list of the variables of each object, without duplicates.
+- Monomial and Polynomial have a new attribute: list_of_variables.
+  It returns a list of the variables of each object, without duplicates.
 - New pyscience.algebra.equation module: solve first-degree equations.
 
 ##### Changed
 - pyscience.fraction is now at pyscience.math.fraction. This breaks API.
-- pyscience.math.fraction.lcm is now at the parent module, pyscience.math. This breaks API.
+- pyscience.math.fraction.lcm is now at the parent module, pyscience.math.
+  This breaks API.
 - Changed some names of math functions.
 - Changed default Polynomial fraction return type.
 - Better ``:for`` errors report.
@@ -115,3 +126,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+### About data used for ChemicalElement
+Chemical elements information is extracted from the Kalzium program.

@@ -24,19 +24,29 @@ SOFTWARE.
 Created by Manuel Alcaraz on 22 May, 2018
 """
 
-# 'Polynomial' module
-
 from pyscience import algebra
-from fractions import Fraction
+from pyscience.algebra.monomial import count_variables
+from pyscience.math.fraction import Fraction
 
 class Polynomial:
-    def __init__(self, *args, **kargs):
-        self.monomials = kargs.get('monomials', [])
-        self.numerical_term = kargs.get('numerical_term', 0)
+    def __init__(self, *args, **kwargs):
+        self.monomials = kwargs.get('monomials', [])
+        self.numerical_term = kwargs.get('numerical_term', 0)
     
     @property
     def degree(self):
         return max([x.degree for x in self.monomials])
+    
+    @property
+    def list_of_variables(self):
+        ml = [x.list_of_variables for x in self.monomials]
+        #print(ml)
+        ml = [''.join(x) for x in ml]
+        ml = ''.join(ml)
+        ml = count_variables(ml).keys()
+        ml = list(ml)
+        return ml
+        #return list(count_variables(''.join(''.join(x.list_of_variables for x in self.monomials))).keys())
 
     def __add__(self, value):
         if isinstance(value, algebra.Monomial):
@@ -63,30 +73,43 @@ class Polynomial:
                 return self.numerical_term
             return self
         elif isinstance(value, Polynomial):
-            R = Polynomial()
-            R.numerical_term = self.numerical_term
-            nm = 0
-            for m in value.monomials:
-                found = False
-                
-                for x in self.monomials:
-                    if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(m.variables):
-                        if x.coefficient + m.coefficient != 0:
-                            R.monomials.append(x+m)
-                            nm += 1
-                        found = True
-                        
-                if not found:
-                    R.monomials.append(m)
+            #R = Polynomial()
+            #R.numerical_term = self.numerical_term
+            #nm = 0
+            #for m in value.monomials:
+            #    found = False
+            #    
+            #    for x in self.monomials:
+            #        if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(m.variables):
+            #            if x.coefficient + m.coefficient != 0:
+            #                R.monomials.append(x+m)
+            #                nm += 1
+            #            found = True
+            #            
+            #    if not found:
+            #        R.monomials.append(m)
+            # 
+            #if value.numerical_term:
+            #    R.numerical_term += value.numerical_term
+            #    
+            #if nm == 0:
+            #    # Se han eliminado todos los monomios. Devolver un int
+            #    return R.numerical_term
+            #
+            #return R
             
-            if value.numerical_term:
-                R.numerical_term += value.numerical_term
-                
-            if nm == 0:
-                # Se han eliminado todos los monomios. Devolver un int
-                return R.numerical_term
+            result = algebra.Polynomial()
             
-            return R
+            for monomial in self.monomials:
+                result += monomial
+            
+            for monomial in value.monomials:
+                result += monomial
+            
+            result += self.numerical_term + value.numerical_term
+            
+            return result
+            
         elif isinstance(value, int):
             self.numerical_term += value
             return self
@@ -125,30 +148,45 @@ class Polynomial:
                 return self.numerical_term
             return self
         elif isinstance(value, Polynomial):
-            R = Polynomial()
-            R.numerical_term = self.numerical_term
-            nm = 0
-            for m in value.monomials:
-                found = False
-                
-                for x in self.monomials:
-                    if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(m.variables):
-                        if x.coefficient - m.coefficient != 0:
-                            R.monomials.append(x-m)
-                            nm += 1
-                        found = True
-                        
-                if not found:
-                    R.monomials.append(m)
+            #R = algebra.Polynomial()#monomials=[], numerical_term=0)
+            #R.numerical_term = self.numerical_term
+            #nm = 0
+            #for m in value.monomials:
+            #    found = False
+            #    
+            #    for x in self.monomials:
+            #        if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(m.variables):
+            #            if x.coefficient - m.coefficient != 0:
+            #                R.monomials.append(x-m)
+            #                nm += 1
+            #            found = True
+            #            
+            #    if not found:
+            #        R.monomials.append(m)
+            # 
+            #if value.numerical_term:
+            #    R.numerical_term -= value.numerical_term
+            #    
+            #if nm == 0:
+            #    # Se han eliminado todos los monomios. Devolver un int
+            #    return R.numerical_term
+            #
+            #return R
             
-            if value.numerical_term:
-                R.numerical_term -= value.numerical_term
-                
-            if nm == 0:
-                # Se han eliminado todos los monomios. Devolver un int
-                return R.numerical_term
+            #return self + (-value)
             
-            return R
+            result = Polynomial()
+            #result.numerical_term = self.numerical_term
+            
+            for monomial in self.monomials:
+                result -= monomial
+            
+            for monomial in value.monomials:
+                result -= monomial
+            
+            result.numerical_term += self.numerical_term - value.numerical_term
+            
+            return result
                 
         elif type(value) is int:
             self.numerical_term -= value
@@ -160,17 +198,20 @@ class Polynomial:
 
     def __truediv__(self, value):
         if isinstance(value, int):
-            R=[]
-            for x in self.monomials:
-                R.append(x/value)
-            if self.numerical_term != 0:
-                if self.numerical_term % value == 0:
-                    numerical_term = int(self.numerical_term / value)
-                else:
-                    numerical_term = Fraction(self.numerical_term, value)
-            else:
-                numerical_term=0
-            return algebra.Polynomial(monomials=R, numerical_term=numerical_term)
+            #R=[]
+            #for x in self.monomials:
+            #    R.append(x/value)
+            #if self.numerical_term != 0:
+            #    if self.numerical_term % value == 0:
+            #        numerical_term = int(self.numerical_term / value)
+            #    else:
+            #        numerical_term = Fraction(self.numerical_term, value)
+            #else:
+            #    numerical_term=0
+            #return algebra.Polynomial(monomials=R, numerical_term=numerical_term)
+            
+            # TODO: Simplify division
+            return Fraction(self, value)
         elif isinstance(value, Fraction):
             R=[]
             for x in self.monomials:
@@ -211,49 +252,66 @@ class Polynomial:
 
     def __mul__(self, value):
         if isinstance(value, (algebra.Monomial, int)):
-            for x in range(len(self.monomials)):
-                self.monomials[x]*= value
-            if isinstance(value, int):
-                self.numerical_term*=value
-            return self
-        elif isinstance(value, Polynomial):
-            R = Polynomial(monomials=[], numerical_term=0)
-            for x in self.monomials:
-                for y in value.monomials:
-                    #R.monomials.append(x * y)
-                    R += x * y
-                if value.numerical_term != 0:
-                    #R.monomials.append(x * value.numerical_term)
-                    R += x * value.numerical_term
+            #print('Multiplying a Polynomial by a int')
+            #for x in range(len(self.monomials)):
+            #    self.monomials[x]*= value
+            #if isinstance(value, int):
+            #    self.numerical_term*=value
+            #return self
+            #print('self =',self, 'value =',value)
+            result = algebra.Polynomial()#monomials=[], numerical_term=0)
+            #print(result)
+            for monomial in self.monomials:
+                #print('monomial:', monomial)
+                result += monomial * value
             
-            if value.numerical_term != 0:
-                if self.numerical_term != 0:
-                    #print(self.numerical_term, value.numerical_term)
-                    R.numerical_term = self.numerical_term * value.numerical_term
-                    for x in value.monomials:
-                        #R.monomials.append(self.numerical_term * x)
-                        R += self.numerical_term * x
-            return R
+            if self.numerical_term:
+                result += self.numerical_term * value
+            #print('resultado', result)
+            return result
+        elif isinstance(value, Polynomial):
+            #R = Polynomial()#monomials=[], numerical_term=0)
+            #for x in self.monomials:
+            #    for y in value.monomials:
+            #        #R.monomials.append(x * y)
+            #        R += x * y
+            #    if value.numerical_term != 0:
+            #        #R.monomials.append(x * value.numerical_term)
+            #        R += x * value.numerical_term
+            #
+            #if value.numerical_term != 0:
+            #    if self.numerical_term != 0:
+            #        #print(self.numerical_term, value.numerical_term)
+            #        R.numerical_term = self.numerical_term * value.numerical_term
+            #        for x in value.monomials:
+            #            #R.monomials.append(self.numerical_term * x)
+            #            R += self.numerical_term * x
+            #return R
+            #print('algo')
+            result = algebra.Polynomial()
+            
+            for monomial in self.monomials:
+                result += monomial * value
+                
+            result += self.numerical_term * value
+            
+            return result
         elif isinstance(value, algebra.Variable):
-            found = False
-            for x in self.monomials:
-                if algebra.monomial.count_variables(x.variables) == {value.name: 1}:
-                    #print(self.monomials[self.monomials.index(x)] * value, value)
-                    #print(x, x.variables)
-                    self.monomials[self.monomials.index(x)] *= value
-                    found = True
-                    break
-            if not found:
-                self.monomials.append(value)
+            result = Polynomial()
+            
+            for monomial in self.monomials:
+                result += monomial * value
                 
             if self.numerical_term:
-                self.monomials.append(self.numerical_term * value)
-                self.numerical_term = 0
-            return self
+                result += self.numerical_term * value
+            
+            return result
         else:
             raise TypeError(f'Cann\'t multiply a Polynomial by {type(value)}')
     
     def __rmul__(self, value):
+        #return #Polynomial(self.monomials[:], self.numerical_term) * value
+        #print('rmul', value, self)
         return self * value
 
     def __pow__(self, value, mod=None):

@@ -22,7 +22,7 @@ SOFTWARE.
 '''
 import pyscience
 
-EXPONENTES = {
+EXPONENTS = {
     '⁰': 0,
     '¹': 1,
     '²': 2,
@@ -39,23 +39,30 @@ def split_expression(expr):
     last_type = None
     tmp = ''
     result = []
+    last = None
     
     for c in list(expr):
         if last_type == 'str' and c != "'":
             tmp += c
             continue
+        #if last_type == 'upper' and c=='(':
+        #    
         if c in list('1234567890'):
             typ = 'number'
         elif c in list('+-*/'):
             typ = 'operator'
-        elif c in list(')'):
-        #    typ = 'symbol'
-            typ = 'none'
+        elif c.isupper():
+            if last == '(':
+                result.append(tmp)
+                tmp=''
+            else:
+                typ = 'upper'
         elif c.islower():
-            typ = 'none'
-        #elif c == ')':
-        #    typ = 'none'
-        elif c in list('¹²³⁴⁵⁶⁷⁸⁹⁰'):
+            if last_type != 'upper' or last=='(':
+                typ = 'none'
+        elif c == '(' and last_type == 'upper':
+            pass
+        elif c in list('¹²³⁴⁵⁶⁷⁸⁹⁰)'):
             typ = 'none'
         elif c == "'":
             if last_type != 'str':
@@ -76,6 +83,7 @@ def split_expression(expr):
             tmp = ''
             last_type = typ
         tmp += c
+        last = c
     
     if tmp:
         result.append(tmp)
@@ -93,10 +101,9 @@ def expand(expr):
     result = ''
     
     for x in expr:
-        #print(x)
         if x.islower():
             typ = 'variable'
-        elif x.isupper() and x[-1] == '(':
+        elif x[0].isupper() and x[-1] == '(':
             typ = 'function'
         elif x in list('+-*/') or x == '**':
             typ = 'operator'
@@ -108,16 +115,12 @@ def expand(expr):
             typ = 'number'
         elif x == ')':
             typ = 'symbol'
-            #print('zsldflsdf')
         elif x == '(':
             typ = 'start_parenthesis'
         elif x in list(',\''):
             typ = 'none'
         else:
             raise SyntaxError("'" + x + "'")
-        
-        #if pyscience.DEBUG:
-        #    print('Type:', last_type, typ)
         
         if (last_type in ('variable', 'exponent', 'symbol')) and (typ in ('number', 'variable')):
             result += '*'
@@ -128,7 +131,7 @@ def expand(expr):
         elif typ == 'exponent':
             if last_type != 'exponent':
                 result += '**'
-            result += str(EXPONENTES[x])
+            result += str(EXPONENTS[x])
             last_type = 'exponent'
             continue
         

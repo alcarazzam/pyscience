@@ -1,8 +1,5 @@
-License
-=======
-
+"""
 pyscience - python science programming
-
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,8 +18,10 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. 
+SOFTWARE.
+"""
 
-About data used for ChemicalElement
------------------------------------
-Chemical elements information is extracted from the Kalzium program.
+from pyscience.math.number import *
+from pyscience.math.fraction import Fraction
+
+from math import gcd

@@ -12,7 +12,7 @@ setuptools.setup(
     description='python science programming',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    #url='',
+    url='https://github.com/m-alzam/pyscience',
     license='MIT',
     packages=setuptools.find_packages(),
     package_data={
