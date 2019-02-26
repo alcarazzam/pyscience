@@ -23,9 +23,10 @@ SOFTWARE.
 
 from pyscience.math import lcm
 
-from math import gcd
+from math import gcd # greater common denominator
 
 def simplify(frac):
+    '''Simplify a Fraction'''
     m = gcd(frac.numerator, frac.denominator)
     if m != 1:
         frac.numerator //= m
@@ -72,6 +73,9 @@ class Fraction():
         
         return NotImplemented
     
+    def __rmul__(self, value):
+        return self * value
+    
     def __truediv__(self, value):
         if isinstance(value, int):
             return (self * Fraction(1,value)).simplify()
@@ -97,8 +101,6 @@ class Fraction():
     def common_denominator(self, value):
         ''' Return two fractions, with equal denominator, self and value
         '''
-        #print('common_denominator:',self, value)
-        
         if self.denominator == value.denominator:
             return self, value
         
@@ -116,10 +118,10 @@ class Fraction():
         return Fraction((cd//self.denominator)*self.numerator, cd), Fraction((cd//value.denominator)*value.numerator, cd)
     
     def simplify(self):
+        '''Simplify fraction'''
         if not (isinstance(self.numerator, int) and isinstance(self.denominator, int)):
             # Try to simplify dividing
-            #return self.numerator / self.denominator
-            return self
+            return self.numerator / self.denominator
         
         m = gcd(self.numerator, self.denominator)
         if m != 1:

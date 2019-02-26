@@ -31,6 +31,13 @@ def get_degree(value):
         return 1
     return 1
 
+def fractions(a, b):
+    if not isinstance(a, Fraction):
+        a = Fraction(a)
+    if not isinstance(b, Fraction):
+        b = Fraction(b)
+    return a, b
+
 class Equation:
     
     def __init__(self, first_term, second_term=0):
@@ -54,7 +61,6 @@ class Equation:
             if isinstance(first_term, algebra.Monomial):
                 return 0#- (-algebra.Monomial(self.first_term.variables) / self.first_term.coefficient)
             elif isinstance(first_term, algebra.Polynomial):
-                #print('poli')
                 # Check if the number of variables is 1
                 if len(first_term.list_of_variables) != 1:
                     raise NotImplementedError('Cannot solve a equation with more than one variable')
@@ -63,19 +69,12 @@ class Equation:
                     return -(first_term.numerical_term // first_term.monomials[0].coefficient)
                 return -Fraction(first_term.numerical_term, first_term.monomials[0].coefficient)
             elif isinstance(first_term, Fraction):
-                #print('fraction')
-                #ft = first_term - second_term
-                #ft = -ft.denominator
-                #print('zlsjgsldgfd')
-                #print(ft)
-                #return Equation(ft.numerator).solve()
                 if isinstance(self.second_term, Fraction):
-                    a, b = self.first_term.common_denominator(self.second_term)
-                    #print(a,b)
+                    a, b = fractions(self.first_term, self.second_term)
+                    a, b = a.common_denominator(b)
                     return Equation(a.numerator, b.numerator).solve()
                 elif isinstance(self.second_term, int):
                     a, b = self.first_term.common_denominator(Fraction(self.second_term,1))
-                    #print('a, b =',a,b)
                     return Equation(a.numerator, b.numerator).solve()
         
         raise NotImplementedError('Cannot solve a equation with a degree greater than 1')

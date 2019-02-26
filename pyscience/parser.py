@@ -62,7 +62,7 @@ def split_expression(expr):
                 typ = 'none'
         elif c == '(' and last_type == 'upper':
             pass
-        elif c in list('¹²³⁴⁵⁶⁷⁸⁹⁰)'):
+        elif c in list('¹²³⁴⁵⁶⁷⁸⁹⁰()'):
             typ = 'none'
         elif c == "'":
             if last_type != 'str':

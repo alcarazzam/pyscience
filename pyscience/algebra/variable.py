@@ -83,6 +83,18 @@ class Variable:
     
     def __rsub__(self, value):
         return (-self) + value
+    
+    def __truediv__(self, value):
+        if isinstance(value, (int, Variable)):
+            return Fraction(self, value)
+        
+        raise ValueError(f'Cannot divide a Variable by {type(value)}')
+    
+    def __rtruediv__(self, value):
+        if isinstance(value, (int, value)):
+            return Fraction(value, self)
+        
+        raise ValueError(f'Cannot divide a {type(value)} by a Variable')
 
     def __pow__(self, value, mod=None):
         if mod:

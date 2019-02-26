@@ -39,14 +39,13 @@ class Polynomial:
     
     @property
     def list_of_variables(self):
+        # TODO: Optimize function.
         ml = [x.list_of_variables for x in self.monomials]
-        #print(ml)
         ml = [''.join(x) for x in ml]
         ml = ''.join(ml)
         ml = count_variables(ml).keys()
         ml = list(ml)
         return ml
-        #return list(count_variables(''.join(''.join(x.list_of_variables for x in self.monomials))).keys())
 
     def __add__(self, value):
         if isinstance(value, algebra.Monomial):
@@ -73,31 +72,6 @@ class Polynomial:
                 return self.numerical_term
             return self
         elif isinstance(value, Polynomial):
-            #R = Polynomial()
-            #R.numerical_term = self.numerical_term
-            #nm = 0
-            #for m in value.monomials:
-            #    found = False
-            #    
-            #    for x in self.monomials:
-            #        if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(m.variables):
-            #            if x.coefficient + m.coefficient != 0:
-            #                R.monomials.append(x+m)
-            #                nm += 1
-            #            found = True
-            #            
-            #    if not found:
-            #        R.monomials.append(m)
-            # 
-            #if value.numerical_term:
-            #    R.numerical_term += value.numerical_term
-            #    
-            #if nm == 0:
-            #    # Se han eliminado todos los monomios. Devolver un int
-            #    return R.numerical_term
-            #
-            #return R
-            
             result = algebra.Polynomial()
             
             for monomial in self.monomials:
@@ -116,7 +90,7 @@ class Polynomial:
         elif isinstance(value, algebra.Variable):
             return self + algebra.Monomial(variables=value.name)
         else:
-            raise TypeError(f'Cann\'t add a Polynomial to {type(value)}')
+            raise TypeError(f'Cannot add a Polynomial to {type(value)}')
     
     def __radd__(self, value):
         return self + value
@@ -148,35 +122,7 @@ class Polynomial:
                 return self.numerical_term
             return self
         elif isinstance(value, Polynomial):
-            #R = algebra.Polynomial()#monomials=[], numerical_term=0)
-            #R.numerical_term = self.numerical_term
-            #nm = 0
-            #for m in value.monomials:
-            #    found = False
-            #    
-            #    for x in self.monomials:
-            #        if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(m.variables):
-            #            if x.coefficient - m.coefficient != 0:
-            #                R.monomials.append(x-m)
-            #                nm += 1
-            #            found = True
-            #            
-            #    if not found:
-            #        R.monomials.append(m)
-            # 
-            #if value.numerical_term:
-            #    R.numerical_term -= value.numerical_term
-            #    
-            #if nm == 0:
-            #    # Se han eliminado todos los monomios. Devolver un int
-            #    return R.numerical_term
-            #
-            #return R
-            
-            #return self + (-value)
-            
             result = Polynomial()
-            #result.numerical_term = self.numerical_term
             
             for monomial in self.monomials:
                 result -= monomial
@@ -194,22 +140,10 @@ class Polynomial:
         elif type(value) is algebra.Variable:
             return self - algebra.Monomial(variables=value.name, coefficient=-1)
         else:
-            raise TypeError(f'Cann\'t subtract a Polynomial to {type(value)}')
+            raise TypeError(f'Cannot subtract a Polynomial to {type(value)}')
 
     def __truediv__(self, value):
         if isinstance(value, int):
-            #R=[]
-            #for x in self.monomials:
-            #    R.append(x/value)
-            #if self.numerical_term != 0:
-            #    if self.numerical_term % value == 0:
-            #        numerical_term = int(self.numerical_term / value)
-            #    else:
-            #        numerical_term = Fraction(self.numerical_term, value)
-            #else:
-            #    numerical_term=0
-            #return algebra.Polynomial(monomials=R, numerical_term=numerical_term)
-            
             # TODO: Simplify division
             return Fraction(self, value)
         elif isinstance(value, Fraction):
@@ -248,47 +182,20 @@ class Polynomial:
         elif isinstance(value, Polynomial):
             raise NotImplementedError
         else:
-            return TypeError(f'Cann\'t divide a Polynomial by {type(value)}')
+            return TypeError(f'Cannot divide a Polynomial by {type(value)}')
 
     def __mul__(self, value):
         if isinstance(value, (algebra.Monomial, int)):
-            #print('Multiplying a Polynomial by a int')
-            #for x in range(len(self.monomials)):
-            #    self.monomials[x]*= value
-            #if isinstance(value, int):
-            #    self.numerical_term*=value
-            #return self
-            #print('self =',self, 'value =',value)
-            print('multiplicando',self,value)
-            result = algebra.Polynomial()#monomials=[], numerical_term=0)
-            #print(result)
+            result = algebra.Polynomial()
+            
             for monomial in self.monomials:
-                #print('monomial:', monomial)
                 result += monomial * value
             
             if self.numerical_term:
                 result += self.numerical_term * value
-            #print('resultado', result)
+            
             return result
         elif isinstance(value, Polynomial):
-            #R = Polynomial()#monomials=[], numerical_term=0)
-            #for x in self.monomials:
-            #    for y in value.monomials:
-            #        #R.monomials.append(x * y)
-            #        R += x * y
-            #    if value.numerical_term != 0:
-            #        #R.monomials.append(x * value.numerical_term)
-            #        R += x * value.numerical_term
-            #
-            #if value.numerical_term != 0:
-            #    if self.numerical_term != 0:
-            #        #print(self.numerical_term, value.numerical_term)
-            #        R.numerical_term = self.numerical_term * value.numerical_term
-            #        for x in value.monomials:
-            #            #R.monomials.append(self.numerical_term * x)
-            #            R += self.numerical_term * x
-            #return R
-            #print('algo')
             result = algebra.Polynomial()
             
             for monomial in self.monomials:
@@ -308,11 +215,9 @@ class Polynomial:
             
             return result
         else:
-            raise TypeError(f'Cann\'t multiply a Polynomial by {type(value)}')
+            raise TypeError(f'Cannot multiply a Polynomial by {type(value)}')
     
     def __rmul__(self, value):
-        #return #Polynomial(self.monomials[:], self.numerical_term) * value
-        #print('rmul', value, self)
         return self * value
 
     def __pow__(self, value, mod=None):
@@ -335,7 +240,6 @@ class Polynomial:
         
 
     def __str__(self):
-        #print(self.monomials, self.numerical_term)
         R=''
         for x in self.monomials:
             R+= '+'+str(x) if x.coefficient > 0 else str(x)
@@ -347,11 +251,7 @@ class Polynomial:
         return R
 
     def __neg__(self):
-        for x in range(len(self.monomials)):
-            self.monomials[x] = -self.monomials[x]
-        
-        self.numerical_term = -self.numerical_term
-        return self
+        return Polynomial(monomials=[-x for x in self.monomials], numerical_term=-self.numerical_term)
     
     def __pos__(self):
         return self

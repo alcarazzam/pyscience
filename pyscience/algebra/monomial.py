@@ -231,7 +231,7 @@ class Monomial:
             else:
                 return algebra.Polynomial(monomials=[self, algebra.Monomial(variables=value.name)])
         elif isinstance(value, Fraction):
-            value.numerator += self
+            value.numerator += self * value.denominator
             return value
         elif isinstance(value, Monomial):
             return algebra.Polynomial(monomials=[algebra.Monomial(coefficient=self.coefficient,variables=self.variables),value])
@@ -256,6 +256,10 @@ class Monomial:
             return algebra.Polynomial(monomials=[self,],numerical_term=-value)
         elif isinstance(value, Monomial):
             return algebra.Polynomial(monomials=[self,-value])
+        elif isinstance(value, algebra.Polynomial):
+            return value - self
+        elif isinstance(value, Fraction):
+            return value - self
         else:
             raise TypeError(f'Cann\'t subtract Monomial to {type(value)}')
     

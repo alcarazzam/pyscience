@@ -1,5 +1,4 @@
-Pyscience
-=========
+# Pyscience
 
 Pyscience is a easy python library and command-line application to work with
 mathematical operations and other science related programming. Also you can manage
@@ -7,8 +6,7 @@ CSV data with the datam module.
 
 Pyscience requires Python 3.7+ to work.
 
-Installation
-------------
+## Installation
 Pyscience is available in [PyPI](https://pypi.org/project/pyscience/).
 You can install Pyscience using pip (as root):
 
@@ -23,16 +21,14 @@ Pre-releases have the latest features and bug fixes.
 
 At this time, only development versions are available.
 
-Features
---------
+## Features
 - Basic calculator
 - Operate with variables, monomials and polynomials
 - Solve first-degree equations
 - Get information about chemical elements
 - Manage CSV data easily (in development)
 
-Basic usage
------------
+## Basic usage
 Once installed, you can run pyscience as a normal program:
 
     pyscience
@@ -60,8 +56,7 @@ Solve first-degree equations:
     Eq(2x = 10)
     Solution: 5
 
-Todo
-----
+## Todo
 Pyscience is in current development. Future features:
 
 * Math functions. In progress.
@@ -73,8 +68,7 @@ Pyscience is in current development. Future features:
 
 
 
-History
--------
+## History
 
 #### [UNRELEASED] Version 0.2.0.dev1
 ##### Added
@@ -85,6 +79,7 @@ History
 - Monomial and Polynomial have a new attribute: list_of_variables.
   It returns a list of the variables of each object, without duplicates.
 - New pyscience.algebra.equation module: solve first-degree equations.
+- Add Variable division by int.
 
 ##### Changed
 - pyscience.fraction is now at pyscience.math.fraction. This breaks API.
@@ -94,6 +89,7 @@ History
 - Changed default Polynomial fraction return type.
 - Better ``:for`` errors report.
 - Translate API documentation to English.
+- Rewrite ``Polynomial.__neg__``
 
 ##### Deprecated
 
@@ -109,8 +105,7 @@ History
 - Initial release.
 
 
-License
--------
+## License
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

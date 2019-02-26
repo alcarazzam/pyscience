@@ -22,6 +22,7 @@ SOFTWARE.
 """
 
 def lcm(a, b):
+    '''Return the lower common denominator of ``a`` and ``b``'''
     n = 1
     while 1:
         if (a*n) % b == 0:
