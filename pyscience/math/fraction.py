@@ -119,6 +119,9 @@ class Fraction():
     
     def simplify(self):
         '''Simplify fraction'''
+        if self.denominator == 1:
+            return self.numerator
+        
         if not (isinstance(self.numerator, int) and isinstance(self.denominator, int)):
             # Try to simplify dividing
             return self.numerator / self.denominator

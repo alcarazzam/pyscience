@@ -89,8 +89,8 @@ class Polynomial:
             return self
         elif isinstance(value, algebra.Variable):
             return self + algebra.Monomial(variables=value.name)
-        else:
-            raise TypeError(f'Cannot add a Polynomial to {type(value)}')
+        
+        raise TypeError(f'Cannot add a Polynomial to {type(value)}')
     
     def __radd__(self, value):
         return self + value
@@ -139,50 +139,23 @@ class Polynomial:
             return self
         elif type(value) is algebra.Variable:
             return self - algebra.Monomial(variables=value.name, coefficient=-1)
-        else:
-            raise TypeError(f'Cannot subtract a Polynomial to {type(value)}')
+        
+        raise TypeError(f'Cannot subtract a Polynomial to {type(value)}')
 
     def __truediv__(self, value):
         if isinstance(value, int):
             # TODO: Simplify division
             return Fraction(self, value)
         elif isinstance(value, Fraction):
-            R=[]
-            for x in self.monomials:
-                R.append(x/value)
-            if self.numerical_term != 0:
-                if self.numerical_term % value == 0:
-                    numerical_term = int(self.numerical_term / value)
-                else:
-                    numerical_term = Fraction(self.numerical_term, value)
-            else:
-                numerical_term = 0
-            return algebra.Polynomial(monomials=R, numerical_term=numerical_term)
+            return Fraction(self) * value.reverse()
         elif isinstance(value, algebra.Variable):
             raise NotImplementedError
         elif isinstance(value, algebra.Monomial):
-            #print('dividing', self, value)
-            R=[]
-            numerical_term = 0
-            for x in self.monomials:
-                result = x/value
-                if result.variables == "":
-                    numerical_term += result.coefficient
-                else:
-                    R.append(result)
-            if self.numerical_term != 0:
-                if self.numerical_term % value.coefficient == 0:
-                    result = self.numerical_term / value.coefficient
-                    if type(result) is float:
-                        result = int(result)
-                    R.append(algebra.Monomial(coefficient=result, variables=value.variables))
-                else:
-                    R.append(algebra.Monomial(coefficient=Fraction(self.numerical_term, value.coefficient),variables=value.variables))
-            return Polynomial(monomials=R, numerical_term=numerical_term)
+            return Fraction(self, value)
         elif isinstance(value, Polynomial):
             raise NotImplementedError
-        else:
-            return TypeError(f'Cannot divide a Polynomial by {type(value)}')
+        
+        return TypeError(f'Cannot divide a Polynomial by {type(value)}')
 
     def __mul__(self, value):
         if isinstance(value, (algebra.Monomial, int)):
@@ -214,8 +187,8 @@ class Polynomial:
                 result += self.numerical_term * value
             
             return result
-        else:
-            raise TypeError(f'Cannot multiply a Polynomial by {type(value)}')
+        
+        raise TypeError(f'Cannot multiply a Polynomial by {type(value)}')
     
     def __rmul__(self, value):
         return self * value
@@ -224,32 +197,13 @@ class Polynomial:
         if mod:
             raise NotImplementedError
         
-        R = []
+        return Polynomial(monomials=[x ** value for x in self.monomials], numerical_term=self.numerical_term ** value)
         
-        for x in self.monomials:
-            R.append( x ** value )
-
-        if self.numerical_term != 0:
-            R.append(self.numerical_term ** value)
-        
-        RT = 0
-        #print(R)
-        for x in R:
-            RT += x
-        return RT
-        
-
     def __str__(self):
-        R=''
-        for x in self.monomials:
-            R+= '+'+str(x) if x.coefficient > 0 else str(x)
-        if self.numerical_term != 0:
-            if self.numerical_term <0:
-                R+=str(self.numerical_term)
-            else:
-                R+='+'+str(self.numerical_term)
-        return R
-
+        result = ''.join(['+'+str(x) if x.coefficient > 0 else str(x) for x in self.monomials])
+        result += (str(self.numerical_term) if self.numerical_term < 0 else '+' + str(self.numerical_term)) if self.numerical_term else ''
+        return result
+        
     def __neg__(self):
         return Polynomial(monomials=[-x for x in self.monomials], numerical_term=-self.numerical_term)
     

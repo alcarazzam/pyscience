@@ -29,7 +29,7 @@ from pyscience.math import Fraction
 
 class Variable:
     
-    def __init__(self, *args, **kwargs):#name='x'):
+    def __init__(self, *args, **kwargs):
         self.name = kwargs.get('name', 'x')
     
     def __mul__(self, value):
@@ -43,8 +43,8 @@ class Variable:
             return algebra.Monomial(variables=self.name, coefficient=value)
         elif isinstance(value, algebra.Polynomial):
             return value * self
-        else:
-            raise TypeError(f'Cann\'t multiply Variable by {type(value)}')
+        
+        raise TypeError(f'Cannot multiply Variable by {type(value)}')
 
     def __add__(self, value):
         if isinstance(value, algebra.Monomial):
@@ -62,8 +62,8 @@ class Variable:
         elif isinstance(value, Fraction):
             value.numerator += self * value.denominator
             return value
-        else:
-            raise TypeError(f'Cann\'t add Variable to {type(value)}')
+        
+        raise TypeError(f'Cannot add Variable to {type(value)}')
     
     def __radd__(self, value):
         return self.__add__(value)
@@ -78,8 +78,8 @@ class Variable:
         elif isinstance(value, Fraction):
             value.numerator -= self * value
             return value
-        else:
-            raise ValueError(f'Cann\'t subtract Variable to {type(value)}')
+        
+        raise ValueError(f'Cannot subtract Variable to {type(value)}')
     
     def __rsub__(self, value):
         return (-self) + value
@@ -109,7 +109,7 @@ class Variable:
         return algebra.Monomial(variables=self.name, coefficient=-1)
     
     def __pos__(self):
-        return self #algebra.Monomial(variables=self.name, coefficient=1)
+        return self
     
     def __str__(self):
         return self.name

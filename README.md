@@ -90,6 +90,7 @@ Pyscience is in current development. Future features:
 - Better ``:for`` errors report.
 - Translate API documentation to English.
 - Rewrite ``Polynomial.__neg__``
+- Rewrite ``Polynomial.__str__``
 
 ##### Deprecated
 
@@ -99,6 +100,7 @@ Pyscience is in current development. Future features:
 - Fix error multiplying a Variable by a Polynomial
 - Fix error multiplying a Polynomial by a Monomial
 - Fix error subtracting a Monomial from a int
+- Fix Polynomial division
 
 #### Version 0.1.0.dev4 (February 20th 2019)
 

@@ -128,9 +128,7 @@ def count_variables(expr):
 
 class Monomial:
     
-    def __init__(self, *args, **kwargs):# variables='', coefficient=1):
-        #self.variables = variables
-        #self.coefficient = coefficient
+    def __init__(self, *args, **kwargs):
         self.variables = kwargs.get('variables', '')
         self.coefficient = kwargs.get('coefficient', 1)
     
@@ -153,8 +151,8 @@ class Monomial:
             return value * self
         elif isinstance(value, Fraction):
             return Fraction(value.numerator * self, value.denominator)
-        else:
-            raise TypeError(f'Cann\'t multiply Monomial by {type(value)}')
+        
+        raise TypeError(f'Cannot multiply Monomial by {type(value)}')
 
     def __rmul__(self, value):
         return self.__mul__(value)
@@ -194,7 +192,7 @@ class Monomial:
                     return Monomial(coefficient=Fraction(self.coefficient, value.coefficient), variables=v)
             else:
                 # Hay que devolver una fracción con letras
-                m = mcd(self.coefficient, value.coefficient)
+                m = gcd(self.coefficient, value.coefficient)
                 if m != 1:
                     self.coefficient //= m
                     value.coefficient //= m
@@ -206,8 +204,8 @@ class Monomial:
                     return Fraction(algebra.Variable(name=self.variables), value)
                 
                 return Fraction(self, value)
-        else:
-            raise TypeError(f'Cann\'t divide Monomial by {type(value)}')
+        
+        raise TypeError(f'Cannot divide Monomial by {type(value)}')
 
     def __rtruediv__(self, value):
         if isinstance(value, int):
@@ -217,8 +215,8 @@ class Monomial:
                 return Fraction(value, self)
         elif isinstance(value, algebra.Variable):
             return Fraction(value, self)
-        else:
-            raise NotImplementedError
+        
+        raise NotImplementedError
 
     def __add__(self, value):
         if isinstance(value, Monomial) and count_variables(value.variables) == count_variables(self.variables):
@@ -237,8 +235,8 @@ class Monomial:
             return algebra.Polynomial(monomials=[algebra.Monomial(coefficient=self.coefficient,variables=self.variables),value])
         elif isinstance(value, int):
             return algebra.Polynomial(monomials=[self,],numerical_term=value)
-        else:
-            raise TypeError(f'Cann\'t add Monomial to {type(value)}')
+        
+        raise TypeError(f'Cannot add Monomial to {type(value)}')
     
     def __radd__(self, value):
         return self + value
@@ -260,8 +258,8 @@ class Monomial:
             return value - self
         elif isinstance(value, Fraction):
             return value - self
-        else:
-            raise TypeError(f'Cann\'t subtract Monomial to {type(value)}')
+        
+        raise TypeError(f'Cannot subtract Monomial to {type(value)}')
     
     def __pow__(self, value, mod=None):
         if mod:
