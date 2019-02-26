@@ -1,4 +1,4 @@
-﻿Pyscience
+Pyscience
 =========
 
 Pyscience is a easy python library and command-line application to work with
@@ -53,8 +53,12 @@ Or get Chemical Elements information with the ``CE`` function:
     # Returns chemical element with atomic number 2
     > CE(2)
     ...
-    >
 
+Solve first-degree equations:
+
+    > Eq(2x, 10)
+    Eq(2x = 10)
+    Solution: 5
 
 Todo
 ----
@@ -128,4 +132,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ### About data used for ChemicalElement
-Chemical elements information is extracted from the Kalzium program.
+Chemical elements information is extracted from the
+[Kalzium](https://kde.org/applications/education/kalzium/) program.
