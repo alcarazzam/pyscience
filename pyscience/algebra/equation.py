@@ -25,13 +25,15 @@ from pyscience import algebra
 from pyscience.math import Fraction
 
 def get_degree(value):
+    '''Return de degree of an object, if it has, else 0'''
     if isinstance(value, (algebra.Monomial, algebra.Polynomial)):
         return value.degree
     elif isinstance(value, int):
-        return 1
-    return 1
+        return 0
+    return 0
 
 def fractions(a, b):
+    '''Return ``a`` and ``b`` as Fraction if they aren't'''
     if not isinstance(a, Fraction):
         a = Fraction(a)
     if not isinstance(b, Fraction):
@@ -43,18 +45,20 @@ class Equation:
     def __init__(self, first_term, second_term=0):
         self.first_term = first_term
         self.second_term = second_term
+        
+    @property
+    def degree(self):
+        '''Return the degree of the Equation'''
+        return max(get_degree(self.first_term), get_degree(self.second_term))
     
     def solve(self):
-        # TODO
+        '''Return the solution of the Equation'''
         first_term = copy.deepcopy(self.first_term)
         second_term = copy.deepcopy(self.second_term)
-        #print('paso 1', first_term, second_term)
         
         if second_term != 0:
             first_term = first_term - second_term
             second_term = 0
-            
-        #print('paso 2', first_term)
         
         if get_degree(first_term) == 1:
             # First-degree equation

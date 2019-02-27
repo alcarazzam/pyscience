@@ -20,13 +20,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
-
-import pyscience, sys, traceback
+import sys
+import traceback
+import pyscience
 from pyscience import parser
 from pyscience.algebra import get_variables
 from pyscience.algebra.equation import Equation
 from pyscience.chemistry.element import ChemicalElement
 from pyscience.math import Fraction, Div
+from pyscience.math.number import ABS, SQRT
 
 class PyscienceInterpreter:
     
@@ -47,6 +49,8 @@ class PyscienceInterpreter:
         
         # Math
         self._globals['Div'] = Div
+        self._globals['ABS'] = ABS
+        self._globals['SQRT'] = SQRT
             
     def print_exception(self):
         type, value, tb = sys.exc_info()
@@ -85,6 +89,8 @@ class PyscienceInterpreter:
                         print(f'Error: {name} not specified')
                         return
                     code = code.replace(name, f'({value})')
+            elif func.startswith(':eval'):
+                code = f'({code}).eval()'
         
         if pyscience.DEBUG:
             print(f'eval: "{code}"')

@@ -41,6 +41,19 @@ def simplify(frac):
 class Fraction():
     
     def __init__(self, numerator, denominator=1):
+        '''Fraction class.
+        Create a Fraction with ``numerator`` and ``denominator``.
+        You can operate with it as a normal number. Examples:
+        
+        >>> a = Fraction(2, 3)
+        >>> b = Fraction(3, 4)
+        >>> a + b
+        F(17,12)
+        >>> a * b
+        F(1,2)
+        >>> b + Fraction(1, 2)
+        F(5,4)
+        '''
         self.numerator = numerator
         self.denominator = denominator
         
@@ -55,12 +68,9 @@ class Fraction():
     
     def __sub__(self, value):
         if isinstance(value, int):
-            #print(self.numerator-self.denominator*value)
             return Fraction(self.numerator-self.denominator*value, self.denominator).simplify()
         elif isinstance(value, Fraction):
-            #print('Step 1', self, value)
             a, b = self.common_denominator(value)
-            #print(a,b)
             return Fraction(a.numerator-b.numerator, a.denominator).simplify()
         
         return NotImplemented
@@ -99,8 +109,7 @@ class Fraction():
         return Fraction(value//self.denominator*self.numerator, value)
     
     def common_denominator(self, value):
-        ''' Return two fractions, with equal denominator, self and value
-        '''
+        ''' Return two fractions, with equal denominator, ``self`` and ``value``'''
         if self.denominator == value.denominator:
             return self, value
         

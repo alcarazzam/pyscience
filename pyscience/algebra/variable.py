@@ -1,4 +1,4 @@
-"""
+'''
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,10 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-"""
-"""
+'''
+'''
 Created by Manuel Alcaraz on 22 May, 2018
-"""
+'''
 
 from pyscience import algebra
 from pyscience.math import Fraction

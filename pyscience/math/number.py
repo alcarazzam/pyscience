@@ -1,4 +1,4 @@
-"""
+'''
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,7 +19,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-"""
+'''
+
+import math
 
 def lcm(a, b):
     '''Return the lower common denominator of ``a`` and ``b``'''
@@ -46,3 +48,37 @@ def Div(n):
     R.append(n)
     
     return R
+
+def _str(value):
+    if hasattr(value, '_str_'):
+        return value._str_()
+    return str(value)
+
+class Expression:
+    
+    def __init__(self, value):
+        self.value = value
+        
+    def __call__(self):
+        return self.function(self.value)
+    
+    def eval(self):
+        return self.function(eval(_str(self.value)))
+    
+    def _str_(self):
+        '''This is a internal function which returns the function that returns the value'''
+        return str(self.__class__.__name__) + '(' + str(self.value) + ')()'
+    
+    def __str__(self):
+        return str(self.__class__.__name__) + '(' + str(self.value) + ')'
+    
+    def __repr__(self):
+        return f'<Expression {self.function}>'
+        
+class ABS(Expression):
+    function = abs
+
+class SQRT(Expression):
+    function = math.sqrt
+
+
