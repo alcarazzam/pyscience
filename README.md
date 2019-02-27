@@ -80,6 +80,7 @@ Pyscience is in current development. Future features:
   It returns a list of the variables of each object, without duplicates.
 - New pyscience.algebra.equation module: solve first-degree equations.
 - Add Variable division by int.
+- New ``:eval`` function in the interpreter.
 
 ##### Changed
 - pyscience.fraction is now at pyscience.math.fraction. This breaks API.
