@@ -76,6 +76,8 @@ Pyscience is in current development. Future features:
   * is_even: return if a number is even
   * is_odd: return if a number is odd
   * Div: return divisors of a number
+  * number:
+    - Expression: Create expressions.
 - Monomial and Polynomial have a new attribute: list_of_variables.
   It returns a list of the variables of each object, without duplicates.
 - New pyscience.algebra.equation module: solve first-degree equations.
