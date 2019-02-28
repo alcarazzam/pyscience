@@ -95,7 +95,7 @@ This is a old development version which never will be released.
   * Div: return divisors of a number
   * number:
     - Expression: Create expressions.
-- Monomial and Polynomial have a new attribute: list_of_variables.
+- Monomial and Polynomial have a new attribute: ``list_of_variables``.
   It returns a list of the variables of each object, without duplicates.
 - New pyscience.algebra.equation module: solve first-degree equations.
 - Add Variable division by int.

@@ -1,4 +1,4 @@
-﻿Pyscience installation
+﻿Installation
 ======================
 Pyscience needs a recent version of python (3.7). You can download it
 `here <https://www.python.org/downloads/>`_. It won’t work in older versions.

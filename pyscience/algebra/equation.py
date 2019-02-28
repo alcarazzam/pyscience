@@ -60,10 +60,12 @@ class Equation:
             first_term = first_term - second_term
             second_term = 0
         
-        if get_degree(first_term) == 1:
+        if get_degree(first_term) <= 1:
             # First-degree equation
             if isinstance(first_term, algebra.Monomial):
-                return 0#- (-algebra.Monomial(self.first_term.variables) / self.first_term.coefficient)
+                return 0
+            elif isinstance(first_term, int):
+                return None
             elif isinstance(first_term, algebra.Polynomial):
                 # Check if the number of variables is 1
                 if len(first_term.list_of_variables) != 1:

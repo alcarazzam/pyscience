@@ -13,8 +13,8 @@ You can use pyscience as a normal calculator::
     4
     > 3 * (2 + 3)
     15
-    > 3(3+4)
-    7
+    > 3(3+4) # pyscience will transform the expression to 3 * (3 + 4)
+    21
 
 Addition
 ^^^^^^^^
@@ -46,7 +46,7 @@ To divide one number by other, use the ``/`` operator::
 
 Powers
 ^^^^^^
-You can create powers using the ``**`` operator::
+You can create powers using the ``**`` operator like in python::
 
     > 2 ** 4
     16
@@ -82,6 +82,19 @@ what can you do::
 .. note::
     In the last example, you can think why I have put parenthesis for the second Monomial. If you don’t do it, you will divide *2x* by *2* and, AFTER, you will multiply the result by *x*. In this case, the final result is *x²*
 
+Equations
+^^^^^^^^^
+You can solve first-degree equations with pyscience. It provides the ``Eq`` class
+to work with Equations. Terms are separated as normal arguments, with a comma.
+Examples::
+
+    > Eq(2x, 10)
+    Eq(2x = 10)
+    Solution: 5
+    > Eq(F(1,2)+x, 1)
+    Eq(F(+2x+1/2) = 1)
+    Solution: F(1/2)
+
 
 Working with chemical elements
 ------------------------------
@@ -104,5 +117,4 @@ Also, you can work with elements which have charge::
 If you know the atomic number of a element but not the symbol, you can get the
 element by its atomic number::
 
-    > CE(20)
-    # Calcium (Ca)
+    > CE(20) # Calcium (Ca)
