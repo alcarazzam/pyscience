@@ -27,8 +27,7 @@ from pyscience import parser
 from pyscience.algebra import get_variables
 from pyscience.algebra.equation import Equation
 from pyscience.chemistry.element import ChemicalElement
-from pyscience.math import Fraction, Div
-from pyscience.math.number import ABS, SQRT
+from pyscience.math import Fraction, Div, MATH_FUNCTIONS
 
 class PyscienceInterpreter:
     
@@ -49,8 +48,8 @@ class PyscienceInterpreter:
         
         # Math
         self._globals['Div'] = Div
-        self._globals['ABS'] = ABS
-        self._globals['SQRT'] = SQRT
+        for func in MATH_FUNCTIONS:
+            self._globals[func] = MATH_FUNCTIONS[func]
             
     def print_exception(self):
         type, value, tb = sys.exc_info()

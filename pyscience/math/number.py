@@ -49,10 +49,11 @@ def Div(n):
     
     return R
 
-def _str(value):
-    if hasattr(value, '_str_'):
-        return value._str_()
-    return str(value)
+def _call(value):
+    '''Internal function'''
+    if isinstance(value, (SQRT, ABS)):
+        return value()
+    return value
 
 class Expression:
     
@@ -60,14 +61,11 @@ class Expression:
         self.value = value
         
     def __call__(self):
-        return self.function(self.value)
+        value = _call(self.value)
+        return self.function(value)
     
     def eval(self):
-        return self.function(eval(_str(self.value)))
-    
-    def _str_(self):
-        '''This is a internal function which returns the function that returns the value'''
-        return str(self.__class__.__name__) + '(' + str(self.value) + ')()'
+        return self.function(_call(self.value))
     
     def __str__(self):
         return str(self.__class__.__name__) + '(' + str(self.value) + ')'
@@ -81,4 +79,28 @@ class ABS(Expression):
 class SQRT(Expression):
     function = math.sqrt
 
+class SIN(Expression):
+    function = math.sin
+
+class COS(Expression):
+    function = math.cos
+
+class FACTORIAL(Expression):
+    function = math.factorial
+
+class ACOS(Expression):
+    function = math.acos
+
+class ATAN(Expression):
+    function = math.atan
+    
+MATH_FUNCTIONS = {
+    'ABS': ABS,
+    'SQRT': SQRT,
+    'SIN': SIN,
+    'COS': COS,
+    'FACTORIAL': FACTORIAL,
+    'ACOS': ACOS,
+    'ATAN': ATAN
+    }
 
