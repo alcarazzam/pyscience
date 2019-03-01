@@ -76,6 +76,7 @@ Expected date: about March 20 2019.
 - New pyscience.math functions
 - Add better cursor support and sessions with the ``prompt_toolkit``
   library. Now it is a dependency.
+- Add support to decimal numbers in the interpreter
 
 #### Changed
 - Create branches for development. Version 0.3 is located in the ``v0.3``

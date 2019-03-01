@@ -51,8 +51,6 @@ def split_expression(expr):
         if last_type == 'str' and c != "'":
             tmp += c
             continue
-        #if last_type == 'upper' and c=='(':
-        #    
         if c in list('1234567890'):
             typ = 'number'
         elif last_type == 'number' and c == '.':
@@ -82,8 +80,6 @@ def split_expression(expr):
                 continue
         else:
             typ = 'string'
-        
-        #tmp += c
         
         if typ != last_type or typ == 'none':
             
@@ -147,6 +143,3 @@ def expand(expr):
         last_type = typ
     
     return result
-        
-    
-    
