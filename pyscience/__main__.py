@@ -25,7 +25,7 @@ import sys, traceback, argparse
 import pyscience
 from pyscience.interpreter import PyscienceInterpreter
 
-
+#from prompt_toolkit import prompt
 
 def main(args):
     if args.version:
@@ -47,7 +47,7 @@ under certain conditions; type `license' for details.
         print('Debug mode is on\n')
     
     while 1:
-        cmd = input('> ')
+        cmd = interpreter.input()
         
         if cmd in ('q', 'quit', 'exit'):
             break

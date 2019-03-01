@@ -19,6 +19,7 @@ setuptools.setup(
         'pyscience': ['chemistry/periodic_table.csv'],
     },
     python_requires='~=3.7',
+    install_requires=['prompt_toolkit'],
     entry_points={
         'console_scripts': [
             'pyscience=pyscience:__main__.run',
