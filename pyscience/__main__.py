@@ -25,8 +25,6 @@ import sys, traceback, argparse
 import pyscience
 from pyscience.interpreter import PyscienceInterpreter
 
-#from prompt_toolkit import prompt
-
 def main(args):
     if args.version:
         print(f'pyscience {pyscience.__version__}')

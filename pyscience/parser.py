@@ -35,6 +35,12 @@ EXPONENTS = {
     '⁹': 9,
 }
 
+def is_digit(value):
+    '''Return if ``value`` is number (decimal or whole)'''
+    if value.count('.') == 1 and value.replace('.','').isdigit() or value.isdigit():
+        return True
+    return False
+
 def split_expression(expr):
     last_type = None
     tmp = ''
@@ -48,6 +54,8 @@ def split_expression(expr):
         #if last_type == 'upper' and c=='(':
         #    
         if c in list('1234567890'):
+            typ = 'number'
+        elif last_type == 'number' and c == '.':
             typ = 'number'
         elif c in list('+-*/'):
             typ = 'operator'
@@ -111,7 +119,7 @@ def expand(expr):
             typ = 'string'
         elif x in list('¹²³⁴⁵⁶⁷⁸⁹⁰'):
             typ = 'exponent'
-        elif x.isdigit():
+        elif is_digit(x):
             typ = 'number'
         elif x == ')':
             typ = 'symbol'
