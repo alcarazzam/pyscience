@@ -56,6 +56,9 @@ Solve first-degree equations:
     Eq(2x = 10)
     Solution: 5
 
+## Documentation
+Official documentation is available [here](doc/source/index.rst)
+
 ## Todo
 Pyscience is in current development. Future features:
 
@@ -79,6 +82,7 @@ Expected date: about March 20 2019.
 - Add support to decimal numbers in the interpreter
 - pyscience.datam.Condition now can work with more than one operator
   at same time.
+- Now you can get a ChemicalElement by element's name.
 
 #### Changed
 - Create branches for development. Version 0.3 is located in the ``v0.3``
@@ -117,17 +121,13 @@ This is a old development version which never will be released.
 - Rewrite ``Polynomial.__neg__``
 - Rewrite ``Polynomial.__str__``
 
-#### Deprecated
-
-#### Removed
-
 #### Fixed
 - Fix error multiplying a Variable by a Polynomial
 - Fix error multiplying a Polynomial by a Monomial
 - Fix error subtracting a Monomial from a int
 - Fix Polynomial division
 
-### Version 0.1.0.dev4 (February 20th 2019)
+### Version 0.1.0.dev4 (February 20 2019)
 
 - Initial release.
 

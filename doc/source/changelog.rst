@@ -10,6 +10,12 @@ Expected date: about March 20 2019.
 Added
 ^^^^^
 - New pyscience.math functions
+- Add better cursor support and sessions with the ``prompt_toolkit``
+  library. Now it is a dependency.
+- Add support to decimal numbers in the interpreter
+- pyscience.datam.Condition now can work with more than one operator
+  at same time.
+- Now you can get a ChemicalElement by element's name.
 
 Changed
 ^^^^^^^

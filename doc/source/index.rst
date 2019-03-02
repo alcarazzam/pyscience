@@ -36,11 +36,3 @@ Todo
    user_guide
    changelog
    license
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

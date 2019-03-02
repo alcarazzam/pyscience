@@ -7,6 +7,9 @@ To install, type with superuser privileges::
 
     pip3 install pyscience
 
+pyscience requieres the `prompt_toolkit library <https://pypi.org/project/prompt_toolkit/>`_.
+It will installed as a dependency.
+
 If you want to install the latest development version, use the GitHub repo::
 
     pip3 install git+https://github.com/m-alzam/pyscience.git

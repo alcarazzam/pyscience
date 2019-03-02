@@ -4,6 +4,8 @@ Pyscience’s interpreter is very easy to use. Start it with::
 
     pyscience
 
+To exit the interpreter, type ``exit``, ``quit`` or ``q``
+
 Working as a calculator
 -----------------------
 Pyscience uses python ``eval`` function to evaluate expressions after expand it.
@@ -101,7 +103,9 @@ Working with chemical elements
 Pyscience can show you basic information about chemical elements. You can do it
 with the ``CE`` function::
 
-    > CE(‘H’)
+    > CE(‘H’) # Get element by its symbol
+    ...
+    > CE('Silicon') # Get element by its name
     ...
 
 If you want to set a specific mass for the element, indicate that between brackets::
