@@ -77,6 +77,8 @@ Expected date: about March 20 2019.
 - Add better cursor support and sessions with the ``prompt_toolkit``
   library. Now it is a dependency.
 - Add support to decimal numbers in the interpreter
+- pyscience.datam.Condition now can work with more than one operator
+  at same time.
 
 #### Changed
 - Create branches for development. Version 0.3 is located in the ``v0.3``
