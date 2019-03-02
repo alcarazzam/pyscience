@@ -28,6 +28,7 @@ from pyscience.algebra import get_variables
 from pyscience.algebra.equation import Equation
 from pyscience.chemistry.element import ChemicalElement
 from pyscience.math import Fraction, Div, MATH_FUNCTIONS
+from pyscience.units import Units
 
 from prompt_toolkit import PromptSession
 
@@ -48,6 +49,9 @@ class PyscienceInterpreter:
         
         # Fractions
         self._globals['F'] = Fraction
+        
+        # Units
+        self._globals['Units'] = Units()
         
         # Math
         self._globals['Div'] = Div

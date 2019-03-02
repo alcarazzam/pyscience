@@ -57,14 +57,21 @@ def split_expression(expr):
             typ = 'number'
         elif c in list('+-*/'):
             typ = 'operator'
+        elif c == '.' and last_type == 'upper':
+            pass
         elif c.isupper():
             if last == '(':
-                result.append(tmp)
+                if tmp != '':
+                    result.append(tmp)
                 tmp=''
-            else:
-                typ = 'upper'
+            typ = 'upper'
         elif c.islower():
-            if last_type != 'upper' or last=='(':
+            if last_type == 'upper':
+                typ = 'upper'
+            elif last == '.' or last_type == 'string':
+                last_type= 'string'
+                typ = 'string'
+            elif last_type != 'upper' or last=='(':
                 typ = 'none'
         elif c == '(' and last_type == 'upper':
             pass
@@ -82,7 +89,6 @@ def split_expression(expr):
             typ = 'string'
         
         if typ != last_type or typ == 'none':
-            
             result.append(tmp)
             tmp = ''
             last_type = typ
@@ -105,7 +111,11 @@ def expand(expr):
     result = ''
     
     for x in expr:
-        if x.islower():
+        if not x:
+            continue
+        if x.startswith('.'):
+            typ = 'none'
+        elif x.islower():
             typ = 'variable'
         elif x[0].isupper() and x[-1] == '(':
             typ = 'function'
@@ -123,12 +133,14 @@ def expand(expr):
             typ = 'start_parenthesis'
         elif x in list(',\''):
             typ = 'none'
+        elif '.' in x and x[0].isupper():
+            typ = 'attr'
         else:
             raise SyntaxError("'" + x + "'")
         
-        if (last_type in ('variable', 'exponent', 'symbol')) and (typ in ('number', 'variable')):
+        if last_type in ('variable', 'exponent', 'symbol') and typ in ('number', 'variable'):
             result += '*'
-        elif last_type == 'number' and typ == 'variable':
+        elif last_type == 'number' and typ in ('variable', 'attr'):
             result += '*'
         elif last_type in ('variable', 'number', 'symbol') and typ == 'start_parenthesis':
             result += '*'
