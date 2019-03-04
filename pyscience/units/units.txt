@@ -1,0 +1,43 @@
+prefix k
+    value 1000
+    name kilo
+
+prefix h
+    value 100
+    name hecto
+
+prefix da
+    value 10
+    name deca
+
+prefix d
+    value 0.1
+    name deci
+
+prefix c
+    value 0.01
+    name centi
+
+prefix m
+    value 0.001
+    name milli
+
+magnitude distance
+    unit m
+
+magnitude volume
+    unit l
+
+magnitude time
+    unit s
+    #units
+        #minute(min) = 60 * s
+        #hour(h) = 3600 * s
+        #day = 3600 * 24 * s
+
+#magnitude temperature
+    #unit kelvin(K)
+    #use prefixes false
+    #units
+        #celsius(C) = kelvin - 273.15
+        #fahrenheit(F) = (kelvin - 273.15) * 9/5 + 32

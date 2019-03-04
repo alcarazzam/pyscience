@@ -21,42 +21,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-# TODO: Units is very unstable and may change its API in next releases
+from pyscience.units.unitparser import UnitParser
 
-LONGITUDE_UNITS = ['km', 'hm', 'dam', 'm', 'dm', 'cm', 'mm']
-LONGITUDE = {
-    'km': 1000,
-    'hm': 100,
-    'dam': 10,
-    'm': 1,
-    'dm': .1,
-    'cm': .01,
-    'mm': .001
-}
-TIME_UNITS = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']
-TIME = {
-    'year': 6622560000,
-    'month': 18144000,
-    'week': 604800,
-    'day': 86400,
-    'hour': 3600,
-    'minute': 60,
-    'second': 1 
-}
-
-UNITS = {
-    'longitude': LONGITUDE,
-    'time': TIME
-    }
+UNITS = UnitParser()
+UNITS = UNITS.parse()
 
 class Unit:
+    '''TODO: Units is very unstable and may change its API in next releases
+    TODO: This module is experimental and may not work well.
+    '''
     
-    def __init__(self, type_, name, value=None):
+    def __init__(self, type_='', name=None, value=None, prefix=None, unit=None):
         self.type_ = type_
         self.name = name
         self.value = value
+        self.prefix = prefix
+        self.unit = unit
     
     def to(self, unit):
+        if not isinstance(unit, Unit):
+            raise TypeError('unit must be a Unit class')
+        
+        if not unit.type_ == self.type_: # TODO
+            raise TypeError('Cannot convert unit to ' + unit.type_)
+        
+        a, b = 1, 1
+        for x in UNITS['prefix']:
+            if x['symbol'] == self.prefix:
+                a = float(x['value'])
+                break
+        for x in UNITS['prefix']:
+            if x['symbol'] == unit.prefix:
+                b = float(x['value'])
+                break
+        new_value = self.value * a / b
+        return Unit(name=unit.name, value=new_value, prefix=unit.prefix)
+    
+    def to2(self, unit):
         if not isinstance(unit, Unit):
             raise TypeError('unit must be a Unit class')
         
@@ -69,7 +70,7 @@ class Unit:
         return Unit(self.type_, unit.name, new_value)
     
     def __rmul__(self, value):
-        return Unit(self.type_, self.name, value)
+        return Unit(name=self.name, value=value, prefix=self.prefix)
     
     def __str__(self):
         return f'{self.value} {self.name}'
@@ -83,6 +84,14 @@ class Units:
         pass
     
     def __getattr__(self, name):
+        if name in tuple([x['unit'] for x in UNITS['magnitude']]):
+            return Unit(name=name, prefix=None, unit=name)
+        if name.startswith(tuple([x['symbol'] for x in UNITS['prefix']])):
+            if name[1:] in tuple([x['unit'] for x in UNITS['magnitude']]):
+                return Unit(name=name, prefix=name[0], unit=name[1])
+        raise ValueError(f'Unit {name} does not exit') # Or it is not implemented yet
+
+    def __getattr__1(self, name):
         if name in LONGITUDE_UNITS:
             return Unit('longitude', name)
         elif name in TIME_UNITS:
