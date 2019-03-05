@@ -20,15 +20,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
+from pyscience import get_resource
 from pprint import pprint
+
+DEBUG=True
 
 class UnitParser:
     # TODO
-    def __init__(self, filename='pyscience/units/units.txt'):
+    def __init__(self, filename=get_resource('units/units.txt')):
+        
         with open(filename, 'r') as fd:
             self.fc = fd.read()
     
-    def split_line(self, line):
+    def split_line(self, line): # TODO: Optimize?
         if line == '':
             return line, 0
         s = line.split(' ')
@@ -57,13 +61,18 @@ class UnitParser:
                 elif ln.startswith('magnitude'):
                     typ = 'magnitude'
                     tmp['name'] = ln.split()[1]
+                    tmp['use_prefixes'] = True
             else:
                 if typ == 'prefix':
                     name, value = [x.strip() for x in ln.split(' ')]
                 elif typ == 'magnitude':
                     if ln.startswith('unit '):
                         name, value = ln.split()
-                    
+                    elif ln.startswith('use_prefixes'):
+                        if 'false' in ln:
+                            tmp['use_prefixes'] = False
+                        else:
+                            tmp['use_prefixes'] = True
                     #name, value = [x.strip() for x in ln.split('=')]
                 last_tabindex += 4
                 tmp[name] = value
@@ -74,6 +83,6 @@ class UnitParser:
                 last_tabindex = tabindex
                 tmp = {}
             
-                
-        #pprint(result)
+        if DEBUG:
+            pprint(result)
         return result

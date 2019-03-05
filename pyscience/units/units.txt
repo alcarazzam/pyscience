@@ -1,3 +1,19 @@
+prefix P
+    value 10e15
+    name peta
+
+prefix T
+    value 10e12
+    name tera
+
+prefix G
+    value 10e9
+    name giga
+
+prefix M
+    value 10e6
+    name mega
+
 prefix k
     value 1000
     name kilo
@@ -22,6 +38,18 @@ prefix m
     value 0.001
     name milli
 
+prefix μ
+    value 10e-6
+    name micro
+
+prefix n
+    value 10e-9
+    name nano
+
+prefix p
+    value 10e-12
+    name pico
+
 magnitude distance
     unit m
 
@@ -30,6 +58,7 @@ magnitude volume
 
 magnitude time
     unit s
+    use_prefixes false
     #units
         #minute(min) = 60 * s
         #hour(h) = 3600 * s

@@ -21,11 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-
+from pyscience import get_resource
 from pyscience.datam import Data, Condition as C
 from os import path
 
-periodic_table = Data(path.join(path.split(path.abspath(__file__))[0], 'periodic_table.csv'))
+periodic_table = Data(get_resource('chemistry/periodic_table.csv'))
 
 
 def number_index(a):
