@@ -66,13 +66,13 @@ def split_expression(expr):
                 tmp=''
             typ = 'upper'
         elif c.islower():
-            if last_type == 'upper':
+            if last_type != 'upper' or last=='(':
+                typ = 'none'
+            elif last_type == 'upper':
                 typ = 'upper'
             elif last == '.' or last_type == 'string':
                 last_type= 'string'
                 typ = 'string'
-            elif last_type != 'upper' or last=='(':
-                typ = 'none'
         elif c == '(' and last_type == 'upper':
             pass
         elif c in list('¹²³⁴⁵⁶⁷⁸⁹⁰()'):

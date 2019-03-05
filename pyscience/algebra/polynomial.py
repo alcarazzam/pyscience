@@ -1,4 +1,4 @@
-"""
+'''
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,10 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-"""
-"""
+'''
+'''
 Created by Manuel Alcaraz on 22 May, 2018
-"""
+'''
 
 from pyscience import algebra
 from pyscience.algebra.monomial import count_variables
@@ -100,9 +100,7 @@ class Polynomial:
             n=0
             len_monomials = len(self.monomials)
             for x in self.monomials:
-                try:
-                    # Intentar restar los monomials
-                    # "x -= value" no vale porque devuelve un polinomio si no son iguales
+                try: # Optimize function?
                     if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(value.variables):
                         if self.monomials[self.monomials.index(x)].coefficient - value.coefficient != 0:
                             self.monomials[self.monomials.index(x)] -= value
@@ -133,14 +131,18 @@ class Polynomial:
             result.numerical_term += self.numerical_term - value.numerical_term
             
             return result
-                
-        elif type(value) is int:
+        elif isinstance(value, int):
             self.numerical_term -= value
             return self
-        elif type(value) is algebra.Variable:
+        elif isinstance(value, algebra.Variable):
             return self - algebra.Monomial(variables=value.name, coefficient=-1)
+        elif isinstance(value, Fraction):
+            return Fraction(value.numerator-value.denominator*self, value.denominator)
         
         raise TypeError(f'Cannot subtract a Polynomial to {type(value)}')
+    
+    def __rsub__(self, value):
+        return self.__sub__(value)
 
     def __truediv__(self, value):
         if isinstance(value, int):
