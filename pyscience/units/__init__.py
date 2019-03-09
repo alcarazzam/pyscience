@@ -26,23 +26,6 @@ from pyscience.units.unitparser import UnitParser
 UNITS = UnitParser()
 UNITS = UNITS.parse()
 
-def convert(value):
-    result = ''
-    
-    for x in list(value):
-        if x == '*':
-            result += '/'
-        elif x == '/':
-            result += '*'
-        elif x == '+':
-            result += '-'
-        elif x == '-':
-            result += '+'
-        else:
-            result += x
-    
-    return result
-
 class Unit:
     '''TODO: Units is very unstable and may change its API in next releases
     TODO: This module is experimental and may not work well.
@@ -66,48 +49,35 @@ class Unit:
         if self.name == unit.name:
             return self
         
-        if self.prefix and unit.prefix:
-            a, b = 1, 1
-            for x in UNITS['prefix']:
-                if x['symbol'] == self.prefix:
-                    a = float(x['value'])
-                    break
-            for x in UNITS['prefix']:
-                if x['symbol'] == unit.prefix:
-                    b = float(x['value'])
-                    break
-            new_value = self.value * a / b
-            return Unit(name=unit.name, value=new_value, prefix=unit.prefix)
-        else:
-            for mag in UNITS['magnitude']:
-                if self.name in mag['units'] or self.name == mag['unit']:
-                    
-                    target_unit = {'factor': unit.factor, 'offset': unit.offset}
-                    
-                    if self.name in mag['units']:
-                        source_unit = mag['units'][self.name]
-                    else:
-                        source_unit = mag['unit']
-                    #
-                    result = self.value
-                    
-                    if source_unit['offset']:
-                        result += source_unit['offset']
-                    
-                    result *= source_unit['factor']
-                    #
-                    result /= target_unit['factor']
-                    
-                    if target_unit['offset']:
-                        result -= target_unit['offset']
-                    
-                    result = round(result, 3)
-                    return Unit(name=unit.name, value=result)
+        for mag in UNITS['magnitude']:
+            if self.name in mag['units'] or self.name[1:] == mag['unit']:
                 
-            raise BaseException
+                target_unit = {'factor': unit.factor, 'offset': unit.offset}
+                
+                if self.name in mag['units']:
+                    source_unit = mag['units'][self.name]
+                else:
+                    source_unit = {'factor': self.factor, 'offset': self.offset}
+                #
+                result = self.value
+                
+                if source_unit['offset']:
+                    result += source_unit['offset']
+                
+                result *= source_unit['factor']
+                #
+                result /= target_unit['factor']
+                
+                if target_unit['offset']:
+                    result -= target_unit['offset']
+                
+                result = round(result, 3)
+                return Unit(name=unit.name, value=result)
+                
+        raise BaseException
     
     def __rmul__(self, value):
-        return Unit(name=self.name, value=value, prefix=self.prefix, offset=self.offset)
+        return Unit(name=self.name, value=value, factor=self.factor, offset=self.offset)
     
     def __str__(self):
         return f'{self.value} {self.name}'
@@ -121,22 +91,20 @@ class Units:
         pass
     
     def __getattr__(self, name):
-        #if name in tuple([x['unit'] for x in UNITS['magnitude']]):
-        #    return Unit(name=name, prefix=None, unit=name)
-        
         if name.startswith(tuple([x['symbol'] for x in UNITS['prefix']])):
             for mag in UNITS['magnitude']:
                 if mag['use_prefixes'] and name[1:] == mag['unit']:
-                    print('adios')
-                    return Unit(name=name, prefix=name[0], unit=name[1:])
-                #elif name in mag['units']:
-                #    print('hola')
-                #    return Unit(name=name, unit=name)
+                    for fac in UNITS['prefix']:
+                        if fac['symbol'] == name[0]:
+                            factor = fac['value']
+                    factor = float(factor)
+                    return Unit(name=name, factor=factor, unit=name[1:])
         
         for mag in UNITS['magnitude']:
             if name in mag['units']:
-                #print(mag)
                 return Unit(name=name, unit=name, offset=mag['units'][name]['offset'], factor=mag['units'][name]['factor'])
+            elif name == mag['unit']:
+                return Unit(name=name, unit=name)
         
         raise ValueError(f'Unit "{name}" does not exit') # Or it is not implemented yet
 

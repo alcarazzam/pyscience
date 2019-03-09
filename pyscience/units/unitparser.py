@@ -51,7 +51,7 @@ class UnitParser:
         
         for line in self.fc.splitlines():
             ln, tabindex = self.split_line(line)
-            #print(tabindex, ln)
+            
             if ln.startswith('#'):
                 continue
             if tabindex == 0:
@@ -72,20 +72,20 @@ class UnitParser:
                     if ln.startswith('unit '):
                         name, value = ln.split()
                         tmp[name] = value
-                    elif ln.startswith('use prefixes'):
+                    if ln.startswith('use prefixes '):
                         if 'false' in ln:
                             tmp['use_prefixes'] = False
                         else:
                             tmp['use_prefixes'] = True
                     elif ln.startswith('def unit '):
-                        terms = [x.strip() for x in ln[10:].split(';')]
+                        terms = [x.strip() for x in ln[8:][len(ln.split()[2])+1:].split(';')]
                         offset = 0
                         factor = 1
                         for term in terms:
                             if term.startswith('offset'):
                                 offset = float(term.split()[1])
                             elif term.startswith('factor'):
-                                factor = float(eval(term.split()[1]))
+                                factor = float(eval(term[6:]))
                         
                         tmp['units'][ln.split()[2]] = {'factor': factor, 'offset': offset}
             
