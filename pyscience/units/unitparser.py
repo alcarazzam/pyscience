@@ -23,7 +23,7 @@ SOFTWARE.
 from pyscience import get_resource
 from pprint import pprint
 
-DEBUG=True
+DEBUG = False
 
 class UnitParser:
     # TODO
@@ -62,27 +62,41 @@ class UnitParser:
                     typ = 'magnitude'
                     tmp['name'] = ln.split()[1]
                     tmp['use_prefixes'] = True
-            else:
+                    tmp['units'] = {}
+            elif tabindex == 4:
                 if typ == 'prefix':
                     name, value = [x.strip() for x in ln.split(' ')]
+                    tmp[name] = value
+                    
                 elif typ == 'magnitude':
                     if ln.startswith('unit '):
                         name, value = ln.split()
-                    elif ln.startswith('use_prefixes'):
+                        tmp[name] = value
+                    elif ln.startswith('use prefixes'):
                         if 'false' in ln:
                             tmp['use_prefixes'] = False
                         else:
                             tmp['use_prefixes'] = True
-                    #name, value = [x.strip() for x in ln.split('=')]
-                last_tabindex += 4
-                tmp[name] = value
+                    elif ln.startswith('def unit '):
+                        terms = [x.strip() for x in ln[10:].split(';')]
+                        offset = 0
+                        factor = 1
+                        for term in terms:
+                            if term.startswith('offset'):
+                                offset = float(term.split()[1])
+                            elif term.startswith('factor'):
+                                factor = float(eval(term.split()[1]))
+                        
+                        tmp['units'][ln.split()[2]] = {'factor': factor, 'offset': offset}
             
-            if last_tabindex != tabindex:
-                #print(last_tabindex, tabindex)
-                if tmp: result[typ].append(tmp)
-                last_tabindex = tabindex
+            if last_tabindex > tabindex:
+                if tmp:
+                    result[typ].append(tmp)
                 tmp = {}
             
+            last_tabindex = tabindex
+        
         if DEBUG:
             pprint(result)
+        
         return result

@@ -58,15 +58,17 @@ magnitude volume
 
 magnitude time
     unit s
-    use_prefixes false
-    #units
-        #minute(min) = 60 * s
-        #hour(h) = 3600 * s
-        #day = 3600 * 24 * s
+    use prefixes false
+    #def unit min = s / 60
+    #def unit h = s / 3600
+    #def unit day = s / (24 * 3600)
 
-#magnitude temperature
-    #unit kelvin(K)
-    #use prefixes false
-    #units
-        #celsius(C) = kelvin - 273.15
-        #fahrenheit(F) = (kelvin - 273.15) * 9/5 + 32
+magnitude temperature
+    unit K
+    use prefixes false
+    def unit K factor 1; offset -273.15
+    def unit C factor 1; offset 0
+    def unit F factor 5/9; offset -32
+    #def unit F = (K - 32) * (5/9); offset 273.15
+
+
