@@ -16,6 +16,7 @@ Added
 - pyscience.datam.Condition now can work with more than one operator
   at same time.
 - Now you can get a ChemicalElement by element's name.
+- ``units`` module
 
 Changed
 ^^^^^^^

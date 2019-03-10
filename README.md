@@ -27,6 +27,7 @@ At this time, only development versions are available.
 - Solve first-degree equations
 - Get information about chemical elements
 - Manage CSV data easily (in development)
+- Convert between unit with the ``units`` module
 
 ## Basic usage
 Once installed, you can run pyscience as a normal program:
@@ -57,19 +58,17 @@ Solve first-degree equations:
     Solution: 5
 
 ## Documentation
-Official documentation is available [here](doc/source/index.rst)
+Official documentation is available [here](doc/source/index.rst). You can
+build it using the ``sphinx`` python library and the ``make`` script.
 
 ## Todo
 Pyscience is in current development. Future features:
 
 * Math functions. In progress.
-* Units module
 * Update chemicals elements information
 * Polynomial division
 * Physics functions
 * Documentation
-
-
 
 ## History
 
@@ -83,6 +82,7 @@ Expected date: about March 20 2019.
 - pyscience.datam.Condition now can work with more than one operator
   at same time.
 - Now you can get a ChemicalElement by element's name.
+- ``units`` module
 
 #### Changed
 - Create branches for development. Version 0.3 is located in the ``v0.3``
