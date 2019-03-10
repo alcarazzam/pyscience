@@ -30,7 +30,7 @@ class Unit:
     '''TODO: Units is very unstable and may change its API in next releases
     TODO: This module is experimental and may not work well.
     '''
-    def __init__(self, type_='', name=None, value=1, prefix=None, unit=None, offset=0, factor=1):
+    def __init__(self, type_=None, name=None, value=1, prefix=None, unit=None, offset=0, factor=1):
         self.type_ = type_
         self.name = name
         self.value = value
@@ -43,14 +43,15 @@ class Unit:
         if not isinstance(unit, Unit):
             raise TypeError('unit must be a Unit class')
         
-        if not unit.type_ == self.type_: # TODO
+        if not unit.type_ == self.type_:
             raise TypeError('Cannot convert unit to ' + unit.type_)
         
         if self.name == unit.name:
             return self
         
         for mag in UNITS['magnitude']:
-            if self.name in mag['units'] or self.name[1:] == mag['unit']:
+            if self.name in mag['units'] or self.name[1:] == mag['unit'] or self.name == mag['unit']\
+                    or self.name[1:] in mag['units']:
                 
                 target_unit = {'factor': unit.factor, 'offset': unit.offset}
                 
@@ -71,13 +72,13 @@ class Unit:
                 if target_unit['offset']:
                     result -= target_unit['offset']
                 
-                result = round(result, 3)
+                #result = round(result, 3)
                 return Unit(name=unit.name, value=result)
                 
         raise BaseException
     
     def __rmul__(self, value):
-        return Unit(name=self.name, value=value, factor=self.factor, offset=self.offset)
+        return Unit(name=self.name, value=value, factor=self.factor, offset=self.offset, type_=self.type_)
     
     def __str__(self):
         return f'{self.value} {self.name}'
@@ -98,13 +99,19 @@ class Units:
                         if fac['symbol'] == name[0]:
                             factor = fac['value']
                     factor = float(factor)
-                    return Unit(name=name, factor=factor, unit=name[1:])
+                    return Unit(name=name, factor=factor, unit=name[1:], type_=mag['name'])
         
         for mag in UNITS['magnitude']:
             if name in mag['units']:
-                return Unit(name=name, unit=name, offset=mag['units'][name]['offset'], factor=mag['units'][name]['factor'])
+                return Unit(name=name, unit=name, offset=mag['units'][name]['offset'], factor=mag['units'][name]['factor'], type_=mag['name'])
             elif name == mag['unit']:
-                return Unit(name=name, unit=name)
+                return Unit(name=name, unit=name, type_=mag['name'])
+            elif name[1:] in mag['units']:
+                for fac in UNITS['prefix']:
+                    if fac['symbol'] == name[0]:
+                        factor = fac['value']
+                factor = float(factor)
+                return Unit(name=name, factor=factor, unit=name[1:], type_=mag['name'])
         
         raise ValueError(f'Unit "{name}" does not exit') # Or it is not implemented yet
 

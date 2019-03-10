@@ -63,6 +63,7 @@ class UnitParser:
                     tmp['name'] = ln.split()[1]
                     tmp['use_prefixes'] = True
                     tmp['units'] = {}
+                    tmp['unit'] = ''
             elif tabindex == 4:
                 if typ == 'prefix':
                     name, value = [x.strip() for x in ln.split(' ')]

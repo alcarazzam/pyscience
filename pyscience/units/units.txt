@@ -56,12 +56,18 @@ magnitude distance
 magnitude volume
     unit l
 
+magnitude squared
+    def unit m_2 factor 100
+
+magnitude cubic
+    def unit m_3 factor 1000
+
 magnitude time
     unit s
     use prefixes false
     def unit s
-    def unit min factor 60;
-    def unit hour factor 3600;
+    def unit min factor 60
+    def unit hour factor 3600
     def unit day factor 3600 * 24
 
 magnitude temperature
@@ -70,4 +76,10 @@ magnitude temperature
     def unit K factor 1; offset -273.15
     def unit C factor 1; offset 0
     def unit F factor 5/9; offset -32
+
+magnitude file_size_byte
+    def unit byte
+
+magnitude file_size_bit
+    def unit bit
 
