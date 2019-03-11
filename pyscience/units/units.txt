@@ -2,21 +2,41 @@ prefix P
     value 10e15
     name peta
 
+prefix Pi
+    value 2**50
+    name pebi
+
 prefix T
     value 10e12
     name tera
+
+prefix Ti
+    value 2**40
+    name tebi
 
 prefix G
     value 10e9
     name giga
 
+prefix Gi
+    value 2**30
+    name gibi
+
 prefix M
     value 10e6
     name mega
 
+prefix Mi
+    value 2**20
+    name mebi
+
 prefix k
     value 1000
     name kilo
+
+prefix Ki
+    value 2**10
+    name kibi
 
 prefix h
     value 100
@@ -57,9 +77,11 @@ magnitude volume
     unit l
 
 magnitude squared
+    unit m_2
     def unit m_2 factor 100
 
 magnitude cubic
+    unit m_3
     def unit m_3 factor 1000
 
 magnitude time
@@ -77,9 +99,7 @@ magnitude temperature
     def unit C factor 1; offset 0
     def unit F factor 5/9; offset -32
 
-magnitude file_size_byte
+magnitude file_size
+    unit byte
     def unit byte
-
-magnitude file_size_bit
-    def unit bit
 

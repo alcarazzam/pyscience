@@ -50,8 +50,8 @@ class Unit:
             return self
         
         for mag in UNITS['magnitude']:
-            if self.name in mag['units'] or self.name[1:] == mag['unit'] or self.name == mag['unit']\
-                    or self.name[1:] in mag['units']:
+            if self.name in mag['units'] or self.name.endswith(mag['unit']) or self.name == mag['unit']\
+                    or self.name.endswith(tuple(mag['units'].keys())):
                 
                 target_unit = {'factor': unit.factor, 'offset': unit.offset}
                 
@@ -84,7 +84,7 @@ class Unit:
         return f'{self.value} {self.name}'
     
     def __repr__(self):
-        return f'<Unit {self.value} {self.unit} offset {self.offset} factor {self.factor}>'
+        return f'<Unit {self.value} {self.unit} ({self.type_}) offset {self.offset} factor {self.factor}>'
 
 class Units:
     
@@ -94,12 +94,13 @@ class Units:
     def __getattr__(self, name):
         if name.startswith(tuple([x['symbol'] for x in UNITS['prefix']])):
             for mag in UNITS['magnitude']:
-                if mag['use_prefixes'] and name[1:] == mag['unit']:
+                if mag['use_prefixes'] and name.endswith(mag['unit']):#name[1:] == mag['unit']:
+                    print(mag)
                     for fac in UNITS['prefix']:
-                        if fac['symbol'] == name[0]:
+                        if name.startswith(fac['symbol']):
                             factor = fac['value']
-                    factor = float(factor)
-                    return Unit(name=name, factor=factor, unit=name[1:], type_=mag['name'])
+                    factor = float(eval(factor))
+                    return Unit(name=name, factor=factor, unit=name, type_=mag['name'])
         
         for mag in UNITS['magnitude']:
             if name in mag['units']:
