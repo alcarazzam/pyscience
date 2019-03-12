@@ -49,28 +49,19 @@ class Polynomial:
 
     def __add__(self, value):
         if isinstance(value, algebra.Monomial):
-            n=0
-            len_monomials = len(self.monomials)
-            for x in self.monomials:
-                try:
-                    # Intentar sumar los monomials
-                    # "x += value" no vale porque devuelve un polinomio si no son iguales
-                    if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(value.variables):
-                        if self.monomials[self.monomials.index(x)].coefficient + value.coefficient != 0:
-                            self.monomials[self.monomials.index(x)] += value
-                        else:
-                            del self.monomials[self.monomials.index(x)]
-                    else:
-                        raise ValueError
-                    break
-                except ValueError:
-                    pass
-                n+=1
-            if n >= len_monomials: # No ha habido ninguno que sea igual
-                self.monomials.append(value)
-            if len(self.monomials) == 0:
-                return self.numerical_term
-            return self
+            result = Polynomial(numerical_term=self.numerical_term)
+            found = False
+            for monomial in self.monomials:
+                if algebra.monomial.count_variables(monomial.variables) == algebra.monomial.count_variables(value.variables):
+                    if not found:
+                        if monomial.coefficient + value.coefficient != 0:
+                            result.monomials.append(monomial + value)
+                        found = True
+                else:
+                    result.monomials.append(monomial)
+            if not found:
+                result.monomials.append(value)
+            return result
         elif isinstance(value, Polynomial):
             result = algebra.Polynomial()
             
@@ -83,12 +74,13 @@ class Polynomial:
             result += self.numerical_term + value.numerical_term
             
             return result
-            
         elif isinstance(value, int):
             self.numerical_term += value
             return self
         elif isinstance(value, algebra.Variable):
             return self + algebra.Monomial(variables=value.name)
+        elif isinstance(value, Fraction):
+            return Fraction(value.numerator - (value.denominator*self), value.denominator)
         
         raise TypeError(f'Cannot add a Polynomial to {type(value)}')
     
@@ -97,28 +89,19 @@ class Polynomial:
 
     def __sub__(self, value):
         if isinstance(value, algebra.Monomial):
-            n=0
-            len_monomials = len(self.monomials)
-            for x in self.monomials:
-                try: # Optimize function?
-                    if algebra.monomial.count_variables(x.variables) == algebra.monomial.count_variables(value.variables):
-                        if self.monomials[self.monomials.index(x)].coefficient - value.coefficient != 0:
-                            self.monomials[self.monomials.index(x)] -= value
-                        else:
-                            del self.monomials[self.monomials.index(x)]
-                    else:
-                        raise ValueError
-                    break
-                except ValueError:
-                    pass
-                n+=1
-            if n >= len_monomials:
-                # No ha habido ninguno que concuerde
-                self.monomials.append(value)
-            
-            if len(self.monomials) == 0:
-                return self.numerical_term
-            return self
+            result = Polynomial(numerical_term=self.numerical_term)
+            found = False
+            for monomial in self.monomials:
+                if algebra.monomial.count_variables(monomial.variables) == algebra.monomial.count_variables(value.variables):
+                    if not found:
+                        if monomial.coefficient - value.coefficient != 0:
+                            result.monomials.append(monomial - value)
+                        found = True
+                else:
+                    result.monomials.append(monomial)
+            if not found:
+                result.monomials.append(value)
+            return result
         elif isinstance(value, Polynomial):
             result = Polynomial()
             
@@ -137,7 +120,8 @@ class Polynomial:
         elif isinstance(value, algebra.Variable):
             return self - algebra.Monomial(variables=value.name, coefficient=-1)
         elif isinstance(value, Fraction):
-            return Fraction(value.numerator-value.denominator*self, value.denominator)
+            frac = Fraction(1, value.denominator) * value.numerator + self
+            return frac
         
         raise TypeError(f'Cannot subtract a Polynomial to {type(value)}')
     
@@ -180,6 +164,16 @@ class Polynomial:
             
             return result
         elif isinstance(value, algebra.Variable):
+            result = Polynomial()
+            
+            for monomial in self.monomials:
+                result += monomial * value
+                
+            if self.numerical_term:
+                result += self.numerical_term * value
+            
+            return result
+        elif isinstance(value, Fraction):
             result = Polynomial()
             
             for monomial in self.monomials:

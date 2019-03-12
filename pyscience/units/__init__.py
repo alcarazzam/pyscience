@@ -72,7 +72,6 @@ class Unit:
                 if target_unit['offset']:
                     result -= target_unit['offset']
                 
-                #result = round(result, 3)
                 return Unit(name=unit.name, value=result)
                 
         raise BaseException
@@ -94,8 +93,7 @@ class Units:
     def __getattr__(self, name):
         if name.startswith(tuple([x['symbol'] for x in UNITS['prefix']])):
             for mag in UNITS['magnitude']:
-                if mag['use_prefixes'] and name.endswith(mag['unit']):#name[1:] == mag['unit']:
-                    print(mag)
+                if mag['use_prefixes'] and name.endswith(mag['unit']):
                     for fac in UNITS['prefix']:
                         if name.startswith(fac['symbol']):
                             factor = fac['value']

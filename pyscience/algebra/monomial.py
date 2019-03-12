@@ -114,7 +114,7 @@ def count_variables(expr):
         }
         >>>
     '''
-    R = {}
+    result = {}
     variables = []
     
     for x in list(expr):
@@ -122,9 +122,9 @@ def count_variables(expr):
             variables.append(x)
     
     for x in variables:
-        R[x] = expr.count(x)
+        result[x] = expr.count(x)
     
-    return R
+    return result
 
 class Monomial:
     
@@ -245,7 +245,9 @@ class Monomial:
         if isinstance(value, Monomial) and count_variables(value.variables) == count_variables(self.variables):
             return Monomial(coefficient=self.coefficient-value.coefficient, variables=self.variables)
         elif isinstance(value, algebra.Variable):
-            if value.name in self.variables:
+            if value.name == self.variables:
+                return Monomial(coefficient=self.coefficient-1, variables=self.variables)
+            elif value.name in self.variables:
                 s = subtract_str(self.variables, value.name)
                 return Monomial(coefficient=self.coefficient, variables=s)
             else:

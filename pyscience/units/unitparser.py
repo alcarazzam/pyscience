@@ -26,7 +26,7 @@ from pprint import pprint
 DEBUG = False
 
 class UnitParser:
-    # TODO
+    
     def __init__(self, filename=get_resource('units/units.txt')):
         
         with open(filename, 'r') as fd:
