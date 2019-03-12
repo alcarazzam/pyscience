@@ -22,8 +22,8 @@ SOFTWARE.
 '''
 from os import path
 
-__version__ = '0.3.0'
-__short_version__ = '0.3.0'
+__version__ = '0.3.0rc1'
+__short_version__ = '0.3'
 
 __author__ = 'Manuel Alcaraz Zambrano'
 

@@ -84,11 +84,6 @@ class Equation:
                     a, b = a.common_denominator(b)
                     return Equation(a.numerator, -b.numerator).solve()
                 
-                #elif isinstance(self.second_term, int):
-                #    a, b = self.first_term.common_denominator(Fraction(self.second_term,1))
-                #    return Equation(a.numerator, b.numerator).solve()
-                #elif isinstance(self.second_term, algebra.Polynomial):
-                #    
                 raise NotImplementedError
         
         raise NotImplementedError('Cannot solve a equation with a degree greater than 1')

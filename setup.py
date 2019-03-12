@@ -8,7 +8,6 @@ setuptools.setup(
     name='pyscience',
     version=pyscience.__version__,
     author='Manuel Alcaraz Zambrano',
-    #author_email="",
     description='python science programming',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -16,10 +15,11 @@ setuptools.setup(
     license='MIT',
     packages=setuptools.find_packages(),
     package_data={
-        'pyscience': ['chemistry/periodic_table.csv'],
+        'pyscience': ['chemistry/periodic_table.csv',
+                      'units/units.txt'],
     },
     python_requires='~=3.7',
-    install_requires=['prompt_toolkit'],
+    install_requires=['prompt_toolkit>=2.0.8'],
     entry_points={
         'console_scripts': [
             'pyscience=pyscience:__main__.run',

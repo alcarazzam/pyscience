@@ -62,13 +62,13 @@ def group_variables(expr):
     return R
 
 def subtract(expr1, expr2):
-    """Simplify expr1 from expr2, like a division.
+    '''Simplify expr1 from expr2, like a division.
 
        >>> subtract('xx','xy') # xy
        { 'x': 1,
          'y': 1
        }
-    """
+    '''
     R={}
     c1 = count_variables(expr1)
     c2 = count_variables(expr2)

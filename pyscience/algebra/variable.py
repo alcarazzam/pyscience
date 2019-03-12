@@ -60,7 +60,7 @@ class Variable:
         elif isinstance(value, int):
             return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name)], numerical_term=value)
         elif isinstance(value, Fraction):
-            return Fraction(value.numerator + self * value.denominator, value.denominator)
+            return Fraction(value.numerator + self*value.denominator, value.denominator)
         
         raise TypeError(f'Cannot add Variable to {type(value)}')
     
@@ -75,7 +75,7 @@ class Variable:
         elif isinstance(value, int):
             return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name),], numerical_term=-value)
         elif isinstance(value, Fraction):
-            return Fraction(value.numerator - self * value.denominator, value.denominator)
+            return Fraction(value.numerator - self*value.denominator, value.denominator)
         
         raise ValueError(f'Cannot subtract Variable to {type(value)}')
     

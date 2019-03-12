@@ -91,15 +91,6 @@ class Units:
         pass
     
     def __getattr__(self, name):
-        if name.startswith(tuple([x['symbol'] for x in UNITS['prefix']])):
-            for mag in UNITS['magnitude']:
-                if mag['use_prefixes'] and name.endswith(mag['unit']):
-                    for fac in UNITS['prefix']:
-                        if name.startswith(fac['symbol']):
-                            factor = fac['value']
-                    factor = float(eval(factor))
-                    return Unit(name=name, factor=factor, unit=name, type_=mag['name'])
-        
         for mag in UNITS['magnitude']:
             if name in mag['units']:
                 return Unit(name=name, unit=name, offset=mag['units'][name]['offset'], factor=mag['units'][name]['factor'], type_=mag['name'])
@@ -111,6 +102,15 @@ class Units:
                         factor = fac['value']
                 factor = float(factor)
                 return Unit(name=name, factor=factor, unit=name[1:], type_=mag['name'])
+        
+        if name.startswith(tuple([x['symbol'] for x in UNITS['prefix']])):
+            for mag in UNITS['magnitude']:
+                if mag['use_prefixes'] and name.endswith(mag['unit']):
+                    for fac in UNITS['prefix']:
+                        if name.startswith(fac['symbol']):
+                            factor = fac['value']
+                    factor = float(eval(factor))
+                    return Unit(name=name, factor=factor, unit=name, type_=mag['name'])
         
         raise ValueError(f'Unit "{name}" does not exit') # Or it is not implemented yet
 

@@ -88,6 +88,7 @@ Expected date: about March 20 2019.
 - Create branches for development. Version 0.3 is located in the ``v0.3``
   branch.
 - Improve pyscience.math.number.Expression class
+- Improve pyscience.algebra
 
 #### Deprecated
 
