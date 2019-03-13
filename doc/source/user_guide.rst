@@ -103,22 +103,41 @@ Working with chemical elements
 Pyscience can show you basic information about chemical elements. You can do it
 with the ``CE`` function::
 
-    > CE(‘H’) # Get element by its symbol
+    > CE('H') # Get element by its symbol
     ...
     > CE('Silicon') # Get element by its name
     ...
 
 If you want to set a specific mass for the element, indicate that between brackets::
 
-    > CE(‘Si(32)’) # Set mass to 32
+    > CE('Si(32)') # Set mass to 32
     ...
 
 Also, you can work with elements which have charge::
 
-    > CE(‘Si2+’)
+    > CE('Si2+')
     ...
 
 If you know the atomic number of a element but not the symbol, you can get the
 element by its atomic number::
 
     > CE(20) # Calcium (Ca)
+
+Converting units
+----------------
+You can convert between different units with the ``Units`` class::
+
+    > 3 Units.cm
+    3 cm
+    > (3 Units.cm).to(Units.m)
+    0.03 m
+
+Available units:
+
+- Length: Tm, Gm, Mm, km, hm, dam, m, dm, cm, mm, μm, nm, pm
+- Volume: like length, but using a ``l``
+- Meter squared: like length, but using ``m_2``
+- Meter cubic: like length, but using ``m_3``
+- Temperature: K, ºC, ºF
+- Time: s, min, hour, day
+- File size: B, KiB, MiB, GiB, TiB, PiB

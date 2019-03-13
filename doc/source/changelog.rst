@@ -2,8 +2,8 @@ Changelog
 =========
 Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.1.0.dev4
 
-[UNRELEASED] Version 0.3
-------------------------
+[UNRELEASED] Version 0.3.0rc1
+-----------------------------
 
 Expected date: about March 20 2019.
 
