@@ -42,45 +42,45 @@ def fractions(a, b):
 
 class Equation:
     
-    def __init__(self, first_term, second_term=0):
-        self.first_term = first_term
-        self.second_term = second_term
+    def __init__(self, first_member, second_member=0):
+        self.first_member = first_member
+        self.second_member = second_member
         
     @property
     def degree(self):
         '''Return the degree of the Equation'''
-        return max(get_degree(self.first_term), get_degree(self.second_term))
+        return max(get_degree(self.first_member), get_degree(self.second_member))
     
     def solve(self):
         '''Return the solution of the Equation'''
-        first_term = copy.deepcopy(self.first_term)
-        second_term = copy.deepcopy(self.second_term)
+        first_member = copy.deepcopy(self.first_member)
+        second_member = copy.deepcopy(self.second_member)
         
-        if second_term != 0:
-            first_term = first_term - second_term
-            second_term = 0
+        if second_member != 0:
+            first_member = first_member - second_member
+            second_member = 0
         
-        if get_degree(first_term) <= 1:
+        if get_degree(first_member) <= 1:
             # First-degree equation
-            if isinstance(first_term, algebra.Monomial):
+            if isinstance(first_member, algebra.Monomial):
                 return 0
-            elif isinstance(first_term, int):
+            elif isinstance(first_member, int):
                 return None
-            elif isinstance(first_term, algebra.Polynomial):
+            elif isinstance(first_member, algebra.Polynomial):
                 # Check if the number of variables is 1
-                if len(first_term.list_of_variables) != 1:
+                if len(first_member.list_of_variables) != 1:
                     raise NotImplementedError('Cannot solve a equation with more than one variable')
                 
-                if first_term.numerical_term % first_term.monomials[0].coefficient == 0:
-                    return -(first_term.numerical_term // first_term.monomials[0].coefficient)
-                return -Fraction(first_term.numerical_term, first_term.monomials[0].coefficient)
-            elif isinstance(self.first_term, Fraction):
-                if isinstance(self.second_term, (int, Fraction)):
-                    a, b = fractions(self.first_term, self.second_term)
+                if first_member.numerical_term % first_member.monomials[0].coefficient == 0:
+                    return -(first_member.numerical_term // first_member.monomials[0].coefficient)
+                return -Fraction(first_member.numerical_term, first_member.monomials[0].coefficient)
+            elif isinstance(self.first_member, Fraction):
+                if isinstance(self.second_member, (int, Fraction)):
+                    a, b = fractions(self.first_member, self.second_member)
                     a, b = a.common_denominator(b)
                     return Equation(a.numerator, b.numerator).solve()
-                elif isinstance(self.second_term, algebra.Polynomial):
-                    a, b = fractions(self.first_term, self.second_term)
+                elif isinstance(self.second_member, algebra.Polynomial):
+                    a, b = fractions(self.first_member, self.second_member)
                     a, b = a.common_denominator(b)
                     return Equation(a.numerator, -b.numerator).solve()
                 
@@ -89,7 +89,7 @@ class Equation:
         raise NotImplementedError('Cannot solve a equation with a degree greater than 1')
     
     def __str__(self):
-        return f'Eq({self.first_term} = {self.second_term})\nSolution: {self.solve()}'
+        return f'Eq({self.first_member} = {self.second_member})\nSolution: {self.solve()}'
     
     def __repr__(self):
-        return f'<Equation {self.first_term} = {self.second_term}>'
+        return f'<Equation {self.first_member} = {self.second_member}>'
