@@ -83,7 +83,7 @@ Expected date: about March 20 2019.
 
 #### Fixed
 
-### [UNRELEASED] Version 0.3
+### [UNRELEASED] Version 0.4
 Expected date: about March 20 2019.
 #### Added
 - New pyscience.math functions
