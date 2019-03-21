@@ -21,11 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-import sys, traceback, argparse
+import sys
+import traceback
+import argparse
 import pyscience
 from pyscience.interpreter import PyscienceInterpreter
-
-
 
 def main(args):
     if args.version:
@@ -38,7 +38,7 @@ def main(args):
     print(f'''pyscience {pyscience.__version__} Copyright (C) 2019  Manuel Alcaraz Zambrano
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
-under certain conditions; type `license' for details.
+under certain conditions; type `license` for details.
 ''')
     
     interpreter = PyscienceInterpreter()
@@ -47,7 +47,7 @@ under certain conditions; type `license' for details.
         print('Debug mode is on\n')
     
     while 1:
-        cmd = input('> ')
+        cmd = interpreter.input()
         
         if cmd in ('q', 'quit', 'exit'):
             break
@@ -62,7 +62,7 @@ under certain conditions; type `license' for details.
 def run():
     parser = argparse.ArgumentParser(prog='pyscience', description='python science programming')
     
-    parser.add_argument("-d", "--debug", help="show aditional information for developers", action="store_true")
+    parser.add_argument("-d", "--debug", help="show additional information for developers", action="store_true")
     parser.add_argument("-v", "--version", help="show version and exits", action="store_true")
     
     args = parser.parse_args()

@@ -1,5 +1,4 @@
-"""
-pydatam - python data manager
+'''
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +18,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-"""
+'''
 
 # TODO: Data is in a very alpha status
 
@@ -32,34 +31,44 @@ def get_type_of(s):
         return float
     return str
 
-# TODO: 'and' operator
+def boolean(v):
+    return len(v) == sum(v)
+
 class Condition():
-    def __init__(self, value):
+    def __init__(self, value, match=None):
         self.value = value
-        
+        self.match = match
+    
+    def __call__(self, value):
+        bools = [x(value) for x in self.match]
+        return boolean(bools)
+    
+    def __and__(self, cond):
+        return Condition(self.value, self.match + [cond])
+    
     def __eq__(self, v):
         ''' == '''
-        return lambda x: x[self.value] == v
+        return Condition(self.value, [lambda x: x[self.value] == v])
     
     def __gt__(self, v):
         ''' > '''
-        return lambda x: x[self.value] > v
+        return Condition(self.value, [lambda x: x[self.value] > v])
     
     def __lt__(self, v):
         ''' < '''
-        return lambda x: x[self.value] < v
+        return Condition(self.value, [lambda x: x[self.value] < v])
     
     def __le__(self, v):
         ''' <= '''
-        return lambda x: x[self.value] <= v
+        return Condition(self.value, [lambda x: x[self.value] <= v])
     
     def __ne__(self, v):
         ''' != '''
-        return lambda x: x[self.value] != v
+        return Condition(self.value, [lambda x: x[self.value] != v])
     
     def __ge__(self, v):
         ''' >= '''
-        return lambda x: x[self.value] >= v
+        return Condition(self.value, [lambda x: x[self.value] >= v])
     
     def __str__(self):
         return f'Condition("{self.value}")'

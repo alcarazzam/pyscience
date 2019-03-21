@@ -21,11 +21,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-
+from pyscience import get_resource
 from pyscience.datam import Data, Condition as C
 from os import path
 
-periodic_table = Data(path.join(path.split(path.abspath(__file__))[0], 'periodic_table.csv'))
+periodic_table = Data(get_resource('chemistry/periodic_table.csv'))
+
+
+def number_index(a):
+    '''Return index of the first number in the string ``a``'''
+    for n, x in enumerate(list(a)):
+        if x in '1234567890':
+            return n
+    return -1
 
 def split_element_symbol(e):
     charge = None
@@ -33,18 +41,17 @@ def split_element_symbol(e):
     element = e
     
     if '(' in e:
-        # Se ha especificado la masa
+        # Mass
         element = e.split('(')
         mass, charge = element[1].split(')')
         element = element[0]
-    else:
-        if '+' in e or '-' in e:
-            if e[1] in list('123456789'):
-                element = e[0]
-                charge = e[1:]
-            else:
-                element = e[0:1]
-                charge = e[2:]
+    
+    if '+' in e or '-' in e:
+        # Charge
+        i = number_index(e)
+        element = element[:i]
+        if not charge:
+            charge = e[i:]
     
     return element, charge, mass
 
@@ -66,15 +73,18 @@ class ChemicalElement():
                 else:
                     self.charge = int(charge[:-1] or 1)
             
-            e = periodic_table.where(C('symbol') == name)
+            if len(name) > 2:
+                e = periodic_table.where(C('name') == name.lower())
+            else:
+                e = periodic_table.where(C('symbol') == name)
         elif isinstance(element, int):
             if not 0 < element < 120:
-                raise ValueError(f'Element with atomic number {element} doesn\'t exist')
+                raise ValueError(f'Element with atomic number {element} does not exist')
             
             e = periodic_table.where(C('atomic_number') == element)
         
         if not e:
-            raise ValueError(f'Element "{element}" doesn\'t exist')
+            raise ValueError(f'Element "{element}" does not exist')
         
         e = e[0]
         
@@ -105,7 +115,7 @@ class ChemicalElement():
     @property
     def electrons(self):
         if self.charge:
-            # Iones
+            # Ions
             return self.protons - self.charge
         return self.protons
     

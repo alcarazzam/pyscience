@@ -75,6 +75,9 @@ class Fraction():
         
         return NotImplemented
     
+    def __rsub__(self, value):
+        return self.__sub__(value)
+    
     def __mul__(self, value):
         if isinstance(value, int):
             return Fraction(self.numerator*value, self.denominator).simplify()

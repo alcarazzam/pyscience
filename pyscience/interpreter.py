@@ -27,13 +27,16 @@ from pyscience import parser
 from pyscience.algebra import get_variables
 from pyscience.algebra.equation import Equation
 from pyscience.chemistry.element import ChemicalElement
-from pyscience.math import Fraction, Div
-from pyscience.math.number import ABS, SQRT
+from pyscience.math import Fraction, Div, MATH_FUNCTIONS
+from pyscience.units import Units
+
+from prompt_toolkit import PromptSession
 
 class PyscienceInterpreter:
     
     def __init__(self):
         self._globals = {}
+        self.session = PromptSession()
         
         # Variables
         for variable in get_variables('x y z a b c n m l'):
@@ -47,10 +50,16 @@ class PyscienceInterpreter:
         # Fractions
         self._globals['F'] = Fraction
         
+        # Units
+        self._globals['Units'] = Units()
+        
         # Math
         self._globals['Div'] = Div
-        self._globals['ABS'] = ABS
-        self._globals['SQRT'] = SQRT
+        for func in MATH_FUNCTIONS:
+            self._globals[func] = MATH_FUNCTIONS[func]
+    
+    def input(self):
+        return self.session.prompt('> ')
             
     def print_exception(self):
         type, value, tb = sys.exc_info()
