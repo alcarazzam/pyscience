@@ -72,7 +72,7 @@ Pyscience is in current development. Future features:
 
 ## History
 ### [UNRELEASED] Version 0.4
-Expected date: about April 20 2019.
+Expected date: about May 1 2019.
 #### Added
 
 #### Changed

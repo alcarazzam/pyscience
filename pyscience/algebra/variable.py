@@ -31,6 +31,23 @@ class Variable:
     
     def __init__(self, *args, **kwargs):
         self.name = kwargs.get('name', 'x')
+        
+    def evaluate(self, **kwargs):
+        '''
+        Evaluate the expression for the given values. Example:
+        
+        >>> x = Variable(name='x')
+        >>> x.evaluate(x=3)
+        3
+        >>> x.evaluate(y=6)
+        x # Type: Variable
+        '''
+        items = kwargs.keys()
+        
+        if self.name in list(items):
+            return kwargs.get(self.name)
+        
+        return self
     
     def __mul__(self, value):
         if isinstance(value, algebra.Monomial):

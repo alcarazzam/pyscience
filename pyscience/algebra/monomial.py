@@ -126,12 +126,21 @@ def count_variables(expr):
     
     return result
 
+
 class Monomial:
     
     def __init__(self, *args, **kwargs):
         self.variables = kwargs.get('variables', '')
         self.coefficient = kwargs.get('coefficient', 1)
-    
+        
+    def evaluate(self, **kwargs):
+        result = self.coefficient
+        
+        for val in list(self.variables):
+            result *= algebra.Variable(val).evaluate(**{val: kwargs.get(val)})
+        
+        return result
+        
     @property
     def degree(self):
         return sum(count_variables(self.variables).values())
@@ -191,7 +200,7 @@ class Monomial:
                 else:
                     return Monomial(coefficient=Fraction(self.coefficient, value.coefficient), variables=v)
             else:
-                # Hay que devolver una fracción con letras
+                # Return a fraction with variables
                 m = gcd(self.coefficient, value.coefficient)
                 if m != 1:
                     self.coefficient //= m
