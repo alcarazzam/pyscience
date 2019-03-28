@@ -1,8 +1,8 @@
 # Pyscience
 
 Pyscience is a easy python library and command-line application to work with
-mathematical operations and other science related programming. Also you can manage
-CSV data with the datam module.
+mathematical operations and other science related programming. Also you can
+manage CSV data with the datam module.
 
 Pyscience requires Python 3.7+ to work.
 
@@ -45,7 +45,7 @@ variables:
 Or get Chemical Elements information with the ``CE`` function:
 
     # Returns chemical element with symbol ‘H’
-    > CE(‘H’) 
+    > CE(‘H’)
     ...
     # Returns chemical element with atomic number 2
     > CE(2)
@@ -74,6 +74,7 @@ Pyscience is in current development. Future features:
 ### [UNRELEASED] Version 0.4
 Expected date: about May 1 2019.
 #### Added
+- Add tests.
 
 #### Changed
 
@@ -82,6 +83,7 @@ Expected date: about May 1 2019.
 #### Removed
 
 #### Fixed
+- Fix parser error.
 
 ### [UNRELEASED] Version 0.3
 Expected date: about March 20 2019.
