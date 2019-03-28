@@ -28,14 +28,14 @@ from pyscience import algebra
 from pyscience.math import Fraction
 
 class Variable:
-    
+
     def __init__(self, *args, **kwargs):
         self.name = kwargs.get('name', 'x')
-        
+
     def evaluate(self, **kwargs):
         '''
         Evaluate the expression for the given values. Example:
-        
+
         >>> x = Variable(name='x')
         >>> x.evaluate(x=3)
         3
@@ -43,12 +43,12 @@ class Variable:
         x # Type: Variable
         '''
         items = kwargs.keys()
-        
+
         if self.name in list(items):
             return kwargs.get(self.name)
-        
-        return self
-    
+
+        return Variable(name=self.name)
+
     def __mul__(self, value):
         if isinstance(value, algebra.Monomial):
             return algebra.Monomial(variables=value.variables + self.name, coefficient=value.coefficient)
@@ -60,7 +60,7 @@ class Variable:
             return algebra.Monomial(variables=self.name, coefficient=value)
         elif isinstance(value, algebra.Polynomial):
             return value * self
-        
+
         raise TypeError(f'Cannot multiply Variable by {type(value)}')
 
     def __add__(self, value):
@@ -78,9 +78,9 @@ class Variable:
             return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name)], numerical_term=value)
         elif isinstance(value, Fraction):
             return Fraction(value.numerator + self*value.denominator, value.denominator)
-        
+
         raise TypeError(f'Cannot add Variable to {type(value)}')
-    
+
     def __radd__(self, value):
         return self.__add__(value)
 
@@ -93,41 +93,41 @@ class Variable:
             return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name),], numerical_term=-value)
         elif isinstance(value, Fraction):
             return Fraction(value.numerator - self*value.denominator, value.denominator)
-        
+
         raise ValueError(f'Cannot subtract Variable to {type(value)}')
-    
+
     def __rsub__(self, value):
         return (-self) + value
-    
+
     def __truediv__(self, value):
         if isinstance(value, (int, Variable)):
             return Fraction(self, value)
-        
+
         raise ValueError(f'Cannot divide a Variable by {type(value)}')
-    
+
     def __rtruediv__(self, value):
         if isinstance(value, (int, value)):
             return Fraction(value, self)
-        
+
         raise ValueError(f'Cannot divide a {type(value)} by a Variable')
 
     def __pow__(self, value, mod=None):
         if mod:
             raise NotImplementedError
-        
+
         return algebra.Monomial(variables=self.name*value)
-    
+
     def __rmul__(self, value):
         return self.__mul__(value)
 
     def __neg__(self):
         return algebra.Monomial(variables=self.name, coefficient=-1)
-    
+
     def __pos__(self):
         return self
-    
+
     def __str__(self):
         return self.name
-    
+
     def __repr__(self):
         return f'<Variable {self.name}>'

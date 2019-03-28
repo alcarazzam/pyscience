@@ -32,11 +32,19 @@ class Polynomial:
     def __init__(self, *args, **kwargs):
         self.monomials = kwargs.get('monomials', [])
         self.numerical_term = kwargs.get('numerical_term', 0)
-    
+
+    def evaluate(self, **kwargs):
+        result = self.numerical_term
+
+        for m in self.monomials:
+            result += m.evaluate(**kwargs)
+
+        return result
+
     @property
     def degree(self):
         return max([x.degree for x in self.monomials])
-    
+
     @property
     def list_of_variables(self):
         # TODO: Optimize function.
@@ -64,15 +72,15 @@ class Polynomial:
             return result
         elif isinstance(value, Polynomial):
             result = algebra.Polynomial()
-            
+
             for monomial in self.monomials:
                 result += monomial
-            
+
             for monomial in value.monomials:
                 result += monomial
-            
+
             result += self.numerical_term + value.numerical_term
-            
+
             return result
         elif isinstance(value, int):
             self.numerical_term += value
@@ -81,9 +89,9 @@ class Polynomial:
             return self + algebra.Monomial(variables=value.name)
         elif isinstance(value, Fraction):
             return Fraction(value.numerator - (value.denominator*self), value.denominator)
-        
+
         raise TypeError(f'Cannot add a Polynomial to {type(value)}')
-    
+
     def __radd__(self, value):
         return self + value
 
@@ -104,15 +112,15 @@ class Polynomial:
             return result
         elif isinstance(value, Polynomial):
             result = Polynomial()
-            
+
             for monomial in self.monomials:
                 result -= monomial
-            
+
             for monomial in value.monomials:
                 result -= monomial
-            
+
             result.numerical_term += self.numerical_term - value.numerical_term
-            
+
             return result
         elif isinstance(value, int):
             self.numerical_term -= value
@@ -122,9 +130,9 @@ class Polynomial:
         elif isinstance(value, Fraction):
             frac = Fraction(1, value.denominator) * value.numerator + self
             return frac
-        
+
         raise TypeError(f'Cannot subtract a Polynomial to {type(value)}')
-    
+
     def __rsub__(self, value):
         return self.__sub__(value)
 
@@ -140,69 +148,69 @@ class Polynomial:
             return Fraction(self, value)
         elif isinstance(value, Polynomial):
             raise NotImplementedError
-        
+
         return TypeError(f'Cannot divide a Polynomial by {type(value)}')
 
     def __mul__(self, value):
         if isinstance(value, (algebra.Monomial, int)):
             result = algebra.Polynomial()
-            
+
             for monomial in self.monomials:
                 result += monomial * value
-            
+
             if self.numerical_term:
                 result += self.numerical_term * value
-            
+
             return result
         elif isinstance(value, Polynomial):
             result = algebra.Polynomial()
-            
+
             for monomial in self.monomials:
                 result += monomial * value
-                
+
             result += self.numerical_term * value
-            
+
             return result
         elif isinstance(value, algebra.Variable):
             result = Polynomial()
-            
+
             for monomial in self.monomials:
                 result += monomial * value
-                
+
             if self.numerical_term:
                 result += self.numerical_term * value
-            
+
             return result
         elif isinstance(value, Fraction):
             result = Polynomial()
-            
+
             for monomial in self.monomials:
                 result += monomial * value
-                
+
             if self.numerical_term:
                 result += self.numerical_term * value
-            
+
             return result
-        
+
         raise TypeError(f'Cannot multiply a Polynomial by {type(value)}')
-    
+
     def __rmul__(self, value):
         return self * value
 
     def __pow__(self, value, mod=None):
         if mod:
             raise NotImplementedError
-        
+
         return Polynomial(monomials=[x ** value for x in self.monomials], numerical_term=self.numerical_term ** value)
-        
+
     def __str__(self):
         result = ''.join(['+'+str(x) if x.coefficient > 0 else str(x) for x in self.monomials])
         result += (str(self.numerical_term) if self.numerical_term < 0 else '+' + str(self.numerical_term)) if self.numerical_term else ''
         return result
-        
+
     def __neg__(self):
         return Polynomial(monomials=[-x for x in self.monomials], numerical_term=-self.numerical_term)
-    
+
     def __pos__(self):
         return self
 
