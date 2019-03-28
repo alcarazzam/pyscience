@@ -46,16 +46,16 @@ def split_expression(expr):
     tmp = ''
     result = []
     last = None
-    
+
     for c in list(expr):
         if last_type == 'str' and c != "'":
             tmp += c
             continue
-        if c in list('1234567890'):
+        if c in '1234567890':
             typ = 'number'
         elif last_type == 'number' and c == '.':
             typ = 'number'
-        elif c in list('+-*/'):
+        elif c in '+-*/':
             typ = 'operator'
         elif c == '.' and last_type == 'upper':
             pass
@@ -73,44 +73,44 @@ def split_expression(expr):
                 typ = 'none'
             elif last_type == 'upper':
                 typ = 'upper'
-            
+
         elif c == '(' and last_type == 'upper':
             pass
-        elif c in list('¹²³⁴⁵⁶⁷⁸⁹⁰()'):
+        elif c in '¹²³⁴⁵⁶⁷⁸⁹⁰()':
             typ = 'none'
         elif c == "'":
             if last_type != 'str':
                 typ = 'str'
             else:
                 result.append(tmp+c)
-                last_type = 'str'
+                last_type = 'none'
                 tmp = ''
                 continue
         else:
             typ = 'string'
-        
+
         if typ != last_type or typ == 'none':
             result.append(tmp)
             tmp = ''
             last_type = typ
         tmp += c
         last = c
-    
+
     if tmp:
         result.append(tmp)
-    
+
     return result[1:]
 
 def expand(expr):
     expr = expr.replace(' ', '')
     expr = split_expression(expr)
-    
+
     if pyscience.DEBUG:
         print('split:', expr)
-    
+
     last_type = None
     result = ''
-    
+
     for x in expr:
         if not x:
             continue
@@ -138,7 +138,7 @@ def expand(expr):
             typ = 'attr'
         else:
             raise SyntaxError("'" + x + "'")
-        
+
         if last_type in ('variable', 'exponent', 'symbol') and typ in ('number', 'variable'):
             result += '*'
         elif last_type == 'number' and typ in ('variable', 'attr'):
@@ -151,8 +151,8 @@ def expand(expr):
             result += str(EXPONENTS[x])
             last_type = 'exponent'
             continue
-        
+
         result += x
         last_type = typ
-    
+
     return result
