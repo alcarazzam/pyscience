@@ -85,8 +85,8 @@ Expected date: about May 1 2019.
 #### Fixed
 - Fix parser error.
 
-### [UNRELEASED] Version 0.3
-Expected date: about March 20 2019.
+### Version 0.3 (March 21st 2019)
+
 #### Added
 - New pyscience.math functions
 - Add better cursor support and sessions with the ``prompt_toolkit``

@@ -1,11 +1,20 @@
 Changelog
 =========
-Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.1.0.dev4
+Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.3.0
 
-[UNRELEASED] Version 0.3.0rc1
------------------------------
+[UNRELEASED] Version 0.4
+------------------------
 
-Expected date: about March 20 2019.
+Added
+^^^^^
+- Add tests.
+
+Fixed
+^^^^^
+- Fix parser error.
+
+Version 0.3.0rc1 (March 21st 2019)
+----------------------------------
 
 Added
 ^^^^^
@@ -24,14 +33,6 @@ Changed
   branch.
 - Improve pyscience.math.number.Expression class
 
-Deprecated
-^^^^^^^^^^
-
-Removed
-^^^^^^^
-
-Fixed
-^^^^^
 
 Version 0.2.0.dev1
 ------------------
