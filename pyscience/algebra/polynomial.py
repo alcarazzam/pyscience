@@ -1,4 +1,4 @@
-'''
+"""
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,14 +19,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-'''
-'''
-Created by Manuel Alcaraz on 22 May, 2018
-'''
+"""
 
 from pyscience import algebra
 from pyscience.algebra.monomial import count_variables
 from pyscience.math.fraction import Fraction
+
 
 class Polynomial:
     def __init__(self, *args, **kwargs):
@@ -60,7 +58,8 @@ class Polynomial:
             result = Polynomial(numerical_term=self.numerical_term)
             found = False
             for monomial in self.monomials:
-                if algebra.monomial.count_variables(monomial.variables) == algebra.monomial.count_variables(value.variables):
+                if algebra.monomial.count_variables(monomial.variables) == algebra.monomial.count_variables(
+                        value.variables):
                     if not found:
                         if monomial.coefficient + value.coefficient != 0:
                             result.monomials.append(monomial + value)
@@ -88,7 +87,7 @@ class Polynomial:
         elif isinstance(value, algebra.Variable):
             return self + algebra.Monomial(variables=value.name)
         elif isinstance(value, Fraction):
-            return Fraction(value.numerator - (value.denominator*self), value.denominator)
+            return Fraction(value.numerator - (value.denominator * self), value.denominator)
 
         raise TypeError(f'Cannot add a Polynomial to {type(value)}')
 
@@ -100,7 +99,8 @@ class Polynomial:
             result = Polynomial(numerical_term=self.numerical_term)
             found = False
             for monomial in self.monomials:
-                if algebra.monomial.count_variables(monomial.variables) == algebra.monomial.count_variables(value.variables):
+                if algebra.monomial.count_variables(monomial.variables) == algebra.monomial.count_variables(
+                        value.variables):
                     if not found:
                         if monomial.coefficient - value.coefficient != 0:
                             result.monomials.append(monomial - value)
@@ -204,8 +204,9 @@ class Polynomial:
         return Polynomial(monomials=[x ** value for x in self.monomials], numerical_term=self.numerical_term ** value)
 
     def __str__(self):
-        result = ''.join(['+'+str(x) if x.coefficient > 0 else str(x) for x in self.monomials])
-        result += (str(self.numerical_term) if self.numerical_term < 0 else '+' + str(self.numerical_term)) if self.numerical_term else ''
+        result = ''.join(['+' + str(x) if x.coefficient > 0 else str(x) for x in self.monomials])
+        result += (str(self.numerical_term) if self.numerical_term < 0 else '+' + str(
+            self.numerical_term)) if self.numerical_term else ''
         return result
 
     def __neg__(self):

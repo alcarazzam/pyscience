@@ -1,4 +1,4 @@
-'''
+"""
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,20 +19,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-'''
+"""
 from pyscience import get_resource
 from pprint import pprint
 
 DEBUG = False
 
+
 class UnitParser:
-    
+
     def __init__(self, filename=get_resource('units/units.txt')):
-        
+
         with open(filename, 'r') as fd:
             self.fc = fd.read()
-    
-    def split_line(self, line): # TODO: Optimize?
+
+    @staticmethod
+    def split_line(line):  # TODO: Optimize?
         if line == '':
             return line, 0
         s = line.split(' ')
@@ -40,18 +42,17 @@ class UnitParser:
         for x in s:
             if x != '':
                 break
-            n+=1
+            n += 1
         return line[n:], n
-    
+
     def parse(self):
-        tabindex = 0
-        result = {'prefix':[], 'magnitude':[]}
+        result = {'prefix': [], 'magnitude': []}
         last_tabindex = 0
         tmp = {}
-        
+
         for line in self.fc.splitlines():
             ln, tabindex = self.split_line(line)
-            
+
             if ln.startswith('#'):
                 continue
             if tabindex == 0:
@@ -68,7 +69,7 @@ class UnitParser:
                 if typ == 'prefix':
                     name, value = [x.strip() for x in ln.split(' ')]
                     tmp[name] = value
-                    
+
                 elif typ == 'magnitude':
                     if ln.startswith('unit '):
                         name, value = ln.split()
@@ -79,7 +80,7 @@ class UnitParser:
                         else:
                             tmp['use_prefixes'] = True
                     elif ln.startswith('def unit '):
-                        terms = [x.strip() for x in ln[8:][len(ln.split()[2])+1:].split(';')]
+                        terms = [x.strip() for x in ln[8:][len(ln.split()[2]) + 1:].split(';')]
                         offset = 0
                         factor = 1
                         for term in terms:
@@ -87,17 +88,17 @@ class UnitParser:
                                 offset = float(term.split()[1])
                             elif term.startswith('factor'):
                                 factor = float(eval(term[6:]))
-                        
+
                         tmp['units'][ln.split()[2]] = {'factor': factor, 'offset': offset}
-            
+
             if last_tabindex > tabindex:
                 if tmp:
                     result[typ].append(tmp)
                 tmp = {}
-            
+
             last_tabindex = tabindex
-        
+
         if DEBUG:
             pprint(result)
-        
+
         return result

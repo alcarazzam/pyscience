@@ -2,6 +2,7 @@ import unittest
 
 from pyscience.algebra import Variable, Monomial, Polynomial
 
+
 class TestAlgebra(unittest.TestCase):
 
     def test_evaluate(self):

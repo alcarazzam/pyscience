@@ -1,4 +1,4 @@
-'''
+"""
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,36 +19,36 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-'''
+"""
 
-import sys
-import traceback
 import argparse
+
 import pyscience
 from pyscience.interpreter import PyscienceInterpreter
+
 
 def main(args):
     if args.version:
         print(f'pyscience {pyscience.__version__}')
         return
-    
+
     if args.debug:
         pyscience.DEBUG = True
-    
+
     print(f'''pyscience {pyscience.__version__} Copyright (C) 2019  Manuel Alcaraz Zambrano
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions; type `license` for details.
 ''')
-    
+
     interpreter = PyscienceInterpreter()
-    
+
     if pyscience.DEBUG:
         print('Debug mode is on\n')
-    
+
     while 1:
         cmd = interpreter.input()
-        
+
         if cmd in ('q', 'quit', 'exit'):
             break
         elif cmd == 'license':
@@ -56,18 +56,20 @@ under certain conditions; type `license` for details.
             continue
         elif not cmd:
             continue
-        
+
         interpreter.exec_function(cmd)
+
 
 def run():
     parser = argparse.ArgumentParser(prog='pyscience', description='python science programming')
-    
-    parser.add_argument("-d", "--debug", help="show additional information for developers", action="store_true")
-    parser.add_argument("-v", "--version", help="show version and exits", action="store_true")
-    
+
+    parser.add_argument('-d', '--debug', help='show additional information for developers', action='store_true')
+    parser.add_argument('-v', '--version', help='show version and exits', action='store_true')
+
     args = parser.parse_args()
-    
+
     main(args)
+
 
 if __name__ == '__main__':
     run()

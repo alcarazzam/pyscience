@@ -20,19 +20,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-"""
-Created by Manuel Alcaraz on 22 May, 2018
-"""
-
 from pyscience.algebra.variable import Variable
 from pyscience.algebra.monomial import Monomial
 from pyscience.algebra.polynomial import Polynomial
 
 
 def get_variables(names):
-    R=[]
+    result = []
     for x in names.split():
-        R.append(Variable(name=x))
-    return R
-
-
+        result.append(Variable(name=x))
+    return result

@@ -1,4 +1,4 @@
-'''
+"""
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,13 +19,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-'''
-'''
-Created by Manuel Alcaraz on 22 May, 2018
-'''
+"""
 
 from pyscience import algebra
 from pyscience.math import Fraction
+
 
 class Variable:
 
@@ -33,7 +31,7 @@ class Variable:
         self.name = kwargs.get('name', 'x')
 
     def evaluate(self, **kwargs):
-        '''
+        """
         Evaluate the expression for the given values. Example:
 
         >>> x = Variable(name='x')
@@ -41,7 +39,7 @@ class Variable:
         3
         >>> x.evaluate(y=6)
         x # Type: Variable
-        '''
+        """
         items = kwargs.keys()
 
         if self.name in list(items):
@@ -66,18 +64,19 @@ class Variable:
     def __add__(self, value):
         if isinstance(value, algebra.Monomial):
             if value.variables == self.name:
-                return algebra.Monomial(coefficient=1+value.coefficient, variables=self.name)
+                return algebra.Monomial(coefficient=1 + value.coefficient, variables=self.name)
             else:
                 return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name), value])
         elif isinstance(value, Variable):
             if value.name == self.name:
                 return algebra.Monomial(coefficient=2, variables=self.name)
             else:
-                return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name), algebra.Monomial(variables=value.name)])
+                return algebra.Polynomial(
+                    monomials=[algebra.Monomial(variables=self.name), algebra.Monomial(variables=value.name)])
         elif isinstance(value, int):
             return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name)], numerical_term=value)
         elif isinstance(value, Fraction):
-            return Fraction(value.numerator + self*value.denominator, value.denominator)
+            return Fraction(value.numerator + self * value.denominator, value.denominator)
 
         raise TypeError(f'Cannot add Variable to {type(value)}')
 
@@ -86,13 +85,13 @@ class Variable:
 
     def __sub__(self, value):
         if isinstance(value, algebra.Monomial) and value.variables == self.name:
-            return algebra.Monomial(coefficient=1-value.coefficient, variables=self.name)
+            return algebra.Monomial(coefficient=1 - value.coefficient, variables=self.name)
         elif isinstance(value, Variable) and value.name == self.name:
             return 0
         elif isinstance(value, int):
-            return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name),], numerical_term=-value)
+            return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name), ], numerical_term=-value)
         elif isinstance(value, Fraction):
-            return Fraction(value.numerator - self*value.denominator, value.denominator)
+            return Fraction(value.numerator - self * value.denominator, value.denominator)
 
         raise ValueError(f'Cannot subtract Variable to {type(value)}')
 
@@ -115,7 +114,7 @@ class Variable:
         if mod:
             raise NotImplementedError
 
-        return algebra.Monomial(variables=self.name*value)
+        return algebra.Monomial(variables=self.name * value)
 
     def __rmul__(self, value):
         return self.__mul__(value)

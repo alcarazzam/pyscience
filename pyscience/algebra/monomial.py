@@ -1,4 +1,4 @@
-'''
+"""
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,16 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-'''
-'''
-Created by Manuel Alcaraz on 22 May, 2018
-'''
+"""
 
-
+from math import gcd
 from pyscience import algebra
-from pyscience.math import Fraction, gcd
+from pyscience.math import Fraction
 
 EXPONENTS = list('⁰¹²³⁴⁵⁶⁷⁸⁹')
+
 
 def get_exponent(value):
     result = ''
@@ -37,67 +35,70 @@ def get_exponent(value):
 
     return result
 
+
 def group_variables(expr):
-    '''Group variables with the same value.
+    """Group variables with the same value.
+
         >>> group_variables('xxy')
         x²y
         >>> group_variables('xyzzy')
         xy²z²
-        >>>
-    '''
+    """
     assert type(expr) is str
-    R = ''
+    result = ''
     variables = []
 
-    for letra in list(str(expr)):
-        if not (letra in variables):
-            variables.append(letra)
+    for letter in list(str(expr)):
+        if not (letter in variables):
+            variables.append(letter)
 
-    for letra in variables:
-        if expr.count(letra) != 1:
-            R += letra + get_exponent(expr.count(letra))
+    for letter in variables:
+        if expr.count(letter) != 1:
+            result += letter + get_exponent(expr.count(letter))
         else:
-            R+=letra
+            result += letter
 
-    return R
+    return result
+
 
 def subtract(expr1, expr2):
-    '''Simplify expr1 from expr2, like a division.
+    """Simplify expr1 from expr2, like a division.
 
        >>> subtract('xx','xy') # xy
        { 'x': 1,
          'y': 1
        }
-    '''
-    R={}
+    """
+    result = {}
     c1 = count_variables(expr1)
     c2 = count_variables(expr2)
 
     for x in c1.keys():
         if x in c2:
-            R[x]=c1[x]-c2[x]
-            if R[x] < 0:
-                R[x] = 0
+            result[x] = c1[x] - c2[x]
+            if result[x] < 0:
+                result[x] = 0
         else:
-            R[x]=c1[x]
+            result[x] = c1[x]
     for x in c2.keys():
-        if x in R:
-            if c2[x]-c1[x] > 0:
-                R[x] = c2[x]-c1[x]
+        if x in result:
+            if c2[x] - c1[x] > 0:
+                result[x] = c2[x] - c1[x]
         else:
-            R[x]=c2[x]
+            result[x] = c2[x]
 
     # Remove zeros
-    RC={}
-    for x in R.keys():
-        if R[x] != 0:
-            RC[x]=R[x]
+    result2 = {}
+    for x in result.keys():
+        if result[x] != 0:
+            result2[x] = result[x]
 
-    return RC
+    return result2
+
 
 def subtract_str(expr1, expr2):
-    '''Like ``subtract``, but returns a str
-    '''
+    """Like ``subtract``, but returns a str
+    """
     r = subtract(expr1, expr2)
     r2 = ''
     for x in r.keys():
@@ -105,20 +106,21 @@ def subtract_str(expr1, expr2):
 
     return r2
 
+
 def count_variables(expr):
-    '''Count variables with the same value.
+    """Count variables with the same value.
+
         >>> count_variables('xxy')
         {
             'x': 2,
             'y': 1
         }
-        >>>
-    '''
+    """
     result = {}
     variables = []
 
     for x in list(expr):
-        if not x in variables:
+        if x not in variables:
             variables.append(x)
 
     for x in variables:
@@ -151,11 +153,12 @@ class Monomial:
 
     def __mul__(self, value):
         if isinstance(value, int):
-            return Monomial(variables=self.variables, coefficient=self.coefficient*value)
+            return Monomial(variables=self.variables, coefficient=self.coefficient * value)
         elif isinstance(value, Monomial):
-            return Monomial(variables=self.variables+value.variables, coefficient=self.coefficient*value.coefficient)
+            return Monomial(variables=self.variables + value.variables,
+                            coefficient=self.coefficient * value.coefficient)
         elif isinstance(value, algebra.Variable):
-            return Monomial(variables=self.variables+value.name, coefficient=self.coefficient)
+            return Monomial(variables=self.variables + value.name, coefficient=self.coefficient)
         elif isinstance(value, algebra.Polynomial):
             return value * self
         elif isinstance(value, Fraction):
@@ -169,9 +172,9 @@ class Monomial:
     def __truediv__(self, value):
         if isinstance(value, int):
             if self.coefficient % value == 0:
-                return Monomial(coefficient=int(self.coefficient/value), variables=self.variables)
+                return Monomial(coefficient=int(self.coefficient / value), variables=self.variables)
             else:
-                return Monomial(coefficient=Fraction(self.coefficient,value), variables=self.variables)
+                return Monomial(coefficient=Fraction(self.coefficient, value), variables=self.variables)
         elif isinstance(value, Fraction):
             return self * value
         elif isinstance(value, algebra.Variable):
@@ -179,7 +182,7 @@ class Monomial:
 
             if len(c) == 1 and list(c.keys())[0] == value.name:
                 v = subtract(self.variables, value.name)
-                return Monomial(coefficient=self.coefficient, variables=value.name*list(v.values())[0])
+                return Monomial(coefficient=self.coefficient, variables=value.name * list(v.values())[0])
 
             return Fraction(self, value)
         elif isinstance(value, Monomial):
@@ -193,10 +196,10 @@ class Monomial:
             elif sum(list(s.values())) == len(s.values()):
                 v = ''
                 for x in s.keys():
-                    v += x*s[x]
+                    v += x * s[x]
 
                 if self.coefficient % value.coefficient == 0:
-                    return Monomial(coefficient=self.coefficient//value.coefficient, variables=v)
+                    return Monomial(coefficient=self.coefficient // value.coefficient, variables=v)
                 else:
                     return Monomial(coefficient=Fraction(self.coefficient, value.coefficient), variables=v)
             else:
@@ -219,7 +222,7 @@ class Monomial:
     def __rtruediv__(self, value):
         if isinstance(value, int):
             if value % self.coefficient == 0:
-                return Monomial(coefficient=value//self.coefficient, variables=self.variables)
+                return Monomial(coefficient=value // self.coefficient, variables=self.variables)
             else:
                 return Fraction(value, self)
         elif isinstance(value, algebra.Variable):
@@ -231,19 +234,20 @@ class Monomial:
         if isinstance(value, Monomial) and count_variables(value.variables) == count_variables(self.variables):
             if self.coefficient + value.coefficient == 1 and len(self.variables) == 1:
                 return algebra.Variable(name=self.variables)
-            return Monomial(coefficient=self.coefficient+value.coefficient,variables=self.variables)
+            return Monomial(coefficient=self.coefficient + value.coefficient, variables=self.variables)
         elif isinstance(value, algebra.Variable):
             if value.name == self.variables:
-                return Monomial(coefficient=self.coefficient+1,variables=self.variables)
+                return Monomial(coefficient=self.coefficient + 1, variables=self.variables)
             else:
                 return algebra.Polynomial(monomials=[self, algebra.Monomial(variables=value.name)])
         elif isinstance(value, Fraction):
             value.numerator += self * value.denominator
             return value
         elif isinstance(value, Monomial):
-            return algebra.Polynomial(monomials=[algebra.Monomial(coefficient=self.coefficient,variables=self.variables),value])
+            return algebra.Polynomial(
+                monomials=[algebra.Monomial(coefficient=self.coefficient, variables=self.variables), value])
         elif isinstance(value, int):
-            return algebra.Polynomial(monomials=[self,],numerical_term=value)
+            return algebra.Polynomial(monomials=[self, ], numerical_term=value)
 
         raise TypeError(f'Cannot add Monomial to {type(value)}')
 
@@ -252,19 +256,19 @@ class Monomial:
 
     def __sub__(self, value):
         if isinstance(value, Monomial) and count_variables(value.variables) == count_variables(self.variables):
-            return Monomial(coefficient=self.coefficient-value.coefficient, variables=self.variables)
+            return Monomial(coefficient=self.coefficient - value.coefficient, variables=self.variables)
         elif isinstance(value, algebra.Variable):
             if value.name == self.variables:
-                return Monomial(coefficient=self.coefficient-1, variables=self.variables)
+                return Monomial(coefficient=self.coefficient - 1, variables=self.variables)
             elif value.name in self.variables:
                 s = subtract_str(self.variables, value.name)
                 return Monomial(coefficient=self.coefficient, variables=s)
             else:
                 return algebra.Polynomial(monomials=[self, -Monomial(variables=value.name)])
         elif isinstance(value, int):
-            return algebra.Polynomial(monomials=[self,],numerical_term=-value)
+            return algebra.Polynomial(monomials=[self, ], numerical_term=-value)
         elif isinstance(value, Monomial):
-            return algebra.Polynomial(monomials=[self,-value])
+            return algebra.Polynomial(monomials=[self, -value])
         elif isinstance(value, algebra.Polynomial):
             return value - self
         elif isinstance(value, Fraction):
@@ -276,10 +280,10 @@ class Monomial:
         if mod:
             raise NotImplementedError
 
-        return Monomial(variables=self.variables*value, coefficient=self.coefficient**value)
+        return Monomial(variables=self.variables * value, coefficient=self.coefficient ** value)
 
     def __rsub__(self, value):
-        return  - self + value
+        return - self + value
 
     def __neg__(self):
         return Monomial(variables=self.variables, coefficient=-self.coefficient)
@@ -287,11 +291,11 @@ class Monomial:
     def __str__(self):
         if self.coefficient != 1:
             if self.coefficient == -1:
-                return '-'+group_variables(self.variables)
+                return '-' + group_variables(self.variables)
             elif self.coefficient == 0:
                 return '0'
             else:
-                return str(self.coefficient)+group_variables(self.variables)
+                return str(self.coefficient) + group_variables(self.variables)
         else:
             return group_variables(self.variables)
 

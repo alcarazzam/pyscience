@@ -1,4 +1,4 @@
-'''
+"""
 pyscience - python science programming
 Copyright (c) 2019 Manuel Alcaraz Zambrano
 
@@ -19,7 +19,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-'''
+"""
 import pyscience
 
 EXPONENTS = {
@@ -35,11 +35,13 @@ EXPONENTS = {
     '⁹': 9,
 }
 
+
 def is_digit(value):
-    '''Return if ``value`` is number (decimal or whole)'''
-    if value.count('.') == 1 and value.replace('.','').isdigit() or value.isdigit():
+    """Return if ``value`` is number (decimal or whole)"""
+    if value.count('.') == 1 and value.replace('.', '').isdigit() or value.isdigit():
         return True
     return False
+
 
 def split_expression(expr):
     last_type = None
@@ -63,13 +65,13 @@ def split_expression(expr):
             if last == '(':
                 if tmp != '':
                     result.append(tmp)
-                tmp=''
+                tmp = ''
             typ = 'upper'
         elif c.islower():
             if last == '.' or last_type == 'string':
-                last_type= 'string'
+                last_type = 'string'
                 typ = 'string'
-            elif last_type != 'upper' or last=='(':
+            elif last_type != 'upper' or last == '(':
                 typ = 'none'
             elif last_type == 'upper':
                 typ = 'upper'
@@ -82,7 +84,7 @@ def split_expression(expr):
             if last_type != 'str':
                 typ = 'str'
             else:
-                result.append(tmp+c)
+                result.append(tmp + c)
                 last_type = 'none'
                 tmp = ''
                 continue
@@ -100,6 +102,7 @@ def split_expression(expr):
         result.append(tmp)
 
     return result[1:]
+
 
 def expand(expr):
     expr = expr.replace(' ', '')
