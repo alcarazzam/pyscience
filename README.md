@@ -84,6 +84,7 @@ Expected date: about May 1 2019.
 
 #### Fixed
 - Fix parser error.
+- Remove new line on interpreter error.
 
 ### Version 0.3 (March 21st 2019)
 
@@ -102,12 +103,6 @@ Expected date: about May 1 2019.
   branch.
 - Improve pyscience.math.number.Expression class
 - Improve pyscience.algebra
-
-#### Deprecated
-
-#### Removed
-
-#### Fixed
 
 ### [UNRELEASED] Version 0.2.0.dev1
 This is a old development version which never will be released.

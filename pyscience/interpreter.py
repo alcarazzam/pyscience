@@ -70,7 +70,7 @@ class PyscienceInterpreter:
         if pyscience.DEBUG:
             print('Traceback (most recent call last):')
             print(''.join(list_[:-1]))
-        print(list_[-1])
+        print(list_[-1][:-1])
 
         del tb
 
