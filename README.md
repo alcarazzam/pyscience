@@ -75,6 +75,8 @@ Pyscience is in current development. Future features:
 Expected date: about May 1 2019.
 #### Added
 - Add tests.
+- Now sessions are saved on disk and you can get expressions typed with
+  the up arrow.
 
 #### Changed
 

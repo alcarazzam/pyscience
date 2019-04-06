@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 import sys
+import os
 import traceback
 import pyscience
 from pyscience import parser
@@ -31,13 +32,15 @@ from pyscience.math import Fraction, div, MATH_FUNCTIONS
 from pyscience.units import Units
 
 from prompt_toolkit import PromptSession
+from prompt_toolkit.history import FileHistory
 
 
 class PyscienceInterpreter:
 
     def __init__(self):
         self._globals = {}
-        self.session = PromptSession()
+        self.history_file = os.path.expanduser('~/.pyscience_history')
+        self.session = PromptSession(history=FileHistory(self.history_file))
 
         # Variables
         for variable in get_variables('x y z a b c n m l'):
