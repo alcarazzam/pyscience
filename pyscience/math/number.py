@@ -70,7 +70,7 @@ class Expression:
         value = _call(self.value)
         return self.function(value)
 
-    def eval(self):
+    def evaluate(self):
         return self.function(_call(self.value))
 
     def __str__(self):

@@ -100,11 +100,11 @@ class PyscienceInterpreter:
                 for val in func.split(','):
                     name, value = val.split('=')
                     if not value:
-                        print(f'Error: {name} not specified')
+                        print(f'Error: value of {name} not specified')
                         return
                     code = code.replace(name, f'({value})')
             elif func.startswith(':eval'):
-                code = f'({code}).eval()'
+                code = f'({code}).evaluate()'
 
         if pyscience.DEBUG:
             print(f'eval: "{code}"')

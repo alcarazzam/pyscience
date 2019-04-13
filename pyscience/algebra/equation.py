@@ -48,11 +48,22 @@ class Equation:
     def __init__(self, first_member, second_member=0):
         self.first_member = first_member
         self.second_member = second_member
+        self._solution = None
 
     @property
     def degree(self):
         """Return the degree of the Equation"""
         return max(get_degree(self.first_member), get_degree(self.second_member))
+
+    @property
+    def solution(self):
+        """
+        Return the solution of the equation.
+        """
+        if not self._solution:
+            self._solution = self.solve()
+
+        return self._solution
 
     def solve(self):
         """Return the solution of the Equation"""
