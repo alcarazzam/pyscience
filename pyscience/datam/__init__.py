@@ -20,12 +20,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+
 # TODO: Data is in a very alpha status
 
-from pprint import pprint
 
-
-def get_type_of(s):
+def get_type_of(s: str):
     if s.isdigit():
         return int
     elif '.' in s and s.replace('.', '').isdigit():
@@ -33,11 +32,11 @@ def get_type_of(s):
     return str
 
 
-def boolean(v):
+def boolean(v) -> bool:
     return len(v) == sum(v)
 
 
-class Condition():
+class Condition:
     def __init__(self, value, match=None):
         self.value = value
         self.match = match
@@ -80,8 +79,8 @@ class Condition():
         return f'<Condition "{self.value}">'
 
 
-class Data():
-    def __init__(self, fn, header=True):
+class Data:
+    def __init__(self, fn: str, header=True):
         self.fn = fn
         with open(fn, 'r') as fd:
             self.text_data = fd.read()
@@ -94,7 +93,7 @@ class Data():
         for line in self.text_data.splitlines():
             if header:
                 self.header = line.split(',')
-                for x in self.header:
+                for _ in self.header:
                     self.data.append([])
                 header = False
                 nt = len(self.header)
@@ -122,10 +121,10 @@ class Data():
             if key > len(self.data[0]):
                 raise ValueError('Index is too big')
 
-            R = {}
+            result = {}
             for n, x in enumerate(self.data):
-                R[self.header[n]] = x[key]
-            return R
+                result[self.header[n]] = x[key]
+            return result
 
     def where(self, condition):
         result = []

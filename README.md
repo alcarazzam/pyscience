@@ -79,6 +79,7 @@ Expected date: about May 1 2019.
   the up arrow.
 
 #### Changed
+- PEP8 compatible
 
 #### Deprecated
 

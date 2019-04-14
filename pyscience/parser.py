@@ -36,7 +36,7 @@ EXPONENTS = {
 }
 
 
-def is_digit(value):
+def is_digit(value: str) -> bool:
     """Return if ``value`` is number (decimal or whole)"""
     if value.count('.') == 1 and value.replace('.', '').isdigit() or value.isdigit():
         return True

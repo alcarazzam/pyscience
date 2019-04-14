@@ -59,12 +59,14 @@ under certain conditions; type `license` for details.
 
         interpreter.exec_function(cmd)
 
+    print("exit")
+
 
 def run():
     parser = argparse.ArgumentParser(prog='pyscience', description='python science programming')
 
     parser.add_argument('-d', '--debug', help='show additional information for developers', action='store_true')
-    parser.add_argument('-v', '--version', help='show version and exits', action='store_true')
+    parser.add_argument('-v', '--version', help='show version and exit', action='store_true')
 
     args = parser.parse_args()
 
