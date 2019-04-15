@@ -104,7 +104,7 @@ def split_expression(expr):
     return result[1:]
 
 
-def expand(expr):
+def expand(expr) -> str:
     expr = expr.replace(' ', '')
     expr = split_expression(expr)
 

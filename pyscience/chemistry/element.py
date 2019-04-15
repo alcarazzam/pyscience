@@ -27,7 +27,7 @@ from pyscience.datam import Data, Condition as C
 periodic_table = Data(get_resource('chemistry/periodic_table.csv'))
 
 
-def number_index(a):
+def number_index(a) -> int:
     """Return index of the first number in the string ``a``"""
     for n, x in enumerate(list(a)):
         if x in '1234567890':
@@ -114,18 +114,18 @@ class ChemicalElement:
         return round(self.A) - self.Z
 
     @property
-    def electrons(self):
+    def electrons(self) -> float:
         if self.charge:
             # Ions
             return self.protons - self.charge
         return self.protons
 
     @property
-    def mass(self):
+    def mass(self) -> float:
         return self.A
 
     @property
-    def info(self):
+    def info(self) -> str:
         return \
             f'''{self.name.title()}{self._charge(self.charge) if self.charge else ''} ({self.symbol})
 =======================================

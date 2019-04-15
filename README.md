@@ -19,8 +19,6 @@ from the [GitHub repository](https://github.com/m-alzam/pyscience):
 
 Pre-releases have the latest features and bug fixes.
 
-At this time, only development versions are available.
-
 ## Features
 - Basic calculator
 - Operate with variables, monomials and polynomials
@@ -64,7 +62,6 @@ build it using the ``sphinx`` python library and the ``make`` script.
 ## Todo
 Pyscience is in current development. Future features:
 
-* Math functions. In progress.
 * Update chemicals elements information
 * Polynomial division
 * Physics functions
@@ -72,11 +69,12 @@ Pyscience is in current development. Future features:
 
 ## History
 ### [UNRELEASED] Version 0.4
-Expected date: about May 1 2019.
+Expected date: about May 1st 2019.
 #### Added
 - Add tests.
 - Now sessions are saved on disk and you can get expressions typed with
   the up arrow.
+- Add annotations.
 
 #### Changed
 - PEP8 compatible
@@ -107,7 +105,7 @@ Expected date: about May 1 2019.
 - Improve pyscience.math.number.Expression class
 - Improve pyscience.algebra
 
-### [UNRELEASED] Version 0.2.0.dev1
+### Version 0.2.0.dev1
 This is a old development version which never will be released.
 #### Added
 - New pyscience.math module. Functions:
@@ -139,7 +137,7 @@ This is a old development version which never will be released.
 - Fix error subtracting a Monomial from a int
 - Fix Polynomial division
 
-### Version 0.1.0.dev4 (February 20 2019)
+### Version 0.1.0.dev4 (February 20th 2019)
 
 - Initial release.
 
