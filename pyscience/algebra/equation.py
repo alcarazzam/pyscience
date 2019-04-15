@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 import copy
+import math
 from pyscience import algebra
 from pyscience.math import Fraction
 
@@ -72,7 +73,7 @@ class Equation:
 
         if second_member != 0:
             first_member = first_member - second_member
-            second_member = 0
+            # second_member = 0
 
         if get_degree(first_member) <= 1:
             # First-degree equation
@@ -99,6 +100,47 @@ class Equation:
                     return Equation(a.numerator, -b.numerator).solve()
 
                 raise NotImplementedError
+        elif get_degree(first_member) == 2:
+            # Second-degree equation
+            if isinstance(first_member, algebra.Polynomial):
+                solutions = []
+                a = first_member.monomials[0].coefficient
+                b = first_member.monomials[1].coefficient
+                c = first_member.numerical_term
+
+                discriminant = b ** 2 - 4 * a * c
+
+                if discriminant > 0:
+                    x1 = (-b + math.sqrt(discriminant)), (2 * a)
+                    x2 = (-b - math.sqrt(discriminant)), (2 * a)
+
+                    # Check fractions
+                    if x1[0] % x1[1] == 0:
+                        x1 = x1[0] // x1[1]
+                    else:
+                        x1 = Fraction(x1[0], x1[1]).simplify()
+
+                    if x2[0] % x2[1] == 0:
+                        x2 = x2[0] // x2[1]
+                    else:
+                        x2 = Fraction(x2[0], x2[1]).simplify()
+
+                    solutions.append(x1)
+                    solutions.append(x2)
+                elif discriminant == 0:
+                    x1 = (-b + math.sqrt(discriminant)) / (2 * a)
+
+                    # Check fractions
+                    if x1[0] % x1[1] == 0:
+                        x1 = x1[0] // x1[1]
+                    else:
+                        x1 = Fraction(x1[0], x1[1]).simplify()
+
+                    solutions.append(x1)
+
+                return solutions
+            elif isinstance(first_member, algebra.Monomial):
+                return 0
 
         raise NotImplementedError('Cannot solve a equation with a degree greater than 1')
 

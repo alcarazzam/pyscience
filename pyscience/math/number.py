@@ -33,6 +33,13 @@ def lcm(a, b):
         n += 1
 
 
+def gcd(a, b):
+    """Return the greater common divisor of ``a`` and ``b``"""
+    if isinstance(a, int) and isinstance(b, int):
+        return math.gcd(a, b)
+    return 1
+
+
 def is_even(n):
     """Return if ``n`` is a even number"""
     return not n % 2
@@ -45,13 +52,13 @@ def is_odd(n):
 
 def div(n):
     """Return divisors of ``n``"""
-    R = []
+    result = []
     for i in range(1, n + 1 // 2):
         if n % i == 0:
-            R.append(i)
-    R.append(n)
+            result.append(i)
+    result.append(n)
 
-    return R
+    return result
 
 
 def _call(value):

@@ -21,9 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from pyscience.math import lcm
-
-from math import gcd  # greater common denominator
+from pyscience.math import lcm, gcd
 
 
 def simplify(frac):
@@ -39,7 +37,7 @@ def simplify(frac):
     return frac
 
 
-class Fraction():
+class Fraction:
 
     def __init__(self, numerator, denominator=1):
         """Fraction class.
@@ -118,15 +116,6 @@ class Fraction():
             return self, value
 
         cd = lcm(self.denominator, value.denominator)
-        # print('cd:',cd)
-
-        # print('Common denominator:', cd)
-        # print('Common denominator / self.denominator', cd // self.denominator)
-        # print('* self.numerator =', (cd//self.denominator)*self.numerator)
-        # print()
-        # print('Common denominator:', cd)
-        # print('Common denominator / value.denominator', cd // value.denominator)
-        # print(f'* {value.numerator} =', (cd//value.denominator)*value.numerator)
 
         return Fraction((cd // self.denominator) * self.numerator, cd), Fraction(
             (cd // value.denominator) * value.numerator, cd)
@@ -136,7 +125,7 @@ class Fraction():
         if self.denominator == 1:
             return self.numerator
 
-        if not (isinstance(self.numerator, int) and isinstance(self.denominator, int)):
+        if not (isinstance(self.numerator, (int, float)) and isinstance(self.denominator, (int, float))):
             # Try to simplify dividing
             return self.numerator / self.denominator
 
