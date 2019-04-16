@@ -8,13 +8,21 @@ Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.3.0
 Added
 ^^^^^
 - Add tests.
+- Now sessions are saved on disk and you can get expressions typed with
+  the up arrow.
+- Add annotations.
+
+Changed
+^^^^^^^
+- PEP8 compatible
 
 Fixed
 ^^^^^
 - Fix parser error.
+- Remove new line on interpreter error.
 
-Version 0.3.0rc1 (March 21st 2019)
-----------------------------------
+Version 0.3.0 (March 21st 2019)
+-------------------------------
 
 Added
 ^^^^^
@@ -32,6 +40,7 @@ Changed
 - Create branches for development. Version 0.3 is located in the ``v0.3``
   branch.
 - Improve pyscience.math.number.Expression class
+- Improve pyscience.algebra
 
 
 Version 0.2.0.dev1

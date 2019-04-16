@@ -21,10 +21,10 @@ Features
 - Solve first-degree equations
 - Get information about chemical elements
 - Manage CSV data easily (in development)
+- Convert units
 
 Todo
 ----
-- ``units`` module
 - Polynomial division
 - Physics functions
 
