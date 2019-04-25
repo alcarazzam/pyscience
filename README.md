@@ -43,7 +43,7 @@ variables:
 Or get Chemical Elements information with the ``CE`` function:
 
     # Returns chemical element with symbol ‘H’
-    > CE(‘H’)
+    > CE('H')
     ...
     # Returns chemical element with atomic number 2
     > CE(2)
