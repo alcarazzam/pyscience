@@ -105,7 +105,10 @@ class Equation:
             if isinstance(first_member, algebra.Polynomial):
                 solutions = []
                 a = first_member.monomials[0].coefficient
-                b = first_member.monomials[1].coefficient
+                # Todo: Use incomplete second-degree method
+                b = 0
+                if len(first_member.monomials) > 1:
+                    b = first_member.monomials[1].coefficient
                 c = first_member.numerical_term
 
                 discriminant = b ** 2 - 4 * a * c

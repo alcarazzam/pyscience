@@ -81,7 +81,8 @@ class Fraction:
         if isinstance(value, int):
             return Fraction(self.numerator * value, self.denominator).simplify()
         elif isinstance(value, Fraction):
-            return Fraction(self.numerator * value.numerator, self.denominator * value.denominator).simplify()
+            return Fraction(self.numerator * value.numerator,
+                            self.denominator * value.denominator).simplify()
 
         return NotImplemented
 
@@ -118,14 +119,15 @@ class Fraction:
         cd = lcm(self.denominator, value.denominator)
 
         return Fraction((cd // self.denominator) * self.numerator, cd), Fraction(
-            (cd // value.denominator) * value.numerator, cd)
+                (cd // value.denominator) * value.numerator, cd)
 
     def simplify(self):
         """Simplify fraction"""
         if self.denominator == 1:
             return self.numerator
 
-        if not (isinstance(self.numerator, (int, float)) and isinstance(self.denominator, (int, float))):
+        if not (isinstance(self.numerator, (int, float)) and isinstance(self.denominator,
+                                                                        (int, float))):
             # Try to simplify dividing
             return self.numerator / self.denominator
 
@@ -156,4 +158,6 @@ class Fraction:
         return f'F({self.numerator}/{self.denominator})'
 
     def __repr__(self):
-        return f'<Fraction {self.numerator}/{self.denominator} ({type(self.numerator)}, {type(self.denominator)})>'
+        # return f'<Fraction {self.numerator}/{self.denominator} ({type(self.numerator)},
+        # {type(self.denominator)})>'
+        return f'<Fraction {self.numerator}/{self.denominator}>'

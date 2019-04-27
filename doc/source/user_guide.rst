@@ -97,6 +97,15 @@ Examples::
     Eq(F(+2x+1/2) = 1)
     Solution: F(1/2)
 
+Evaluating expressions
+^^^^^^^^^^^^^^^^^^^^^^
+You can evaluate any expression with the ``:evaluate`` function::
+
+    > 2x :evaluate x=5
+    10
+    > 3xy+9 :evaluate x=7                                                                                                                                                       
+    +21y+9
+
 
 Working with chemical elements
 ------------------------------
@@ -108,7 +117,8 @@ with the ``CE`` function::
     > CE('Silicon') # Get element by its name
     ...
 
-If you want to set a specific mass for the element, indicate that between brackets::
+If you want to set a specific mass for the element, indicate that between
+brackets::
 
     > CE('Si(32)') # Set mass to 32
     ...
@@ -131,6 +141,9 @@ You can convert between different units with the ``Units`` class::
     3 cm
     > (3 Units.cm).to(Units.m)
     0.03 m
+
+.. warning::
+    This function is still experimental
 
 Available units:
 

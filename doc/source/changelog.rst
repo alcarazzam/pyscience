@@ -14,6 +14,7 @@ Added
   the up arrow.
 - Add python annotations.
 - Improve documentation
+- Add ``Variable`` comparison.
 
 Changed
 ^^^^^^^

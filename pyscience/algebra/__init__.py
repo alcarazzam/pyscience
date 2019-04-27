@@ -23,6 +23,7 @@ SOFTWARE.
 from pyscience.algebra.variable import Variable
 from pyscience.algebra.monomial import Monomial
 from pyscience.algebra.polynomial import Polynomial
+from pyscience.algebra.equation import Equation
 
 
 def get_variables(names):

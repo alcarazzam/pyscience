@@ -27,8 +27,8 @@ from pyscience.math import Fraction
 
 class Variable:
 
-    def __init__(self, *args, **kwargs):
-        self.name = kwargs.get('name', 'x')
+    def __init__(self, name='x'):
+        self.name = name
 
     def evaluate(self, **kwargs):
         """
@@ -49,7 +49,8 @@ class Variable:
 
     def __mul__(self, value):
         if isinstance(value, algebra.Monomial):
-            return algebra.Monomial(variables=value.variables + self.name, coefficient=value.coefficient)
+            return algebra.Monomial(variables=value.variables + self.name,
+                                    coefficient=value.coefficient)
         elif isinstance(value, int):
             return algebra.Monomial(variables=self.name, coefficient=value)
         elif isinstance(value, Variable):
@@ -72,9 +73,11 @@ class Variable:
                 return algebra.Monomial(coefficient=2, variables=self.name)
             else:
                 return algebra.Polynomial(
-                    monomials=[algebra.Monomial(variables=self.name), algebra.Monomial(variables=value.name)])
+                        monomials=[algebra.Monomial(variables=self.name),
+                                   algebra.Monomial(variables=value.name)])
         elif isinstance(value, int):
-            return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name)], numerical_term=value)
+            return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name)],
+                                      numerical_term=value)
         elif isinstance(value, Fraction):
             return Fraction(value.numerator + self * value.denominator, value.denominator)
 
@@ -89,7 +92,8 @@ class Variable:
         elif isinstance(value, Variable) and value.name == self.name:
             return 0
         elif isinstance(value, int):
-            return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name), ], numerical_term=-value)
+            return algebra.Polynomial(monomials=[algebra.Monomial(variables=self.name), ],
+                                      numerical_term=-value)
         elif isinstance(value, Fraction):
             return Fraction(value.numerator - self * value.denominator, value.denominator)
 
@@ -124,6 +128,12 @@ class Variable:
 
     def __pos__(self):
         return self
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return other.name == self.name
+
+        return False
 
     def __str__(self):
         return self.name
