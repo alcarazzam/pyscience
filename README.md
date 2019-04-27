@@ -22,10 +22,10 @@ Pre-releases have the latest features and bug fixes.
 ## Features
 - Basic calculator
 - Operate with variables, monomials and polynomials
-- Solve first-degree equations
+- Solve first and second-degree equations
 - Get information about chemical elements
 - Manage CSV data easily (in development)
-- Convert between unit with the ``units`` module
+- Convert between unit with the ``units`` module (experimental)
 
 ## Basic usage
 Once installed, you can run pyscience as a normal program:
