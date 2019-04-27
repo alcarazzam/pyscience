@@ -12,11 +12,14 @@ Added
 - Add tests.
 - Now sessions are saved on disk and you can get expressions typed with
   the up arrow.
-- Add annotations.
+- Add python annotations.
+- Improve documentation
 
 Changed
 ^^^^^^^
 - PEP8 compatible
+- ``:for`` function is now ``:evaluate``. Add support for future interpreter 
+  functions.
 
 Deprecated
 ^^^^^^^^^^

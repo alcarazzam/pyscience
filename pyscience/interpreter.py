@@ -24,6 +24,7 @@ import sys
 import os
 import traceback
 import pyscience
+
 from pyscience import parser
 from pyscience.algebra import get_variables
 from pyscience.algebra.equation import Equation
@@ -33,6 +34,13 @@ from pyscience.units import Units
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
+
+
+def get_args(args):
+    result = ''
+    for val in args.keys():
+        result += val + '=' + args[val] + ','
+    return result[:-1]
 
 
 class PyscienceInterpreter:
@@ -92,19 +100,19 @@ class PyscienceInterpreter:
             return
 
         if func:
-            if func.startswith(':for'):
-                func = func[4:].replace(' ', '')
-                if not func:
-                    print('Error: no values given')
-                    return
-                for val in func.split(','):
-                    name, value = val.split('=')
-                    if not value:
-                        print(f'Error: value of {name} not specified')
-                        return
-                    code = code.replace(name, f'({value})')
-            elif func.startswith(':eval'):
-                code = f'({code}).evaluate()'
+            if func.startswith(':'):
+                func_name = func.split()[0][1:]
+                values = func[len(func_name) + 1:].replace(' ', '')
+                args = {}
+                if values:
+                    for val in values.split(','):
+                        name, value = val.split('=')
+                        args[name] = value
+                        if not value:
+                            print(f'Error: value of {name} not specified')
+                            return
+
+                code = '(' + code + ').' + func_name + '(' + get_args(args) + ')'
 
         if pyscience.DEBUG:
             print(f'eval: "{code}"')
