@@ -42,7 +42,7 @@ variables:
 
 Or get Chemical Elements information with the ``CE`` function:
 
-    # Returns chemical element with symbol ‘H’
+    # Returns chemical element with symbol 'H'
     > CE('H')
     ...
     # Returns chemical element with atomic number 2
@@ -56,8 +56,8 @@ Solve first-degree equations:
     Solution: 5
 
 ## Documentation
-Official documentation is available [here](doc/source/index.rst). You can
-build it using the ``sphinx`` python library and the ``make`` script.
+Official documentation is available [here](https://github.com/m-alzam/pyscience/blob/v0.4/doc/source/index.rst).
+You can build it using the ``sphinx`` python library and the ``make`` script.
 
 ## Todo
 Pyscience is in current development. Future features:
@@ -68,7 +68,7 @@ Pyscience is in current development. Future features:
 * Documentation
 
 ## History
-See [changelog](doc/source/changelog.rst)
+See [changelog](https://github.com/m-alzam/pyscience/blob/v0.4/doc/source/changelog.rst)
 
 ## License
 Copyright (c) 2019 Manuel Alcaraz Zambrano
