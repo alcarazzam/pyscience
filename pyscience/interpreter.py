@@ -112,7 +112,13 @@ class PyscienceInterpreter:
                             print(f'Error: value of {name} not specified')
                             return
 
-                code = '(' + code + ').' + func_name + '(' + get_args(args) + ')'
+                if func_name == "clear":
+                    with open(self.history_file, 'w') as fd:
+                        fd.write('')
+
+                    print("Session clean")
+                else:
+                    code = '(' + code + ').' + func_name + '(' + get_args(args) + ')'
 
         if pyscience.DEBUG:
             print(f'eval: "{code}"')
