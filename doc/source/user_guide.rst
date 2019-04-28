@@ -4,6 +4,12 @@ Pyscience’s interpreter is very easy to use. Start it with::
 
     pyscience
 
+
+Interpreter
+-----------
+The interpreter has build-in functions for more functionality. They start with
+a ``:`` followed by his name.
+
 To exit the interpreter, type ``exit``, ``quit`` or ``q``
 
 Working as a calculator
@@ -29,7 +35,7 @@ Subtraction
 ^^^^^^^^^^^
 To subtract two number, use the ``-`` operator::
 
-    > 2 – 3
+    > 2 - 3
     -1
 
 Multiplication
@@ -86,16 +92,20 @@ what can you do::
 
 Equations
 ^^^^^^^^^
-You can solve first-degree equations with pyscience. It provides the ``Eq`` class
-to work with Equations. Terms are separated as normal arguments, with a comma.
+You can solve first and second-degree equations with pyscience. It provides the 
+``Eq`` class to work with equations. Terms are separated as normal arguments, 
+with a comma.
 Examples::
 
     > Eq(2x, 10)
-    Eq(2x = 10)
-    Solution: 5
+    Equation(2x = 10)
     > Eq(F(1,2)+x, 1)
-    Eq(F(+2x+1/2) = 1)
-    Solution: F(1/2)
+    Equation(F(+2x+1/2) = 1)
+
+To solve an equation, use the ``:solve`` function::
+
+    > Eq(2x, 10) :solve
+    5
 
 Evaluating expressions
 ^^^^^^^^^^^^^^^^^^^^^^

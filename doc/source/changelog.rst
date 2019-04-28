@@ -15,6 +15,9 @@ Added
 - Add python annotations.
 - Improve documentation
 - Add ``Variable`` comparison.
+- Add ``:clear`` function (clear history).
+- Equation solution is no longer show when you type a equation. To solve an
+  equation, use the ``:solve`` function.
 
 Changed
 ^^^^^^^

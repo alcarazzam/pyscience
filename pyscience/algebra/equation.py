@@ -145,10 +145,10 @@ class Equation:
             elif isinstance(first_member, algebra.Monomial):
                 return 0
 
-        raise NotImplementedError('Cannot solve a equation with a degree greater than 1')
+        raise NotImplementedError('Cannot solve a equation with a degree greater than 2')
 
     def __str__(self):
-        return f'Eq({self.first_member} = {self.second_member})\nSolution: {self.solve()}'
+        return f'Equation({self.first_member} = {self.second_member})'
 
     def __repr__(self):
         return f'<Equation {self.first_member} = {self.second_member}>'
