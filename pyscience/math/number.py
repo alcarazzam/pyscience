@@ -33,7 +33,7 @@ def lcm(a, b):
         n += 1
 
 
-def gcd(a, b):
+def gcd(a, b) -> int:
     """Return the greater common divisor of ``a`` and ``b``"""
     if isinstance(a, int) and isinstance(b, int):
         return math.gcd(a, b)
@@ -45,14 +45,14 @@ def is_even(n):
     return not n % 2
 
 
-def is_odd(n):
+def is_odd(n) -> bool:
     """Return if ``n`` is a odd number"""
     return bool(n % 2)
 
 
-def div(n):
+def div(n) -> list:
     """Return divisors of ``n``"""
-    result = []
+    result = list()
     for i in range(1, n + 1 // 2):
         if n % i == 0:
             result.append(i)

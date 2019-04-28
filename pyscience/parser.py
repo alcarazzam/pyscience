@@ -43,7 +43,7 @@ def is_digit(value: str) -> bool:
     return False
 
 
-def split_expression(expr):
+def split_expression(expr: str) -> dict:
     last_type = None
     tmp = ''
     result = []
@@ -104,7 +104,7 @@ def split_expression(expr):
     return result[1:]
 
 
-def expand(expr) -> str:
+def expand(expr: str) -> str:
     expr = expr.replace(' ', '')
     expr = split_expression(expr)
 

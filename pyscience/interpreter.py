@@ -36,7 +36,7 @@ from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
 
 
-def get_args(args):
+def get_args(args: dict) -> str:
     result = ''
     for val in args.keys():
         result += val + '=' + args[val] + ','
@@ -46,7 +46,7 @@ def get_args(args):
 class PyscienceInterpreter:
 
     def __init__(self):
-        self._globals = {}
+        self._globals = dict()
         self.history_file = os.path.expanduser('~/.pyscience_history')
         self.session = PromptSession(history=FileHistory(self.history_file))
 
@@ -70,7 +70,7 @@ class PyscienceInterpreter:
         for func in MATH_FUNCTIONS:
             self._globals[func] = MATH_FUNCTIONS[func]
 
-    def input(self):
+    def input(self) -> str:
         return self.session.prompt('> ')
 
     @staticmethod

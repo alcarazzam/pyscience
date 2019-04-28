@@ -33,5 +33,5 @@ __date__ = '23 JAN 2019'
 DEBUG = False
 
 
-def get_resource(fn) -> str:
+def get_resource(fn: str) -> str:
     return path.join(path.split(path.abspath(__file__))[0], fn)

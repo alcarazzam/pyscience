@@ -127,13 +127,15 @@ class ChemicalElement:
     @property
     def info(self) -> str:
         return \
-            f'''{self.name.title()}{self._charge(self.charge) if self.charge else ''} ({self.symbol})
+            f'''{self.name.title()}{self._charge(
+                self.charge) if self.charge else ''} ({self.symbol})
 =======================================
 Atomic number (Z):           {self.Z:10d}
 Mass (u):                    {self.A:14.3f}
 Family:                      {self.family:>10}
 
-Charge:                      {'{:>10}'.format(self._charge(self.charge)) if self.charge else 'neutral':>10}
+Charge:                      {'{:>10}'.format(
+                self._charge(self.charge)) if self.charge else 'neutral':>10}
 
 Number of protons (Z):       {self.protons:10d}
 Number of neutrons (N):      {self.neutrons:10d}
