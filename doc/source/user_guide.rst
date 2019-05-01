@@ -4,6 +4,12 @@ Pyscience’s interpreter is very easy to use. Start it with::
 
     pyscience
 
+
+Interpreter
+-----------
+The interpreter has build-in functions for more functionality. They start with
+a ``:`` followed by his name.
+
 To exit the interpreter, type ``exit``, ``quit`` or ``q``
 
 Working as a calculator
@@ -29,7 +35,7 @@ Subtraction
 ^^^^^^^^^^^
 To subtract two number, use the ``-`` operator::
 
-    > 2 – 3
+    > 2 - 3
     -1
 
 Multiplication
@@ -86,16 +92,29 @@ what can you do::
 
 Equations
 ^^^^^^^^^
-You can solve first-degree equations with pyscience. It provides the ``Eq`` class
-to work with Equations. Terms are separated as normal arguments, with a comma.
+You can solve first and second-degree equations with pyscience. It provides the 
+``Eq`` class to work with equations. Terms are separated as normal arguments, 
+with a comma.
 Examples::
 
     > Eq(2x, 10)
-    Eq(2x = 10)
-    Solution: 5
+    Equation(2x = 10)
     > Eq(F(1,2)+x, 1)
-    Eq(F(+2x+1/2) = 1)
-    Solution: F(1/2)
+    Equation(F(+2x+1/2) = 1)
+
+To solve an equation, use the ``:solve`` function::
+
+    > Eq(2x, 10) :solve
+    5
+
+Evaluating expressions
+^^^^^^^^^^^^^^^^^^^^^^
+You can evaluate any expression with the ``:evaluate`` function::
+
+    > 2x :evaluate x=5
+    10
+    > 3xy+9 :evaluate x=7                                                                                                                                                       
+    +21y+9
 
 
 Working with chemical elements
@@ -108,7 +127,8 @@ with the ``CE`` function::
     > CE('Silicon') # Get element by its name
     ...
 
-If you want to set a specific mass for the element, indicate that between brackets::
+If you want to set a specific mass for the element, indicate that between
+brackets::
 
     > CE('Si(32)') # Set mass to 32
     ...
@@ -131,6 +151,9 @@ You can convert between different units with the ``Units`` class::
     3 cm
     > (3 Units.cm).to(Units.m)
     0.03 m
+
+.. warning::
+    This function is still experimental
 
 Available units:
 

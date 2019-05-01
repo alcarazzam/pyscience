@@ -25,6 +25,7 @@ setuptools.setup(
             'pyscience=pyscience:__main__.run',
         ],
     },
+    project_urls={'Source': 'https://github.com/m-alzam/pyscience'},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',

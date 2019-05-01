@@ -1,11 +1,55 @@
 Changelog
 =========
-Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.1.0.dev4
+Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.4.0
 
-[UNRELEASED] Version 0.3.0rc1
------------------------------
+[UNRELEASED] Version 0.5
+------------------------
 
-Expected date: about March 20 2019.
+Expected date: July 1st 2019
+
+Added
+^^^^^
+
+Changed
+^^^^^^^
+
+Deprecated
+^^^^^^^^^^
+
+Removed
+^^^^^^^
+
+Fixed
+^^^^^
+
+Version 0.4 (May 1st 2019)
+--------------------------
+
+Added
+^^^^^
+- Add tests.
+- Now sessions are saved on disk and you can get expressions typed with
+  the up arrow.
+- Add python annotations.
+- Improve documentation
+- Add ``Variable`` comparison.
+- Add ``:clear`` function (clear history).
+- Equation solution is no longer show when you type a equation. To solve an
+  equation, use the ``:solve`` function.
+
+Changed
+^^^^^^^
+- PEP8 compatible
+- ``:for`` function is now ``:evaluate``. Add support for future interpreter 
+  functions.
+
+Fixed
+^^^^^
+- Fix parser error.
+- Remove new line on interpreter error.
+
+Version 0.3.0 (March 21st 2019)
+-------------------------------
 
 Added
 ^^^^^
@@ -23,15 +67,8 @@ Changed
 - Create branches for development. Version 0.3 is located in the ``v0.3``
   branch.
 - Improve pyscience.math.number.Expression class
+- Improve pyscience.algebra
 
-Deprecated
-^^^^^^^^^^
-
-Removed
-^^^^^^^
-
-Fixed
-^^^^^
 
 Version 0.2.0.dev1
 ------------------

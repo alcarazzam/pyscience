@@ -18,13 +18,13 @@ Features
 --------
 - Basic calculator
 - Operate with variables, monomials and polynomials
-- Solve first-degree equations
+- Solve first and second-degree equations
 - Get information about chemical elements
 - Manage CSV data easily (in development)
+- Convert units
 
 Todo
 ----
-- ``units`` module
 - Polynomial division
 - Physics functions
 

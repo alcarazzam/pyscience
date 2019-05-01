@@ -4,3 +4,5 @@ build/
 doc/build/
 dist/
 *.egg-info/
+*.kdev*
+.idea/
