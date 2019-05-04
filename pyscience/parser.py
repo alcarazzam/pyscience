@@ -20,8 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from typing import List, Union, Any
 import re
+from typing import List
 
 import pyscience
 
@@ -38,7 +38,9 @@ EXPONENTS = {
     '⁹': 9,
 }
 
-parser = re.compile("[A-Z][a-z]\(|\d*\.?\d+|[+\-*\/]|[\()]|[⁰¹²³⁴⁵⁶⁷⁸⁹⁰]|\'[A-Za-z]+\'|[a-z]|,")
+parser = re.compile(
+        "\'[A-Za-z0-9()+\-]+\'|[A-Z][a-z]+(\(|\.[a-z_0-9]+)|\d*\.?\d+|[+\-*\/]|[()]|"
+        "[⁰¹²³⁴⁵⁶⁷⁸⁹⁰]|[a-z]|,|\.[a-z]+")
 
 
 def is_digit(value: str) -> bool:
@@ -48,7 +50,7 @@ def is_digit(value: str) -> bool:
     return False
 
 
-def split_expression(expr: str) -> List[Union[str, Any]]:
+def split_expression(expr: str) -> List[str]:
     if pyscience.DEBUG:
         print("re:", split_expression_re(expr))
     last_type = None
@@ -111,8 +113,8 @@ def split_expression(expr: str) -> List[Union[str, Any]]:
     return result[1:]
 
 
-def split_expression_re(expr: str):
-    return parser.findall(expr)
+def split_expression_re(expr: str) -> List[str]:
+    return [x.group() for x in parser.finditer(expr)]
 
 
 def expand(expr: str) -> str:

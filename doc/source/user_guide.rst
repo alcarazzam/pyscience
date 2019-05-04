@@ -120,28 +120,28 @@ You can evaluate any expression with the ``:evaluate`` function::
 Working with chemical elements
 ------------------------------
 Pyscience can show you basic information about chemical elements. You can do it
-with the ``CE`` function::
+with the ``Ce`` function::
 
-    > CE('H') # Get element by its symbol
+    > Ce('H') # Get element by its symbol
     ...
-    > CE('Silicon') # Get element by its name
+    > Ce('Silicon') # Get element by its name
     ...
 
 If you want to set a specific mass for the element, indicate that between
 brackets::
 
-    > CE('Si(32)') # Set mass to 32
+    > Ce('Si(32)') # Set mass to 32
     ...
 
 Also, you can work with elements which have charge::
 
-    > CE('Si2+')
+    > Ce('Si2+')
     ...
 
 If you know the atomic number of a element but not the symbol, you can get the
 element by its atomic number::
 
-    > CE(20) # Calcium (Ca)
+    > Ce(20) # Calcium (Ca)
 
 Converting units
 ----------------

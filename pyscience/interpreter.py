@@ -57,7 +57,7 @@ class PyscienceInterpreter:
         self._globals['Eq'] = Equation
 
         # Chemical element
-        self._globals['CE'] = ChemicalElement
+        self._globals['Ce'] = ChemicalElement
 
         # Fractions
         self._globals['F'] = Fraction
@@ -66,7 +66,7 @@ class PyscienceInterpreter:
         self._globals['Units'] = Units()
 
         # Math
-        self._globals['div'] = div
+        self._globals['Div'] = div
         for func in MATH_FUNCTIONS:
             self._globals[func] = MATH_FUNCTIONS[func]
 

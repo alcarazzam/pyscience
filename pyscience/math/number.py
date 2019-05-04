@@ -63,7 +63,7 @@ def div(n) -> list:
 
 def _call(value):
     """Internal function"""
-    if isinstance(value, (SQRT, ABS)):
+    if isinstance(value, tuple(MATH_FUNCTIONS.values())):
         return value()
     return value
 
@@ -87,40 +87,40 @@ class Expression:
         return f'<Expression {self.function}>'
 
 
-class ABS(Expression):
+class Abs(Expression):
     function = abs
 
 
-class SQRT(Expression):
+class Sqrt(Expression):
     function = math.sqrt
 
 
-class SIN(Expression):
+class Sin(Expression):
     function = math.sin
 
 
-class COS(Expression):
+class Cos(Expression):
     function = math.cos
 
 
-class FACTORIAL(Expression):
+class Factorial(Expression):
     function = math.factorial
 
 
-class ACOS(Expression):
+class Acos(Expression):
     function = math.acos
 
 
-class ATAN(Expression):
+class Atan(Expression):
     function = math.atan
 
 
 MATH_FUNCTIONS = {
-    'ABS': ABS,
-    'SQRT': SQRT,
-    'SIN': SIN,
-    'COS': COS,
-    'FACTORIAL': FACTORIAL,
-    'ACOS': ACOS,
-    'ATAN': ATAN
+    'Abs': Abs,
+    'Sqrt': Sqrt,
+    'Sin': Sin,
+    'Cos': Cos,
+    'Fac': Factorial,
+    'Acos': Acos,
+    'Atan': Atan
 }

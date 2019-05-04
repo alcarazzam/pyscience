@@ -2,25 +2,23 @@ Changelog
 =========
 Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.4.0
 
-[UNRELEASED] Version 0.5
-------------------------
-
-Expected date: July 1st 2019
+Version 0.5 (May 4th 2019)
+--------------------------
 
 Added
 ^^^^^
+- Add new parser that uses regular expressions for clean code (and better
+  performance). This parser can be enabled using the ``-e`` command line arg and
+  will be the default in version 0.7.
 
 Changed
 ^^^^^^^
-
-Deprecated
-^^^^^^^^^^
-
-Removed
-^^^^^^^
+- Now all functions in the interpreter start with a uppercase letter, and the
+  rest are lowercase. This changes many functions.
 
 Fixed
 ^^^^^
+- Fix return type of math functions.
 
 Version 0.4 (May 1st 2019)
 --------------------------
