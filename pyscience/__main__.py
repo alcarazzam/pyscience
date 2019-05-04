@@ -34,6 +34,8 @@ def main(args):
 
     if args.debug:
         pyscience.DEBUG = True
+    if args.experimental:
+        pyscience.EXPERIMENTAL = True
 
     print(f'''pyscience {pyscience.__version__} Copyright (C) 2019  Manuel Alcaraz Zambrano
 This program comes with ABSOLUTELY NO WARRANTY.
@@ -44,7 +46,9 @@ under certain conditions; type `license` for details.
     interpreter = PyscienceInterpreter()
 
     if pyscience.DEBUG:
-        print('Debug mode is on\n')
+        print('Debug mode is enabled\n')
+    if pyscience.EXPERIMENTAL:
+        print('Experimental mode is enabled\n')
 
     while 1:
         cmd = interpreter.input()
@@ -66,6 +70,8 @@ def run():
     parser = argparse.ArgumentParser(prog='pyscience', description='python science programming')
 
     parser.add_argument('-d', '--debug', help='show additional information for developers',
+                        action='store_true')
+    parser.add_argument('-e', '--experimental', help='enable all experimental features',
                         action='store_true')
     parser.add_argument('-v', '--version', help='show version and exit', action='store_true')
 

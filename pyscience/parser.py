@@ -20,6 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+from typing import List, Union, Any
+import re
+
 import pyscience
 
 EXPONENTS = {
@@ -35,6 +38,8 @@ EXPONENTS = {
     '⁹': 9,
 }
 
+parser = re.compile("[A-Z][a-z]\(|\d*\.?\d+|[+\-*\/]|[\()]|[⁰¹²³⁴⁵⁶⁷⁸⁹⁰]|\'[A-Za-z]+\'|[a-z]|,")
+
 
 def is_digit(value: str) -> bool:
     """Return if ``value`` is number (decimal or whole)"""
@@ -43,7 +48,9 @@ def is_digit(value: str) -> bool:
     return False
 
 
-def split_expression(expr: str) -> dict:
+def split_expression(expr: str) -> List[Union[str, Any]]:
+    if pyscience.DEBUG:
+        print("re:", split_expression_re(expr))
     last_type = None
     tmp = ''
     result = []
@@ -104,9 +111,16 @@ def split_expression(expr: str) -> dict:
     return result[1:]
 
 
+def split_expression_re(expr: str):
+    return parser.findall(expr)
+
+
 def expand(expr: str) -> str:
     expr = expr.replace(' ', '')
-    expr = split_expression(expr)
+    if pyscience.EXPERIMENTAL:
+        expr = split_expression_re(expr)
+    else:
+        expr = split_expression(expr)
 
     if pyscience.DEBUG:
         print('split:', expr)

@@ -31,6 +31,7 @@ __author__ = 'Manuel Alcaraz Zambrano'
 __date__ = '23 JAN 2019'
 
 DEBUG = False
+EXPERIMENTAL = False
 
 
 def get_resource(fn: str) -> str:
