@@ -1,9 +1,31 @@
 Changelog
 =========
-Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.4.0
+Current stable `PyPI version <https://pypi.org/project/pyscience/>`_ is 0.5.0
+
+[UNRELEASED] Version 0.6
+------------------------
+Expected date: July 15th 2019
+
+Added
+^^^^^
+
+Changed
+^^^^^^^
+
+Deprecated
+^^^^^^^^^^
+
+Removed
+^^^^^^^
+
+Fixed
+^^^^^
+
 
 Version 0.5 (May 4th 2019)
 --------------------------
+
+This is a bug fix release.
 
 Added
 ^^^^^

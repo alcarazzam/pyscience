@@ -22,9 +22,10 @@ SOFTWARE.
 """
 
 import math
+from typing import List
 
 
-def lcm(a, b):
+def lcm(a, b) -> int:
     """Return the lower common denominator of ``a`` and ``b``"""
     n = 1
     while 1:
@@ -40,7 +41,7 @@ def gcd(a, b) -> int:
     return 1
 
 
-def is_even(n):
+def is_even(n) -> bool:
     """Return if ``n`` is a even number"""
     return not n % 2
 
@@ -50,7 +51,7 @@ def is_odd(n) -> bool:
     return bool(n % 2)
 
 
-def div(n) -> list:
+def div(n) -> List[int]:
     """Return divisors of ``n``"""
     result = list()
     for i in range(1, n + 1 // 2):

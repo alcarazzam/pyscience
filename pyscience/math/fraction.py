@@ -107,12 +107,17 @@ class Fraction:
         return NotImplemented
 
     def with_denominator(self, value):
+        """
+        Return a new Fraction equal to self with value as denominator
+        :param value: The new denominator
+        :return: Fraction
+        """
         if self.denominator == value:
             return self
         return Fraction(value // self.denominator * self.numerator, value)
 
     def common_denominator(self, value):
-        """ Return two fractions, with equal denominator, ``self`` and ``value``"""
+        """Return two fractions, with equal denominator, ``self`` and ``value``"""
         if self.denominator == value.denominator:
             return self, value
 
