@@ -107,6 +107,11 @@ To solve an equation, use the ``:solve`` function::
     > Eq(2x, 10) :solve
     5
 
+or the ``.solution`` param::
+
+    > Eq(2x, 10).solution
+    5
+
 Evaluating expressions
 ^^^^^^^^^^^^^^^^^^^^^^
 You can evaluate any expression with the ``:evaluate`` function::

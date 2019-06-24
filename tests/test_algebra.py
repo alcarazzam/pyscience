@@ -29,7 +29,7 @@ class TestAlgebra(unittest.TestCase):
         self.assertEqual(p.evaluate(x=2, y=5), 66)
 
     def test_second_degree_equations(self):
-        x = get_variables('x')[0]
+        x = Variable()
 
         eq1 = Equation(x ** 2 + 2 * x - 8)
         self.assertEqual(eq1.solution, [2.0, -4.0])

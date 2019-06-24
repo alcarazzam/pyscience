@@ -14,6 +14,10 @@ class TestParser(unittest.TestCase):
                          '2*x+4')
         self.assertEqual(expand('x(2x-2)'),
                          'x*(2*x-2)')
+        self.assertEqual(expand('67'),
+                         '67')
+        self.assertEqual(expand('x6'),
+                         'x*6')
 
 
 if __name__ == '__main__':
