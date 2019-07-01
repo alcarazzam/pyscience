@@ -8,6 +8,7 @@ Expected date: July 15th 2019
 
 Added
 ^^^^^
+- ``geometry`` module.
 
 Changed
 ^^^^^^^
